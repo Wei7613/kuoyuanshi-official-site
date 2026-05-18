@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taiwan Co-Grow — 品牌色盤推薦</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans TC',sans-serif; background:#F8F8F6; color:#1A1A1A; }
+
+/* Layout */
+.page { max-width:1100px; margin:0 auto; padding:4rem 2rem; }
+h1 { font-family:'Noto Serif TC',serif; font-size:1.8rem; margin-bottom:0.5rem; }
+.subtitle { color:#666; font-size:0.9rem; margin-bottom:3.5rem; }
+
+.palette-section { margin-bottom:5rem; }
+.palette-label {
+    display:inline-block; font-size:0.72rem; font-weight:500;
+    letter-spacing:0.18em; text-transform:uppercase;
+    color:#999; margin-bottom:0.6rem;
+}
+.palette-name {
+    font-family:'Noto Serif TC',serif; font-size:1.6rem; font-weight:700;
+    margin-bottom:0.4rem;
+}
+.palette-desc { font-size:0.88rem; color:#666; margin-bottom:2rem; line-height:1.7; max-width:600px; }
+
+/* Color swatches */
+.swatches { display:flex; gap:0; border-radius:1rem; overflow:hidden; margin-bottom:2rem; height:100px; }
+.swatch { flex:1; display:flex; flex-direction:column; justify-content:flex-end; padding:0.6rem 0.8rem; }
+.swatch-name { font-size:0.68rem; font-weight:500; opacity:0.8; }
+.swatch-hex { font-size:0.7rem; opacity:0.65; font-family:monospace; }
+
+/* UI Preview */
+.ui-preview {
+    border-radius:1rem; overflow:hidden;
+    box-shadow:0 4px 24px rgba(0,0,0,0.1);
+}
+.ui-nav { padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; }
+.ui-nav-logo { font-family:'Noto Serif TC',serif; font-size:1rem; font-weight:700; }
+.ui-nav-links { display:flex; gap:1.5rem; font-size:0.8rem; opacity:0.75; }
+.ui-hero { padding:4rem 2rem 3rem; }
+.ui-hero-tag { display:inline-block; font-size:0.72rem; padding:0.3rem 0.8rem; border-radius:2rem; margin-bottom:1rem; font-weight:500; }
+.ui-hero-title { font-family:'Noto Serif TC',serif; font-size:2rem; font-weight:700; line-height:1.4; margin-bottom:0.8rem; }
+.ui-hero-sub { font-size:0.85rem; line-height:1.8; opacity:0.7; margin-bottom:1.5rem; max-width:420px; }
+.ui-btns { display:flex; gap:0.75rem; }
+.ui-btn { padding:0.65rem 1.5rem; border-radius:0.4rem; font-size:0.82rem; font-weight:500; cursor:default; }
+.ui-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; padding:2rem; }
+.ui-card { border-radius:0.75rem; padding:1.25rem; }
+.ui-card-icon { font-size:1.4rem; margin-bottom:0.6rem; }
+.ui-card-title { font-family:'Noto Serif TC',serif; font-size:0.95rem; font-weight:700; margin-bottom:0.3rem; }
+.ui-card-text { font-size:0.78rem; line-height:1.7; opacity:0.65; }
+.ui-footer { padding:1.5rem 2rem; display:flex; justify-content:space-between; font-size:0.78rem; opacity:0.6; }
+
+/* ══════════════════════════════════
+   PALETTE A — 台灣山林
+   ══════════════════════════════════ */
+.a-primary   { background:#2B5C3A; }
+.a-secondary { background:#7A9B6E; }
+.a-accent    { background:#C4872A; }
+.a-light     { background:#F2EDE4; }
+.a-dark      { background:#1A2E1E; }
+
+.a-ui { background:#F2EDE4; }
+.a-ui .ui-nav { background:#2B5C3A; color:white; }
+.a-ui .ui-hero { background:#F2EDE4; }
+.a-ui .ui-hero-tag { background:#2B5C3A; color:white; }
+.a-ui .ui-hero-title { color:#1A2E1E; }
+.a-ui .ui-btn-primary { background:#2B5C3A; color:white; border:none; }
+.a-ui .ui-btn-outline { background:transparent; color:#2B5C3A; border:1.5px solid #2B5C3A; }
+.a-ui .ui-cards { background:white; }
+.a-ui .ui-card { background:#F2EDE4; border:1px solid #DDD5C8; }
+.a-ui .ui-card-title { color:#1A2E1E; }
+.a-ui .ui-footer { background:#1A2E1E; color:white; opacity:1; }
+.a-ui .ui-footer span { opacity:0.55; }
+
+/* ══════════════════════════════════
+   PALETTE B — 共榮深青
+   ══════════════════════════════════ */
+.b-primary   { background:#1A5C4A; }
+.b-secondary { background:#C4A35A; }
+.b-accent    { background:#E07B54; }
+.b-light     { background:#F7F5F0; }
+.b-dark      { background:#122E26; }
+
+.b-ui { background:#F7F5F0; }
+.b-ui .ui-nav { background:#F7F5F0; border-bottom:1px solid #E8E4DC; color:#122E26; }
+.b-ui .ui-hero { background:linear-gradient(135deg,#1A5C4A 0%,#122E26 100%); color:white; }
+.b-ui .ui-hero-tag { background:rgba(196,163,90,0.25); color:#C4A35A; border:1px solid rgba(196,163,90,0.4); }
+.b-ui .ui-hero-title { color:white; }
+.b-ui .ui-hero-sub { color:rgba(255,255,255,0.75); }
+.b-ui .ui-btn-primary { background:#C4A35A; color:#122E26; border:none; font-weight:600; }
+.b-ui .ui-btn-outline { background:transparent; color:white; border:1.5px solid rgba(255,255,255,0.5); }
+.b-ui .ui-cards { background:#F7F5F0; }
+.b-ui .ui-card { background:white; border:1px solid #EAE6DE; }
+.b-ui .ui-card-title { color:#122E26; }
+.b-ui .ui-footer { background:#122E26; color:white; opacity:1; }
+.b-ui .ui-footer span { opacity:0.5; }
+
+/* ══════════════════════════════════
+   PALETTE C — 人文暖土
+   ══════════════════════════════════ */
+.c-primary   { background:#8B4513; }
+.c-secondary { background:#5C8A4A; }
+.c-accent    { background:#D4724A; }
+.c-light     { background:#FDF4EC; }
+.c-dark      { background:#3D1F0D; }
+
+.c-ui { background:#FDF4EC; }
+.c-ui .ui-nav { background:rgba(253,244,236,0.95); border-bottom:1px solid #EDD9C8; color:#3D1F0D; }
+.c-ui .ui-hero { background:#FDF4EC; }
+.c-ui .ui-hero-tag { background:#D4724A; color:white; }
+.c-ui .ui-hero-title { color:#3D1F0D; }
+.c-ui .ui-btn-primary { background:#8B4513; color:white; border:none; }
+.c-ui .ui-btn-outline { background:transparent; color:#8B4513; border:1.5px solid #8B4513; }
+.c-ui .ui-cards { background:white; }
+.c-ui .ui-card { background:#FDF4EC; border:1px solid #EDD9C8; }
+.c-ui .ui-card-title { color:#3D1F0D; }
+.c-ui .ui-footer { background:#3D1F0D; color:white; opacity:1; }
+.c-ui .ui-footer span { opacity:0.5; }
+
+/* ══════════════════════════════════
+   PALETTE D — 永續墨綠金
+   ══════════════════════════════════ */
+.d-primary   { background:#1C3D2E; }
+.d-secondary { background:#4A7A5C; }
+.d-accent    { background:#C49A3C; }
+.d-light     { background:#F5F7F4; }
+.d-dark      { background:#0E1E16; }
+
+.d-ui { background:#F5F7F4; }
+.d-ui .ui-nav { background:#1C3D2E; color:white; }
+.d-ui .ui-hero { background:#F5F7F4; }
+.d-ui .ui-hero-tag { background:rgba(196,154,60,0.15); color:#8A6B1A; border:1px solid rgba(196,154,60,0.35); }
+.d-ui .ui-hero-title { color:#0E1E16; }
+.d-ui .ui-btn-primary { background:#C49A3C; color:#0E1E16; border:none; font-weight:600; }
+.d-ui .ui-btn-outline { background:transparent; color:#1C3D2E; border:1.5px solid #1C3D2E; }
+.d-ui .ui-cards { background:#1C3D2E; }
+.d-ui .ui-card { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12); }
+.d-ui .ui-card-title { color:white; }
+.d-ui .ui-card-text { color:rgba(255,255,255,0.6) !important; opacity:1 !important; }
+.d-ui .ui-card-icon { filter:grayscale(0); }
+.d-ui .ui-footer { background:#0E1E16; color:white; opacity:1; }
+.d-ui .ui-footer span { opacity:0.45; }
+
+/* Comparison note */
+.note {
+    background:white; border-left:3px solid #C4A35A;
+    padding:1rem 1.25rem; border-radius:0 0.5rem 0.5rem 0;
+    font-size:0.84rem; line-height:1.7; color:#555;
+    margin-top:1.25rem;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>Taiwan Co-Grow — 品牌色盤推薦</h1>
+<p class="subtitle">根據品牌定位（社會企業 × 新住民 × 有機食品 × 共榮永續）推薦 4 個色盤方向，含 UI 實際預覽</p>
+
+<!-- ── PALETTE A ── -->
+<div class="palette-section">
+    <div class="palette-label">Option A</div>
+    <div class="palette-name">台灣山林 Taiwan Forest</div>
+    <div class="palette-desc">以台灣山林的深森綠為主色，搭配大地暖棕與收穫金。呼應有機農業、在地耕作，傳遞與土地連結的品牌精神。</div>
+
+    <div class="swatches">
+        <div class="swatch a-primary" style="flex:2">
+            <div class="swatch-name" style="color:rgba(255,255,255,0.9)">主色 Primary</div>
+            <div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#2B5C3A</div>
+        </div>
+        <div class="swatch a-secondary">
+            <div class="swatch-name" style="color:rgba(255,255,255,0.9)">副色</div>
+            <div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#7A9B6E</div>
+        </div>
+        <div class="swatch a-accent">
+            <div class="swatch-name" style="color:rgba(255,255,255,0.9)">強調色</div>
+            <div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#C4872A</div>
+        </div>
+        <div class="swatch a-light">
+            <div class="swatch-name" style="color:rgba(0,0,0,0.5)">背景</div>
+            <div class="swatch-hex" style="color:rgba(0,0,0,0.4)">#F2EDE4</div>
+        </div>
+        <div class="swatch a-dark">
+            <div class="swatch-name" style="color:rgba(255,255,255,0.9)">深色</div>
+            <div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#1A2E1E</div>
+        </div>
+    </div>
+
+    <div class="ui-preview a-ui">
+        <div class="ui-nav">
+            <div class="ui-nav-logo">Taiwan Co-Grow</div>
+            <div class="ui-nav-links"><span>關於我們</span><span>代理品牌</span><span>社會影響</span><span>最新消息</span></div>
+        </div>
+        <div class="ui-hero">
+            <span class="ui-hero-tag">社會企業 × 永續消費</span>
+            <div class="ui-hero-title">共榮共好，<br>從每一次消費開始</div>
+            <div class="ui-hero-sub">我們是台灣第一個由新住民與台灣國民共同組成的消費合作社，讓每一筆消費都成為改變社會的力量。</div>
+            <div class="ui-btns">
+                <div class="ui-btn ui-btn-primary">了解我們的故事</div>
+                <div class="ui-btn ui-btn-outline">前往購物</div>
+            </div>
+        </div>
+        <div class="ui-cards">
+            <div class="ui-card"><div class="ui-card-icon">🌱</div><div class="ui-card-title">共榮</div><div class="ui-card-text">新住民與台灣國民共創美好生活</div></div>
+            <div class="ui-card"><div class="ui-card-icon">🛡️</div><div class="ui-card-title">安心</div><div class="ui-card-text">嚴格把關每一件商品</div></div>
+            <div class="ui-card"><div class="ui-card-icon">♻️</div><div class="ui-card-title">永續</div><div class="ui-card-text">對環境友善的消費選擇</div></div>
+        </div>
+        <div class="ui-footer">
+            <div>Taiwan Co-Grow</div>
+            <span>新住民與台灣國民共榮發展消費合作社 © 2025</span>
+        </div>
+    </div>
+    <div class="note">✦ 適合強調「在地農業、有機自然」的品牌定位。深綠穩重有公信力，金色點綴帶出豐收感。與越南市場視覺也有延續性（東南亞常見深綠品牌）。</div>
+</div>
+
+<!-- ── PALETTE B ── -->
+<div class="palette-section">
+    <div class="palette-label">Option B</div>
+    <div class="palette-name">共榮深青 Prosperity Teal</div>
+    <div class="palette-desc">深青綠主色搭配暖金與珊瑚橙。Hero 使用深色漸層背景，呈現高端社會企業形象。接近 Marubeni 的專業感，但更有溫度。</div>
+
+    <div class="swatches">
+        <div class="swatch b-primary" style="flex:2">
+            <div class="swatch-name" style="color:rgba(255,255,255,0.9)">主色 Primary</div>
+            <div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#1A5C4A</div>
+        </div>
+        <div class="swatch b-secondary">
+            <div class="swatch-name" style="color:rgba(0,0,0,0.6)">副色</div>
+            <div class="swatch-hex" style="color:rgba(0,0,0,0.5)">#C4A35A</div>
+        </div>
+        <div class="swatch b-accent">
+            <div class="swatch-name" style="color:rgba(255,255,255,0.9)">強調色</div>
+            <div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#E07B54</div>
+        </div>
+        <div class="swatch b-light">
+            <div class="swatch-name" style="color:rgba(0,0,0,0.5)">背景</div>
+            <div class="swatch-hex" style="color:rgba(0,0,0,0.4)">#F7F5F0</div>
+        </div>
+        <div class="swatch b-dark">
+            <div class="swatch-name" style="color:rgba(255,255,255,0.9)">深色</div>
+            <div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#122E26</div>
+        </div>
+    </div>
+
+    <div class="ui-preview b-ui">
+        <div class="ui-nav">
+            <div class="ui-nav-logo">Taiwan Co-Grow</div>
+            <div class="ui-nav-links"><span>關於我們</span><span>代理品牌</span><span>社會影響</span><span>最新消息</span></div>
+        </div>
+        <div class="ui-hero">
+            <span class="ui-hero-tag">社會企業 × 永續消費</span>
+            <div class="ui-hero-title">共榮共好，<br>從每一次消費開始</div>
+            <div class="ui-hero-sub">我們是台灣第一個由新住民與台灣國民共同組成的消費合作社，讓每一筆消費都成為改變社會的力量。</div>
+            <div class="ui-btns">
+                <div class="ui-btn ui-btn-primary">了解我們的故事</div>
+                <div class="ui-btn ui-btn-outline">前往購物</div>
+            </div>
+        </div>
+        <div class="ui-cards">
+            <div class="ui-card"><div class="ui-card-icon">🌱</div><div class="ui-card-title">共榮</div><div class="ui-card-text">新住民與台灣國民共創美好生活</div></div>
+            <div class="ui-card"><div class="ui-card-icon">🛡️</div><div class="ui-card-title">安心</div><div class="ui-card-text">嚴格把關每一件商品</div></div>
+            <div class="ui-card"><div class="ui-card-icon">♻️</div><div class="ui-card-title">永續</div><div class="ui-card-text">對環境友善的消費選擇</div></div>
+        </div>
+        <div class="ui-footer">
+            <div>Taiwan Co-Grow</div>
+            <span>新住民與台灣國民共榮發展消費合作社 © 2025</span>
+        </div>
+    </div>
+    <div class="note">✦ 最接近 Marubeni 的專業企業形象，但深青色比黑色更有溫度。Hero 深色漸層有視覺衝擊力，金色 CTA 按鈕轉換率高。適合需要建立「公信力」的社會企業。</div>
+</div>
+
+<!-- ── PALETTE C ── -->
+<div class="palette-section">
+    <div class="palette-label">Option C</div>
+    <div class="palette-name">人文暖土 Warm Humanity</div>
+    <div class="palette-desc">延續現有 Demo 的溫暖路線，但色彩更飽和、更有辨識度。棕紅主色帶有台灣土地的厚實感，草綠副色呼應自然與健康。</div>
+
+    <div class="swatches">
+        <div class="swatch c-primary" style="flex:2">
+            <div class="swatch-name" style="color:rgba(255,255,255,0.9)">主色 Primary</div>
+            <div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#8B4513</div>
+        </div>
+        <div class="swatch c-secondary">
+            <div class="swatch-name" style="color:rgba(255,255,255,0.9)">副色</div>
+            <div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#5C8A4A</div>
+        </div>
+        <div class="swatch c-accent">
+            <div class="swatch-name" style="color:rgba(255,255,255,0.9)">強調色</div>
+            <div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#D4724A</div>
+        </div>
+        <div class="swatch c-light">
+            <div class="swatch-name" style="color:rgba(0,0,0,0.5)">背景</div>
+            <div class="swatch-hex" style="color:rgba(0,0,0,0.4)">#FDF4EC</div>
+        </div>
+        <div class="swatch c-dark">
+            <div class="swatch-name" style="color:rgba(255,255,255,0.9)">深色</div>
+            <div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#3D1F0D</div>
+        </div>
+    </div>
+
+    <div class="ui-preview c-ui">
+        <div class="ui-nav">
+            <div class="ui-nav-logo">Taiwan Co-Grow</div>
+            <div class="ui-nav-links"><span>關於我們</span><span>代理品牌</span><span>社會影響</span><span>最新消息</span></div>
+        </div>
+        <div class="ui-hero">
+            <span class="ui-hero-tag">社會企業 × 永續消費</span>
+            <div class="ui-hero-title">共榮共好，<br>從每一次消費開始</div>
+            <div class="ui-hero-sub">我們是台灣第一個由新住民與台灣國民共同組成的消費合作社，讓每一筆消費都成為改變社會的力量。</div>
+            <div class="ui-btns">
+                <div class="ui-btn ui-btn-primary">了解我們的故事</div>
+                <div class="ui-btn ui-btn-outline">前往購物</div>
+            </div>
+        </div>
+        <div class="ui-cards">
+            <div class="ui-card"><div class="ui-card-icon">🌱</div><div class="ui-card-title">共榮</div><div class="ui-card-text">新住民與台灣國民共創美好生活</div></div>
+            <div class="ui-card"><div class="ui-card-icon">🛡️</div><div class="ui-card-title">安心</div><div class="ui-card-text">嚴格把關每一件商品</div></div>
+            <div class="ui-card"><div class="ui-card-icon">♻️</div><div class="ui-card-title">永續</div><div class="ui-card-text">對環境友善的消費選擇</div></div>
+        </div>
+        <div class="ui-footer">
+            <div>Taiwan Co-Grow</div>
+            <span>新住民與台灣國民共榮發展消費合作社 © 2025</span>
+        </div>
+    </div>
+    <div class="note">✦ 最有親和力，適合想讓消費者感到「溫暖、被接納」的品牌。棕紅色在台灣市場有成熟商品的聯想（茶葉、農產品、手工藝）。但辨識度略低，容易與同類社企混淆。</div>
+</div>
+
+<!-- ── PALETTE D ── -->
+<div class="palette-section">
+    <div class="palette-label">Option D</div>
+    <div class="palette-name">永續墨綠金 Sustainable Deep Green</div>
+    <div class="palette-desc">深墨綠搭配金色，卡片區使用深色背景反白文字，呈現沉穩有份量的永續品牌形象。最具記憶點，適合長期品牌建設。</div>
+
+    <div class="swatches">
+        <div class="swatch d-primary" style="flex:2">
+            <div class="swatch-name" style="color:rgba(255,255,255,0.9)">主色 Primary</div>
+            <div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#1C3D2E</div>
+        </div>
+        <div class="swatch d-secondary">
+            <div class="swatch-name" style="color:rgba(255,255,255,0.9)">副色</div>
+            <div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#4A7A5C</div>
+        </div>
+        <div class="swatch d-accent">
+            <div class="swatch-name" style="color:rgba(0,0,0,0.6)">強調色</div>
+            <div class="swatch-hex" style="color:rgba(0,0,0,0.5)">#C49A3C</div>
+        </div>
+        <div class="swatch d-light">
+            <div class="swatch-name" style="color:rgba(0,0,0,0.5)">背景</div>
+            <div class="swatch-hex" style="color:rgba(0,0,0,0.4)">#F5F7F4</div>
+        </div>
+        <div class="swatch d-dark">
+            <div class="swatch-name" style="color:rgba(255,255,255,0.9)">深色</div>
+            <div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#0E1E16</div>
+        </div>
+    </div>
+
+    <div class="ui-preview d-ui">
+        <div class="ui-nav">
+            <div class="ui-nav-logo">Taiwan Co-Grow</div>
+            <div class="ui-nav-links"><span>關於我們</span><span>代理品牌</span><span>社會影響</span><span>最新消息</span></div>
+        </div>
+        <div class="ui-hero">
+            <span class="ui-hero-tag">社會企業 × 永續消費</span>
+            <div class="ui-hero-title">共榮共好，<br>從每一次消費開始</div>
+            <div class="ui-hero-sub">我們是台灣第一個由新住民與台灣國民共同組成的消費合作社，讓每一筆消費都成為改變社會的力量。</div>
+            <div class="ui-btns">
+                <div class="ui-btn ui-btn-primary">了解我們的故事</div>
+                <div class="ui-btn ui-btn-outline">前往購物</div>
+            </div>
+        </div>
+        <div class="ui-cards">
+            <div class="ui-card"><div class="ui-card-icon">🌱</div><div class="ui-card-title">共榮</div><div class="ui-card-text">新住民與台灣國民共創美好生活</div></div>
+            <div class="ui-card"><div class="ui-card-icon">🛡️</div><div class="ui-card-title">安心</div><div class="ui-card-text">嚴格把關每一件商品</div></div>
+            <div class="ui-card"><div class="ui-card-icon">♻️</div><div class="ui-card-title">永續</div><div class="ui-card-text">對環境友善的消費選擇</div></div>
+        </div>
+        <div class="ui-footer">
+            <div>Taiwan Co-Grow</div>
+            <span>新住民與台灣國民共榮發展消費合作社 © 2025</span>
+        </div>
+    </div>
+    <div class="note">✦ 最有份量感和長期品牌投資價值。深墨綠在國際永續品牌中高度通用（Patagonia、Whole Foods 同色系），金色強調品質與價值。適合想把品牌做大做遠的定位。</div>
+</div>
+
+<div style="background:#1A1A1A;color:white;border-radius:1rem;padding:2rem;margin-top:2rem;font-size:0.85rem;line-height:1.8;">
+    <div style="font-family:'Noto Serif TC',serif;font-size:1.1rem;font-weight:700;margin-bottom:1rem;">Claude 的推薦</div>
+    根據 Taiwan Co-Grow 的品牌定位（社會企業 × 新住民 × 永續消費），建議優先考慮：<br><br>
+    <strong>首選 Option B（共榮深青）</strong>：公信力強、視覺衝擊大、金色 CTA 轉換效果佳，接近 Marubeni 的專業感但更有溫度。<br><br>
+    <strong>次選 Option A（台灣山林）</strong>：與品牌最直接的農業/有機連結，在台灣消費者心中具有天然信任感。<br><br>
+    <em>Option C</em> 最親切但辨識度低；<em>Option D</em> 最有氣勢，適合未來品牌規模擴大後使用。
+</div>
+
+</div>
+</body>
+</html>
