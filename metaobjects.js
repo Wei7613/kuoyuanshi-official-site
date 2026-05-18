@@ -96,13 +96,13 @@
     if (h1 && slides[0].title)       h1.textContent = slides[0].title;
     if (p  && slides[0].description) p.textContent  = slides[0].description;
 
-    // CTA 按鈕（可選）
+    // CTA 按鈕：重建連結內容，保留 icon span
     var ctaLink = caption.querySelector('.mv-story-link');
     if (ctaLink && slides[0].cta_text) {
-      ctaLink.querySelector('span.ci + text') || null;
-      ctaLink.childNodes.forEach(function (n) {
-        if (n.nodeType === 3) n.textContent = ' ' + slides[0].cta_text;
-      });
+      var icon = ctaLink.querySelector('span.ci');
+      ctaLink.textContent = '';
+      if (icon) ctaLink.appendChild(icon);
+      ctaLink.appendChild(document.createTextNode(' ' + slides[0].cta_text));
     }
   }
 
@@ -175,9 +175,9 @@
   }
 
   // ── 董事長致詞 ─────────────────────────────────────────────
+  // .msg-sect 只在 index.html；about.html 外層是 .pg-sect，fallback 到 document.body
   function renderPresident(data) {
-    var section = document.querySelector('.msg-sect');
-    if (!section) return;
+    var section = document.querySelector('.msg-sect') || document.body;
     var edges = (data.presidentMessage && data.presidentMessage.edges) || [];
     if (!edges.length) return;
 
