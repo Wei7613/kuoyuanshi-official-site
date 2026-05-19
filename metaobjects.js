@@ -27,6 +27,9 @@
       '  presidentMessage: metaobjects(type: "kuoyuanshi_president_message", first: 1) {',
       '    edges { node { fields { key value } } }',
       '  }',
+      '  homeMessage: metaobjects(type: "kuoyuanshi_home_message", first: 1) {',
+      '    edges { node { fields { key value } } }',
+      '  }',
       '}'
     ].join('\n')
   });
@@ -174,16 +177,9 @@
     }).join('');
   }
 
-  // ── 董事長致詞 ─────────────────────────────────────────────
-  // .msg-sect 只在 index.html；about.html 外層是 .pg-sect，fallback 到 document.body
+  // ── 董事長致詞（共用渲染）──────────────────────────────────
   // CMS 欄位：quote, message_date, signature_image_url, signer_name, signer_title, signer_title_2, photo_url
-  function renderPresident(data) {
-    var section = document.querySelector('.msg-sect') || document.body;
-    var edges = (data.presidentMessage && data.presidentMessage.edges) || [];
-    if (!edges.length) return;
-
-    var msg = fieldsToObj(edges[0].node);
-
+  function _applyMsgData(section, msg) {
     var quote = section.querySelector('.msg-quote');
     if (quote && msg.quote) {
       quote.innerHTML = esc(msg.quote).replace(/\n/g, '<br>');
@@ -191,11 +187,9 @@
 
     var sigBlock = section.querySelector('.msg-sig-block');
     if (sigBlock) {
-      // Line 1：日期
-      var dateEl = sigBlock.querySelector('.msg-date');
+      var dateEl  = sigBlock.querySelector('.msg-date');
       if (dateEl && msg.message_date) dateEl.textContent = msg.message_date;
 
-      // Line 2：手寫簽名圖片（有 URL 才顯示）
       var sigWrap = sigBlock.querySelector('.msg-signature');
       var sigImg  = sigBlock.querySelector('.msg-sig-img');
       if (sigImg && msg.signature_image_url) {
@@ -204,15 +198,12 @@
         if (sigWrap) sigWrap.style.display = '';
       }
 
-      // Line 3：姓名
-      var nameEl = sigBlock.querySelector('.msg-name strong');
+      var nameEl   = sigBlock.querySelector('.msg-name strong');
       if (nameEl && msg.signer_name) nameEl.textContent = msg.signer_name;
 
-      // Line 4：職稱 1（公司名稱）
       var title1El = sigBlock.querySelector('.msg-title1');
       if (title1El && msg.signer_title) title1El.textContent = msg.signer_title;
 
-      // Line 5：職稱 2（職位）
       var title2El = sigBlock.querySelector('.msg-title2');
       if (title2El && msg.signer_title_2) title2El.textContent = msg.signer_title_2;
     }
@@ -224,6 +215,24 @@
     }
   }
 
+  // 首頁（index.html）— kuoyuanshi_home_message
+  function renderHomePresident(data) {
+    var section = document.querySelector('.msg-sect');
+    if (!section) return;
+    var edges = (data.homeMessage && data.homeMessage.edges) || [];
+    if (!edges.length) return;
+    _applyMsgData(section, fieldsToObj(edges[0].node));
+  }
+
+  // About 頁（about.html）— kuoyuanshi_president_message
+  function renderAboutPresident(data) {
+    var section = document.querySelector('.pg-sect.gray .msg-inner');
+    if (!section) return;
+    var edges = (data.presidentMessage && data.presidentMessage.edges) || [];
+    if (!edges.length) return;
+    _applyMsgData(section, fieldsToObj(edges[0].node));
+  }
+
   // ── 初始化 ─────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function () {
     fetchData()
@@ -232,7 +241,8 @@
         renderHero(d);
         renderNews(d);
         renderBusiness(d);
-        renderPresident(d);
+        renderHomePresident(d);
+        renderAboutPresident(d);
       })
       .catch(function (err) {
         // 靜默 fallback：保持靜態 HTML 不變
