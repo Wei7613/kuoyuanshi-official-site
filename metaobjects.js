@@ -220,17 +220,18 @@
     var section = document.querySelector('.msg-sect');
     if (!section) return;
     var edges = (data.homeMessage && data.homeMessage.edges) || [];
-    if (!edges.length) return;
-    _applyMsgData(section, fieldsToObj(edges[0].node));
+    if (edges.length) _applyMsgData(section, fieldsToObj(edges[0].node));
+    section.style.opacity = '1';
   }
 
   // About 頁（about.html）— kuoyuanshi_president_message
   function renderAboutPresident(data) {
-    var section = document.querySelector('.pg-sect.gray .msg-inner');
-    if (!section) return;
+    var inner = document.querySelector('.pg-sect.gray .msg-inner');
+    if (!inner) return;
+    var section = inner.closest ? inner.closest('.pg-sect.gray') : null;
     var edges = (data.presidentMessage && data.presidentMessage.edges) || [];
-    if (!edges.length) return;
-    _applyMsgData(section, fieldsToObj(edges[0].node));
+    if (edges.length) _applyMsgData(inner, fieldsToObj(edges[0].node));
+    if (section) section.style.opacity = '1';
   }
 
   // ── 初始化 ─────────────────────────────────────────────────
@@ -245,7 +246,11 @@
         renderAboutPresident(d);
       })
       .catch(function (err) {
-        // 靜默 fallback：保持靜態 HTML 不變
+        // 靜默 fallback：保持靜態 HTML，同時恢復 opacity 避免內容永遠隱藏
+        var s = document.querySelector('.msg-sect');
+        if (s) s.style.opacity = '1';
+        var a = document.querySelector('.pg-sect.gray .msg-inner');
+        if (a && a.closest) { var p = a.closest('.pg-sect.gray'); if (p) p.style.opacity = '1'; }
         if (typeof console !== 'undefined') {
           console.warn('[metaobjects] 載入失敗，使用靜態內容', err);
         }
