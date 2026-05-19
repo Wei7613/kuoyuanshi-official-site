@@ -224,7 +224,15 @@
     var section = document.querySelector('.msg-sect');
     if (!section) return;
     var edges = (data.homeMessage && data.homeMessage.edges) || [];
-    if (edges.length) _applyMsgData(section, fieldsToObj(edges[0].node));
+    if (edges.length) {
+      var msg = fieldsToObj(edges[0].node);
+      _applyMsgData(section, msg);
+      // cta_url：控制「了解更多關於我們」連結目標
+      if (msg.cta_url) {
+        var ctaLink = section.querySelector('a[href]');
+        if (ctaLink) ctaLink.href = msg.cta_url;
+      }
+    }
     section.style.opacity = '1';
   }
 
