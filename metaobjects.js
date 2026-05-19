@@ -188,24 +188,28 @@
     var sigBlock = section.querySelector('.msg-sig-block');
     if (sigBlock) {
       var dateEl  = sigBlock.querySelector('.msg-date');
-      if (dateEl && msg.message_date) dateEl.textContent = msg.message_date;
+      if (dateEl) dateEl.textContent = msg.message_date || '';
 
       var sigWrap = sigBlock.querySelector('.msg-signature');
       var sigImg  = sigBlock.querySelector('.msg-sig-img');
-      if (sigImg && msg.signature_image_url) {
-        sigImg.src = msg.signature_image_url;
-        sigImg.alt = esc(msg.signer_name || '簽名');
-        if (sigWrap) sigWrap.style.display = '';
+      if (sigImg) {
+        if (msg.signature_image_url) {
+          sigImg.src = msg.signature_image_url;
+          sigImg.alt = esc(msg.signer_name || '簽名');
+          if (sigWrap) sigWrap.style.display = '';
+        } else {
+          if (sigWrap) sigWrap.style.display = 'none';
+        }
       }
 
       var nameEl   = sigBlock.querySelector('.msg-name strong');
-      if (nameEl && msg.signer_name) nameEl.textContent = msg.signer_name;
+      if (nameEl) nameEl.textContent = msg.signer_name || '';
 
       var title1El = sigBlock.querySelector('.msg-title1');
-      if (title1El && msg.signer_title) title1El.textContent = msg.signer_title;
+      if (title1El) title1El.textContent = msg.signer_title || '';
 
       var title2El = sigBlock.querySelector('.msg-title2');
-      if (title2El && msg.signer_title_2) title2El.textContent = msg.signer_title_2;
+      if (title2El) title2El.textContent = msg.signer_title_2 || '';
     }
 
     var photo = section.querySelector('.msg-photo img');
