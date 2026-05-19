@@ -30,6 +30,12 @@
       '  homeMessage: metaobjects(type: "kuoyuanshi_home_message", first: 1) {',
       '    edges { node { fields { key value } } }',
       '  }',
+      '  homeConfig: metaobjects(type: "kuoyuanshi_home_config", first: 1) {',
+      '    edges { node { fields { key value } } }',
+      '  }',
+      '  aboutCards: metaobjects(type: "kuoyuanshi_about_card", first: 10) {',
+      '    edges { node { fields { key value } } }',
+      '  }',
       '}'
     ].join('\n')
   });
@@ -246,6 +252,102 @@
     if (section) section.style.opacity = '1';
   }
 
+  // ── 首頁通用設定（feat-sect / about-sect / caution-bar / footer）──
+  // CMS 欄位：business_label, business_heading, about_label, about_heading,
+  //           about_overview_text, about_overview_url, notice_label, notice_text,
+  //           news_more_url, footer_address_tw, footer_address_vn, footer_email,
+  //           footer_linkedin_url, footer_facebook_url, footer_youtube_url, footer_copyright
+  function renderHomeConfig(data) {
+    var edges = (data.homeConfig && data.homeConfig.edges) || [];
+    if (!edges.length) return;
+    var cfg = fieldsToObj(edges[0].node);
+    var el;
+
+    // feat-sect 標題
+    el = document.querySelector('.feat-sect .sect-label');
+    if (el && cfg.business_label) el.textContent = cfg.business_label;
+    el = document.querySelector('.feat-sect h2');
+    if (el && cfg.business_heading) el.textContent = cfg.business_heading;
+
+    // about-sect 標題
+    el = document.querySelector('.about-sect .sect-label');
+    if (el && cfg.about_label) el.textContent = cfg.about_label;
+    el = document.querySelector('.about-sect h2');
+    if (el && cfg.about_heading) el.textContent = cfg.about_heading;
+
+    // about-sect 總覽連結
+    var overviewLink = document.querySelector('.about-hd a');
+    if (overviewLink) {
+      if (cfg.about_overview_url) overviewLink.href = cfg.about_overview_url;
+      if (cfg.about_overview_text) {
+        var icon = overviewLink.querySelector('span.ci');
+        overviewLink.textContent = '';
+        if (icon) overviewLink.appendChild(icon);
+        overviewLink.appendChild(document.createTextNode(' ' + cfg.about_overview_text));
+      }
+    }
+
+    // 公告列
+    el = document.querySelector('.caution-label');
+    if (el && cfg.notice_label) el.textContent = cfg.notice_label;
+    el = document.querySelector('.caution-text');
+    if (el && cfg.notice_text) el.textContent = cfg.notice_text;
+
+    // 最新消息「查看全部」連結
+    el = document.querySelector('.news-more-link');
+    if (el && cfg.news_more_url) el.href = cfg.news_more_url;
+
+    // footer 聯絡資訊
+    el = document.querySelector('[data-ftr="address-tw"]');
+    if (el && cfg.footer_address_tw) el.textContent = cfg.footer_address_tw;
+    el = document.querySelector('[data-ftr="address-vn"]');
+    if (el && cfg.footer_address_vn) el.textContent = cfg.footer_address_vn;
+    el = document.querySelector('[data-ftr="email"]');
+    if (el && cfg.footer_email) {
+      el.textContent = cfg.footer_email;
+      el.href = 'mailto:' + cfg.footer_email;
+    }
+
+    // footer 社群連結
+    el = document.querySelector('[data-ftr="linkedin"]');
+    if (el && cfg.footer_linkedin_url) el.href = cfg.footer_linkedin_url;
+    el = document.querySelector('[data-ftr="facebook"]');
+    if (el && cfg.footer_facebook_url) el.href = cfg.footer_facebook_url;
+    el = document.querySelector('[data-ftr="youtube"]');
+    if (el && cfg.footer_youtube_url) el.href = cfg.footer_youtube_url;
+
+    // footer 版權文字
+    el = document.querySelector('.ftr-copy');
+    if (el && cfg.footer_copyright) el.textContent = cfg.footer_copyright;
+  }
+
+  // ── 關於我們卡片（about-sect）──────────────────────────────────
+  // CMS 欄位：label_en, title_zh, image_url, url, sort_order
+  function renderAboutCards(data) {
+    var grid = document.querySelector('.about-cards');
+    if (!grid) return;
+    var edges = (data.aboutCards && data.aboutCards.edges) || [];
+    if (!edges.length) return;
+
+    var cards = sortByOrder(edges.map(function (e) { return fieldsToObj(e.node); }));
+    grid.innerHTML = cards.map(function (c) {
+      var href    = esc(c.url || '#');
+      var imgHtml = c.image_url
+        ? '<img src="' + esc(c.image_url) + '" alt="' + esc(c.title_zh || '') + '" loading="lazy">'
+        : '<div class="ac-thumb-placeholder"></div>';
+      return [
+        '<a href="' + href + '" class="about-card">',
+        '  <div class="ac-thumb">' + imgHtml + '</div>',
+        '  <div class="ac-body">',
+        '    <p class="ac-label">'  + esc(c.label_en || '') + '</p>',
+        '    <h3 class="ac-title">' + esc(c.title_zh || '') + '</h3>',
+        '    <span class="ac-link"><span class="ci"></span> 了解更多</span>',
+        '  </div>',
+        '</a>'
+      ].join('');
+    }).join('');
+  }
+
   // ── 初始化 ─────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function () {
     fetchData()
@@ -256,6 +358,11 @@
         renderBusiness(d);
         renderHomePresident(d);
         renderAboutPresident(d);
+        renderHomeConfig(d);
+        renderAboutCards(d);
+        // about-sect 最後統一恢復可見度
+        var ab = document.querySelector('.about-sect');
+        if (ab) ab.style.opacity = '1';
       })
       .catch(function (err) {
         // 靜默 fallback：保持靜態 HTML，同時恢復 opacity 避免內容永遠隱藏
@@ -263,6 +370,8 @@
         if (s) s.style.opacity = '1';
         var a = document.querySelector('.pg-sect.gray .msg-inner');
         if (a && a.closest) { var p = a.closest('.pg-sect.gray'); if (p) p.style.opacity = '1'; }
+        var ab = document.querySelector('.about-sect');
+        if (ab) ab.style.opacity = '1';
         if (typeof console !== 'undefined') {
           console.warn('[metaobjects] 載入失敗，使用靜態內容', err);
         }
