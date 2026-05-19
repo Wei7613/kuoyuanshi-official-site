@@ -405,13 +405,13 @@ button { font-family: inherit; }
 .msg-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
 .msg-quote { font-family: 'Noto Serif TC', Georgia, serif; font-size: clamp(18px, 2vw, 28px); font-weight: 300; line-height: 1.8; color: var(--ink); margin-bottom: 32px; }
 .msg-sig-block { display: inline-flex; flex-direction: column; align-items: flex-start; text-align: left; margin-top: 40px; gap: 8px; }
-.msg-date   { font-size: 13px; color: var(--ink); margin: 0; line-height: 1.4; }
+.msg-date   { font-size: 13px; color: var(--ink); margin: 0; line-height: 1.4; letter-spacing: 0; }
 .msg-signature { margin: 0; }
 .msg-sig-img { display: block; height: 40px; width: auto; }
-.msg-name   { font-size: 13px; font-weight: normal; color: var(--ink); letter-spacing: 1px; margin: 0; line-height: 1.4; }
+.msg-name   { font-size: 13px; font-weight: normal; color: var(--ink); letter-spacing: 0; margin: 0; line-height: 1.4; }
 .msg-name strong { font-weight: normal; }
-.msg-title1 { font-size: 13px; color: var(--ink); margin: 0; line-height: 1.4; }
-.msg-title2 { font-size: 13px; color: var(--ink); margin: 0; line-height: 1.4; }
+.msg-title1 { font-size: 13px; color: var(--ink); margin: 0; line-height: 1.4; letter-spacing: 0; }
+.msg-title2 { font-size: 13px; color: var(--ink); margin: 0; line-height: 1.4; letter-spacing: 0; }
 .msg-photo { width: 100%; aspect-ratio: 3/4; background: var(--bg-gray); overflow: hidden; }
 .msg-photo img { width: 100%; height: 100%; object-fit: cover; }
 
