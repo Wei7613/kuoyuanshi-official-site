@@ -176,6 +176,7 @@
 
   // ── 董事長致詞 ─────────────────────────────────────────────
   // .msg-sect 只在 index.html；about.html 外層是 .pg-sect，fallback 到 document.body
+  // CMS 欄位：quote, message_date, signature_image_url, signer_name, signer_title, signer_title_2, photo_url
   function renderPresident(data) {
     var section = document.querySelector('.msg-sect') || document.body;
     var edges = (data.presidentMessage && data.presidentMessage.edges) || [];
@@ -185,13 +186,35 @@
 
     var quote = section.querySelector('.msg-quote');
     if (quote && msg.quote) {
-      // 保留換行，轉成 <br>（已轉義）
       quote.innerHTML = esc(msg.quote).replace(/\n/g, '<br>');
     }
 
-    var sig = section.querySelector('.msg-sig');
-    if (sig && msg.signer_name) {
-      sig.innerHTML = esc(msg.signer_title || '') + '<br><strong>' + esc(msg.signer_name) + '</strong>';
+    var sigBlock = section.querySelector('.msg-sig-block');
+    if (sigBlock) {
+      // Line 1：日期
+      var dateEl = sigBlock.querySelector('.msg-date');
+      if (dateEl && msg.message_date) dateEl.textContent = msg.message_date;
+
+      // Line 2：手寫簽名圖片（有 URL 才顯示）
+      var sigWrap = sigBlock.querySelector('.msg-signature');
+      var sigImg  = sigBlock.querySelector('.msg-sig-img');
+      if (sigImg && msg.signature_image_url) {
+        sigImg.src = msg.signature_image_url;
+        sigImg.alt = esc(msg.signer_name || '簽名');
+        if (sigWrap) sigWrap.style.display = '';
+      }
+
+      // Line 3：姓名
+      var nameEl = sigBlock.querySelector('.msg-name strong');
+      if (nameEl && msg.signer_name) nameEl.textContent = msg.signer_name;
+
+      // Line 4：職稱 1（公司名稱）
+      var title1El = sigBlock.querySelector('.msg-title1');
+      if (title1El && msg.signer_title) title1El.textContent = msg.signer_title;
+
+      // Line 5：職稱 2（職位）
+      var title2El = sigBlock.querySelector('.msg-title2');
+      if (title2El && msg.signer_title_2) title2El.textContent = msg.signer_title_2;
     }
 
     var photo = section.querySelector('.msg-photo img');
