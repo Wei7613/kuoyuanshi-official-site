@@ -408,7 +408,7 @@ button { font-family: inherit; }
 .msg-date   { font-size: 13px; color: var(--ink); margin: 0; line-height: 1.4; }
 .msg-signature { margin: 0; }
 .msg-sig-img { display: block; height: 40px; width: auto; }
-.msg-name   { font-size: 15px; font-weight: normal; color: var(--ink); letter-spacing: 1px; margin: 0; line-height: 1.4; }
+.msg-name   { font-size: 13px; font-weight: normal; color: var(--ink); letter-spacing: 1px; margin: 0; line-height: 1.4; }
 .msg-name strong { font-weight: normal; }
 .msg-title1 { font-size: 13px; color: var(--ink); margin: 0; line-height: 1.4; }
 .msg-title2 { font-size: 13px; color: var(--ink); margin: 0; line-height: 1.4; }
