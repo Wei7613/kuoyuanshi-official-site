@@ -5,9 +5,10 @@
  *   - API 失敗或無資料 → 保持 HTML 靜態內容不變（fallback）
  *
  * 管理後台：Shopify Admin → Content → Metaobjects
- *   - 首頁設定    (kuoyuanshi_home_config)  → Hero、通用標頭、公告、footer、董事長訊息
- *   - 首頁板塊    (kuoyuanshi_home_blocks)  → 核心事業 × 3、關於我們卡片 × 4
- *   - 最新消息    (kuoyuanshi_news_item)    → 首頁 + news.html 共用
+ *   - 首頁設定    (kuoyuanshi_home_cfg)          → Hero、標頭、公告、董事長訊息
+ *   - 首頁板塊    (kuoyuanshi_home_blocks)       → 核心事業 × 3、關於我們卡片 × 4
+ *   - Footer     (kuoyuanshi_footer)            → 4 欄導覽、聯絡資訊、社群、版權
+ *   - 最新消息    (kuoyuanshi_news_item)         → 首頁 + news.html 共用
  *   - 董事長致詞  (kuoyuanshi_president_message) → about.html 專用
  */
 (function () {
@@ -29,6 +30,9 @@
       '    edges { node { fields { key value } } }',
       '  }',
       '  homeBlocks: metaobjects(type: "kuoyuanshi_home_blocks", first: 1) {',
+      '    edges { node { fields { key value } } }',
+      '  }',
+      '  footerData: metaobjects(type: "kuoyuanshi_footer", first: 1) {',
       '    edges { node { fields { key value } } }',
       '  }',
       '}'
@@ -350,25 +354,50 @@
     el = document.querySelector('.news-more-link');
     if (el && cfg.news_more_url) el.href = cfg.news_more_url;
 
-    el = document.querySelector('[data-ftr="address-tw"]');
-    if (el && cfg.footer_address_tw) el.textContent = cfg.footer_address_tw;
-    el = document.querySelector('[data-ftr="address-vn"]');
-    if (el && cfg.footer_address_vn) el.textContent = cfg.footer_address_vn;
-    el = document.querySelector('[data-ftr="email"]');
-    if (el && cfg.footer_email) {
-      el.textContent = cfg.footer_email;
-      el.href = 'mailto:' + cfg.footer_email;
+  }
+
+  // ── Footer（從 kuoyuanshi_footer 讀取）────────────────────────
+  function renderFooter(data) {
+    var edges = (data.footerData && data.footerData.edges) || [];
+    if (!edges.length) return;
+    var f = fieldsToObj(edges[0].node);
+    var el;
+
+    // 4 欄導覽
+    for (var c = 1; c <= 4; c++) {
+      var col = document.querySelector('[data-ftr-col="' + c + '"]');
+      if (!col) continue;
+      var h3 = col.querySelector('h3');
+      if (h3 && f['col' + c + '_heading']) h3.textContent = f['col' + c + '_heading'];
+      var links = col.querySelectorAll('.ftr-list a');
+      for (var i = 0; i < links.length; i++) {
+        var n = i + 1;
+        var txt = f['col' + c + '_link' + n + '_text'];
+        var url = f['col' + c + '_link' + n + '_url'];
+        if (txt) links[i].textContent = txt;
+        if (url) links[i].href = url;
+      }
     }
 
-    el = document.querySelector('[data-ftr="linkedin"]');
-    if (el && cfg.footer_linkedin_url) el.href = cfg.footer_linkedin_url;
-    el = document.querySelector('[data-ftr="facebook"]');
-    if (el && cfg.footer_facebook_url) el.href = cfg.footer_facebook_url;
-    el = document.querySelector('[data-ftr="youtube"]');
-    if (el && cfg.footer_youtube_url) el.href = cfg.footer_youtube_url;
+    // 聯絡資訊（col4 特殊欄位）
+    el = document.querySelector('[data-ftr="address-tw"]');
+    if (el && f.address_tw) el.textContent = f.address_tw;
+    el = document.querySelector('[data-ftr="address-vn"]');
+    if (el && f.address_vn) el.textContent = f.address_vn;
+    el = document.querySelector('[data-ftr="email"]');
+    if (el && f.email) { el.textContent = f.email; el.href = 'mailto:' + f.email; }
 
-    el = document.querySelector('.ftr-copy');
-    if (el && cfg.footer_copyright) el.textContent = cfg.footer_copyright;
+    // 社群連結
+    el = document.querySelector('[data-ftr="linkedin"]');
+    if (el && f.linkedin_url) el.href = f.linkedin_url;
+    el = document.querySelector('[data-ftr="facebook"]');
+    if (el && f.facebook_url) el.href = f.facebook_url;
+    el = document.querySelector('[data-ftr="youtube"]');
+    if (el && f.youtube_url) el.href = f.youtube_url;
+
+    // 版權
+    el = document.querySelector('[data-ftr="copyright"]');
+    if (el && f.copyright) el.textContent = f.copyright;
   }
 
   // ── 關於我們卡片（從 homeBlocks 讀取 about1_* ~ about4_*）──
@@ -423,6 +452,7 @@
         renderHomePresident(d);
         renderAboutPresident(d);
         renderHomeConfig(d);
+        renderFooter(d);
         renderAboutCards(d);
         var ab = document.querySelector('.about-sect');
         if (ab) ab.style.opacity = '1';
