@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  /* ── 功能 0：防止 href="#" 佔位連結跳回頁頂 ── */
+  /* ── 功能 0：防止 href="#" 佔位連結跳回頁頂（點擊時重新檢查，避免攔截 CMS 更新後的真實 URL）── */
   document.querySelectorAll('a[href="#"]').forEach(function (a) {
-    a.addEventListener('click', function (e) { e.preventDefault(); });
+    a.addEventListener('click', function (e) {
+      if (a.getAttribute('href') === '#') e.preventDefault();
+    });
   });
 
   /* ── 功能 1：新聞 Tab 切換 ── */
