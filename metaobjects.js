@@ -344,6 +344,9 @@
     el = document.querySelector('.caution-text');
     if (el && cfg.notice_text) el.textContent = cfg.notice_text;
 
+    el = document.querySelector('.news-sect h2');
+    if (el && cfg.news_heading) el.textContent = cfg.news_heading;
+
     el = document.querySelector('.news-more-link');
     if (el && cfg.news_more_url) el.href = cfg.news_more_url;
 
