@@ -74,44 +74,68 @@
     }).then(function (r) { return r.json(); });
   }
 
-  // ── Hero 輪播（更新背景圖與第一幕文字）──────────────────────
-  // CSS 動畫用 nth-child(1/2/3) 綁定，只更新背景不重建結構
+  // ── Hero 輪播（JS 控制：背景圖 + caption 同步輪換）───────────
+  // 每 5 秒換一張，各 slide 的 title/description/cta 同步更新
+  var OVERLAYS = [
+    'linear-gradient(160deg,rgba(20,10,5,.92) 0%,rgba(60,30,10,.5) 100%)',
+    'linear-gradient(160deg,rgba(5,10,20,.92) 0%,rgba(10,30,60,.5) 100%)',
+    'linear-gradient(160deg,rgba(5,20,5,.92) 0%,rgba(10,50,20,.5) 100%)'
+  ];
+
   function renderHero(data) {
     var section = document.getElementById('mv');
     if (!section) return;
     var edges = (data.heroSlides && data.heroSlides.edges) || [];
-    if (!edges.length) return;
+    if (!edges.length) { section.style.opacity = '1'; return; }
 
-    var slides = sortByOrder(edges.map(function (e) { return fieldsToObj(e.node); }));
+    var slides    = sortByOrder(edges.map(function (e) { return fieldsToObj(e.node); }));
     var domSlides = section.querySelectorAll('.mv-slide');
+    var caption   = section.querySelector('.mv-caption');
+    var h1        = caption && caption.querySelector('h1');
+    var p         = caption && caption.querySelector('p');
+    var ctaLink   = caption && caption.querySelector('.mv-story-link');
 
+    // 設定每張 slide 的背景圖，並停用 CSS keyframe 動畫
     slides.forEach(function (s, i) {
-      if (!domSlides[i] || !s.image_url) return;
-      var overlay = i === 0
-        ? 'linear-gradient(160deg,rgba(20,10,5,.92) 0%,rgba(60,30,10,.5) 100%)'
-        : i === 1
-          ? 'linear-gradient(160deg,rgba(5,10,20,.92) 0%,rgba(10,30,60,.5) 100%)'
-          : 'linear-gradient(160deg,rgba(5,20,5,.92) 0%,rgba(10,50,20,.5) 100%)';
-      domSlides[i].style.backgroundImage = overlay + ', url("' + s.image_url + '")';
-      domSlides[i].style.backgroundSize = 'cover';
-      domSlides[i].style.backgroundPosition = 'center';
+      if (!domSlides[i]) return;
+      domSlides[i].style.animation = 'none';
+      domSlides[i].style.opacity   = '0';
+      if (s.image_url) {
+        domSlides[i].style.backgroundImage =
+          OVERLAYS[i % OVERLAYS.length] + ', url("' + s.image_url + '")';
+      }
     });
 
-    // 第一幕文字（hero caption）
-    var caption = section.querySelector('.mv-caption');
-    if (!caption || !slides[0]) return;
-    var h1 = caption.querySelector('h1');
-    var p  = caption.querySelector('p');
-    if (h1 && slides[0].title)       h1.textContent = slides[0].title;
-    if (p  && slides[0].description) p.textContent  = slides[0].description;
+    // 切換到指定 slide：同步更新背景 opacity 與 caption 文字
+    function showSlide(idx) {
+      var s = slides[idx];
+      // 所有 slide 淡出，目標 slide 淡入（CSS transition 產生 cross-fade）
+      domSlides.forEach(function (el) { el.style.opacity = '0'; });
+      if (domSlides[idx]) domSlides[idx].style.opacity = '1';
+      // caption 更新
+      if (h1 && s.title)       h1.textContent = s.title;
+      if (p  && s.description) p.textContent  = s.description;
+      if (ctaLink) {
+        if (s.cta_text) {
+          var icon = ctaLink.querySelector('span.ci');
+          ctaLink.textContent = '';
+          if (icon) ctaLink.appendChild(icon);
+          ctaLink.appendChild(document.createTextNode(' ' + s.cta_text));
+        }
+        if (s.cta_url) ctaLink.href = s.cta_url;
+      }
+    }
 
-    // CTA 按鈕：重建連結內容，保留 icon span
-    var ctaLink = caption.querySelector('.mv-story-link');
-    if (ctaLink && slides[0].cta_text) {
-      var icon = ctaLink.querySelector('span.ci');
-      ctaLink.textContent = '';
-      if (icon) ctaLink.appendChild(icon);
-      ctaLink.appendChild(document.createTextNode(' ' + slides[0].cta_text));
+    var current = 0;
+    showSlide(0);
+    section.style.opacity = '1';
+
+    // 多於 1 張才啟動自動輪播
+    if (slides.length > 1) {
+      setInterval(function () {
+        current = (current + 1) % slides.length;
+        showSlide(current);
+      }, 5000);
     }
   }
 
@@ -384,7 +408,9 @@
         if (ab) ab.style.opacity = '1';
       })
       .catch(function (err) {
-        // 靜默 fallback：保持靜態 HTML，同時恢復 opacity 避免內容永遠隱藏
+        // 靜默 fallback：保持靜態 HTML，同時恢復所有 opacity 避免內容永遠隱藏
+        var mv = document.getElementById('mv');
+        if (mv) mv.style.opacity = '1';
         var s = document.querySelector('.msg-sect');
         if (s) s.style.opacity = '1';
         var a = document.querySelector('.pg-sect.gray .msg-inner');
