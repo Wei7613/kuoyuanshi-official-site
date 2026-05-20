@@ -459,6 +459,12 @@
         renderAboutCards(d);
         var ab = document.querySelector('.about-sect');
         if (ab) ab.style.opacity = '1';
+        var fs = document.querySelector('.feat-sect');
+        if (fs) fs.style.opacity = '1';
+        var ns = document.querySelector('.news-sect');
+        if (ns) ns.style.opacity = '1';
+        var nfl = document.getElementById('news-full-list');
+        if (nfl) nfl.style.opacity = '1';
       })
       .catch(function (err) {
         var mv = document.getElementById('mv');
@@ -469,6 +475,12 @@
         if (a && a.closest) { var p = a.closest('.pg-sect.gray'); if (p) p.style.opacity = '1'; }
         var ab = document.querySelector('.about-sect');
         if (ab) ab.style.opacity = '1';
+        var fs = document.querySelector('.feat-sect');
+        if (fs) fs.style.opacity = '1';
+        var ns = document.querySelector('.news-sect');
+        if (ns) ns.style.opacity = '1';
+        var nfl = document.getElementById('news-full-list');
+        if (nfl) nfl.style.opacity = '1';
         if (typeof console !== 'undefined') {
           console.warn('[metaobjects] 載入失敗，使用靜態內容', err);
         }
