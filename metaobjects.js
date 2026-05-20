@@ -18,7 +18,7 @@
       '  heroSlides: metaobjects(type: "kuoyuanshi_hero_slide", first: 10) {',
       '    edges { node { fields { key value } } }',
       '  }',
-      '  newsItems: metaobjects(type: "kuoyuanshi_news_item", first: 10) {',
+      '  newsItems: metaobjects(type: "kuoyuanshi_news_item", first: 50) {',
       '    edges { node { fields { key value } } }',
       '  }',
       '  businessAreas: metaobjects(type: "kuoyuanshi_business_area", first: 10) {',
@@ -116,8 +116,12 @@
   }
 
   // ── 最新消息 ───────────────────────────────────────────────
+  // index.html → #news-list（每個頁籤最多 5 則）
+  // news.html  → #news-full-list（顯示全部）
   function renderNews(data) {
-    var list = document.getElementById('news-list');
+    var indexList = document.getElementById('news-list');
+    var fullList  = document.getElementById('news-full-list');
+    var list = indexList || fullList;
     if (!list) return;
     var edges = (data.newsItems && data.newsItems.edges) || [];
     if (!edges.length) return;
@@ -138,21 +142,36 @@
       ].join('');
     }).join('');
 
-    // 重新綁定 tab 篩選（main.js 初始化後可能失效，補一次）
-    attachTabFilter(list);
+    // index.html 每個頁籤上限 5 則；news.html 不限
+    attachTabFilter(list, indexList ? 5 : 0);
   }
 
-  function attachTabFilter(list) {
+  function attachTabFilter(list, maxPerTab) {
     var tabs = document.querySelectorAll('.tab-btn');
     if (!tabs.length) return;
+
+    function applyFilter(cat) {
+      var shown = 0;
+      list.querySelectorAll('.news-item').forEach(function (item) {
+        var matches = (cat === 'all' || item.getAttribute('data-cat') === cat);
+        if (matches && (!maxPerTab || shown < maxPerTab)) {
+          item.style.display = '';
+          shown++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // 套用初始頁籤狀態
+    var activeBtn = document.querySelector('.tab-btn.active');
+    applyFilter(activeBtn ? activeBtn.getAttribute('data-tab') : 'all');
+
     tabs.forEach(function (btn) {
       btn.addEventListener('click', function () {
         tabs.forEach(function (b) { b.classList.remove('active'); });
         btn.classList.add('active');
-        var cat = btn.getAttribute('data-tab');
-        list.querySelectorAll('.news-item').forEach(function (item) {
-          item.style.display = (cat === 'all' || item.getAttribute('data-cat') === cat) ? '' : 'none';
-        });
+        applyFilter(btn.getAttribute('data-tab'));
       });
     });
   }
