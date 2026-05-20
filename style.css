@@ -116,6 +116,57 @@ button { font-family: inherit; }
 }
 .ico-search svg { width: 18px; height: 18px; }
 
+/* Hamburger button — hidden on desktop, shown on mobile */
+.btn-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+}
+.btn-menu span {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: var(--ink);
+  border-radius: 1px;
+  transition: transform .25s ease, opacity .2s ease;
+  transform-origin: center;
+}
+.btn-menu[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.btn-menu[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.btn-menu[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Mobile nav dropdown */
+.mob-nav {
+  display: none;
+  position: absolute;
+  top: var(--hdr-h);
+  left: 0;
+  right: 0;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+}
+.mob-nav.open { display: block; }
+.mob-nav a {
+  display: block;
+  padding: 16px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  border-bottom: 1px solid var(--border);
+  transition: color .2s;
+}
+.mob-nav a:last-child { border-bottom: none; }
+.mob-nav a:hover, .mob-nav a.active { color: var(--red); }
+
 /* ============================================================
    HERO (MV) — homepage only
 ============================================================ */
@@ -610,6 +661,7 @@ button { font-family: inherit; }
 ============================================================ */
 @media (max-width: 768px) {
   .hdr-nav { display: none; }
+  .btn-menu { display: flex; }
   #mv { height: 100svh; }
   .feat-grid { grid-template-columns: 1fr; }
   .news-layout { grid-template-columns: 1fr; }

@@ -37,7 +37,34 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ── 功能 3：搜尋按鈕點擊 ── */
+  /* ── 功能 3：漢堡選單（行動版）── */
+  var btnMenu = document.getElementById('btn-menu');
+  var mobNav  = document.getElementById('mob-nav');
+  if (btnMenu && mobNav) {
+    btnMenu.addEventListener('click', function () {
+      var isOpen = mobNav.classList.toggle('open');
+      btnMenu.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    mobNav.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        mobNav.classList.remove('open');
+        btnMenu.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (!hdr || hdr.contains(e.target)) return;
+      mobNav.classList.remove('open');
+      btnMenu.setAttribute('aria-expanded', 'false');
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 768) {
+        mobNav.classList.remove('open');
+        btnMenu.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /* ── 功能 4：搜尋按鈕點擊 ── */
   var searchBtn = document.querySelector('.ico-search');
   if (searchBtn) {
     searchBtn.addEventListener('click', function () {
