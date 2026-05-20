@@ -5,6 +5,10 @@
  *   - API 失敗或無資料 → 保持 HTML 靜態內容不變（fallback）
  *
  * 管理後台：Shopify Admin → Content → Metaobjects
+ *   - 首頁設定    (kuoyuanshi_home_config)  → Hero、通用標頭、公告、footer、董事長訊息
+ *   - 首頁板塊    (kuoyuanshi_home_blocks)  → 核心事業 × 3、關於我們卡片 × 4
+ *   - 最新消息    (kuoyuanshi_news_item)    → 首頁 + news.html 共用
+ *   - 董事長致詞  (kuoyuanshi_president_message) → about.html 專用
  */
 (function () {
   var DOMAIN   = 'jwhu9y-ef.myshopify.com';
@@ -15,25 +19,16 @@
   var QUERY = JSON.stringify({
     query: [
       '{',
-      '  heroSlides: metaobjects(type: "kuoyuanshi_hero_slide", first: 10) {',
-      '    edges { node { fields { key value } } }',
-      '  }',
       '  newsItems: metaobjects(type: "kuoyuanshi_news_item", first: 50) {',
-      '    edges { node { fields { key value } } }',
-      '  }',
-      '  businessAreas: metaobjects(type: "kuoyuanshi_business_area", first: 10) {',
       '    edges { node { fields { key value } } }',
       '  }',
       '  presidentMessage: metaobjects(type: "kuoyuanshi_president_message", first: 1) {',
       '    edges { node { fields { key value } } }',
       '  }',
-      '  homeMessage: metaobjects(type: "kuoyuanshi_home_message", first: 1) {',
-      '    edges { node { fields { key value } } }',
-      '  }',
       '  homeConfig: metaobjects(type: "kuoyuanshi_home_config", first: 1) {',
       '    edges { node { fields { key value } } }',
       '  }',
-      '  aboutCards: metaobjects(type: "kuoyuanshi_about_card", first: 10) {',
+      '  homeBlocks: metaobjects(type: "kuoyuanshi_home_blocks", first: 1) {',
       '    edges { node { fields { key value } } }',
       '  }',
       '}'
@@ -54,7 +49,6 @@
   }
 
   function esc(str) {
-    // XSS 防護：轉義 HTML 特殊字元
     return String(str || '')
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
@@ -74,8 +68,7 @@
     }).then(function (r) { return r.json(); });
   }
 
-  // ── Hero 輪播（JS 控制：背景圖 + caption 同步輪換）───────────
-  // 每 5 秒換一張，各 slide 的 title/description/cta 同步更新
+  // ── Hero 輪播（從 homeConfig 讀取 hero1_* ~ hero3_*）────────
   var OVERLAYS = [
     'linear-gradient(160deg,rgba(20,10,5,.92) 0%,rgba(60,30,10,.5) 100%)',
     'linear-gradient(160deg,rgba(5,10,20,.92) 0%,rgba(10,30,60,.5) 100%)',
@@ -85,17 +78,29 @@
   function renderHero(data) {
     var section = document.getElementById('mv');
     if (!section) return;
-    var edges = (data.heroSlides && data.heroSlides.edges) || [];
+    var edges = (data.homeConfig && data.homeConfig.edges) || [];
     if (!edges.length) { section.style.opacity = '1'; return; }
+    var cfg = fieldsToObj(edges[0].node);
 
-    var slides    = sortByOrder(edges.map(function (e) { return fieldsToObj(e.node); }));
+    var slides = [];
+    for (var i = 1; i <= 3; i++) {
+      var s = {
+        title:       cfg['hero' + i + '_title'],
+        description: cfg['hero' + i + '_description'],
+        image_url:   cfg['hero' + i + '_image_url'],
+        cta_text:    cfg['hero' + i + '_cta_text'],
+        cta_url:     cfg['hero' + i + '_cta_url']
+      };
+      if (s.title || s.image_url) slides.push(s);
+    }
+    if (!slides.length) { section.style.opacity = '1'; return; }
+
     var domSlides = section.querySelectorAll('.mv-slide');
     var caption   = section.querySelector('.mv-caption');
     var h1        = caption && caption.querySelector('h1');
     var p         = caption && caption.querySelector('p');
     var ctaLink   = caption && caption.querySelector('.mv-story-link');
 
-    // 設定每張 slide 的背景圖，並停用 CSS keyframe 動畫
     slides.forEach(function (s, i) {
       if (!domSlides[i]) return;
       domSlides[i].style.animation = 'none';
@@ -106,13 +111,10 @@
       }
     });
 
-    // 切換到指定 slide：同步更新背景 opacity 與 caption 文字
     function showSlide(idx) {
       var s = slides[idx];
-      // 所有 slide 淡出，目標 slide 淡入（CSS transition 產生 cross-fade）
       domSlides.forEach(function (el) { el.style.opacity = '0'; });
       if (domSlides[idx]) domSlides[idx].style.opacity = '1';
-      // caption 更新
       if (h1 && s.title)       h1.textContent = s.title;
       if (p  && s.description) p.textContent  = s.description;
       if (ctaLink) {
@@ -129,8 +131,6 @@
     var current = 0;
     showSlide(0);
     section.style.opacity = '1';
-
-    // 多於 1 張才啟動自動輪播
     if (slides.length > 1) {
       setInterval(function () {
         current = (current + 1) % slides.length;
@@ -139,9 +139,7 @@
     }
   }
 
-  // ── 最新消息 ───────────────────────────────────────────────
-  // index.html → #news-list（每個頁籤最多 5 則）
-  // news.html  → #news-full-list（顯示全部）
+  // ── 最新消息（index.html 每頁籤最多 5 則；news.html 不限）──
   function renderNews(data) {
     var indexList = document.getElementById('news-list');
     var fullList  = document.getElementById('news-full-list');
@@ -166,7 +164,6 @@
       ].join('');
     }).join('');
 
-    // index.html 每個頁籤上限 5 則；news.html 不限
     attachTabFilter(list, indexList ? 5 : 0);
   }
 
@@ -187,7 +184,6 @@
       });
     }
 
-    // 套用初始頁籤狀態
     var activeBtn = document.querySelector('.tab-btn.active');
     applyFilter(activeBtn ? activeBtn.getAttribute('data-tab') : 'all');
 
@@ -200,14 +196,29 @@
     });
   }
 
-  // ── 核心事業 ───────────────────────────────────────────────
+  // ── 核心事業（從 homeBlocks 讀取 biz1_* ~ biz3_*）──────────
   function renderBusiness(data) {
     var grid = document.querySelector('.feat-grid');
     if (!grid) return;
-    var edges = (data.businessAreas && data.businessAreas.edges) || [];
+    var edges = (data.homeBlocks && data.homeBlocks.edges) || [];
     if (!edges.length) return;
+    var blocks = fieldsToObj(edges[0].node);
 
-    var areas = sortByOrder(edges.map(function (e) { return fieldsToObj(e.node); }));
+    var areas = [];
+    for (var i = 1; i <= 3; i++) {
+      var label = blocks['biz' + i + '_label_en'];
+      var title = blocks['biz' + i + '_title_zh'];
+      if (label || title) {
+        areas.push({
+          label_en:  label,
+          title_zh:  title,
+          image_url: blocks['biz' + i + '_image_url'],
+          url:       blocks['biz' + i + '_url']
+        });
+      }
+    }
+    if (!areas.length) return;
+
     grid.innerHTML = areas.map(function (b) {
       var href    = esc(b.url || '#');
       var imgHtml = b.image_url
@@ -227,7 +238,6 @@
   }
 
   // ── 董事長致詞（共用渲染）──────────────────────────────────
-  // CMS 欄位：quote, message_date, signature_image_url, signer_name, signer_title, signer_title_2, photo_url
   function _applyMsgData(section, msg) {
     var quote = section.querySelector('.msg-quote');
     if (quote && msg.quote) {
@@ -236,7 +246,7 @@
 
     var sigBlock = section.querySelector('.msg-sig-block');
     if (sigBlock) {
-      var dateEl  = sigBlock.querySelector('.msg-date');
+      var dateEl = sigBlock.querySelector('.msg-date');
       if (dateEl) dateEl.textContent = msg.message_date || '';
 
       var sigWrap = sigBlock.querySelector('.msg-signature');
@@ -253,10 +263,8 @@
 
       var nameEl   = sigBlock.querySelector('.msg-name strong');
       if (nameEl) nameEl.textContent = msg.signer_name || '';
-
       var title1El = sigBlock.querySelector('.msg-title1');
       if (title1El) title1El.textContent = msg.signer_title || '';
-
       var title2El = sigBlock.querySelector('.msg-title2');
       if (title2El) title2El.textContent = msg.signer_title_2 || '';
     }
@@ -268,18 +276,26 @@
     }
   }
 
-  // 首頁（index.html）— kuoyuanshi_home_message
+  // 首頁董事長訊息（從 homeConfig president_* 欄位讀取）
   function renderHomePresident(data) {
     var section = document.querySelector('.msg-sect');
     if (!section) return;
-    var edges = (data.homeMessage && data.homeMessage.edges) || [];
+    var edges = (data.homeConfig && data.homeConfig.edges) || [];
     if (edges.length) {
-      var msg = fieldsToObj(edges[0].node);
+      var cfg = fieldsToObj(edges[0].node);
+      var msg = {
+        quote:               cfg.president_quote,
+        photo_url:           cfg.president_photo_url,
+        message_date:        cfg.president_message_date,
+        signer_name:         cfg.president_signer_name,
+        signer_title:        cfg.president_signer_title,
+        signer_title_2:      cfg.president_signer_title2,
+        signature_image_url: null
+      };
       _applyMsgData(section, msg);
-      // cta_url：控制「了解更多關於我們」連結目標
-      if (msg.cta_url) {
+      if (cfg.president_cta_url) {
         var ctaLink = section.querySelector('a[href]');
-        if (ctaLink) ctaLink.href = msg.cta_url;
+        if (ctaLink) ctaLink.href = cfg.president_cta_url;
       }
     }
     section.style.opacity = '1';
@@ -296,29 +312,22 @@
   }
 
   // ── 首頁通用設定（feat-sect / about-sect / caution-bar / footer）──
-  // CMS 欄位：business_label, business_heading, about_label, about_heading,
-  //           about_overview_text, about_overview_url, notice_label, notice_text,
-  //           news_more_url, footer_address_tw, footer_address_vn, footer_email,
-  //           footer_linkedin_url, footer_facebook_url, footer_youtube_url, footer_copyright
   function renderHomeConfig(data) {
     var edges = (data.homeConfig && data.homeConfig.edges) || [];
     if (!edges.length) return;
     var cfg = fieldsToObj(edges[0].node);
     var el;
 
-    // feat-sect 標題
     el = document.querySelector('.feat-sect .sect-label');
     if (el && cfg.business_label) el.textContent = cfg.business_label;
     el = document.querySelector('.feat-sect h2');
     if (el && cfg.business_heading) el.textContent = cfg.business_heading;
 
-    // about-sect 標題
     el = document.querySelector('.about-sect .sect-label');
     if (el && cfg.about_label) el.textContent = cfg.about_label;
     el = document.querySelector('.about-sect h2');
     if (el && cfg.about_heading) el.textContent = cfg.about_heading;
 
-    // about-sect 總覽連結
     var overviewLink = document.querySelector('.about-hd a');
     if (overviewLink) {
       if (cfg.about_overview_url) overviewLink.href = cfg.about_overview_url;
@@ -330,17 +339,14 @@
       }
     }
 
-    // 公告列
     el = document.querySelector('.caution-label');
     if (el && cfg.notice_label) el.textContent = cfg.notice_label;
     el = document.querySelector('.caution-text');
     if (el && cfg.notice_text) el.textContent = cfg.notice_text;
 
-    // 最新消息「查看全部」連結
     el = document.querySelector('.news-more-link');
     if (el && cfg.news_more_url) el.href = cfg.news_more_url;
 
-    // footer 聯絡資訊
     el = document.querySelector('[data-ftr="address-tw"]');
     if (el && cfg.footer_address_tw) el.textContent = cfg.footer_address_tw;
     el = document.querySelector('[data-ftr="address-vn"]');
@@ -351,7 +357,6 @@
       el.href = 'mailto:' + cfg.footer_email;
     }
 
-    // footer 社群連結
     el = document.querySelector('[data-ftr="linkedin"]');
     if (el && cfg.footer_linkedin_url) el.href = cfg.footer_linkedin_url;
     el = document.querySelector('[data-ftr="facebook"]');
@@ -359,20 +364,33 @@
     el = document.querySelector('[data-ftr="youtube"]');
     if (el && cfg.footer_youtube_url) el.href = cfg.footer_youtube_url;
 
-    // footer 版權文字
     el = document.querySelector('.ftr-copy');
     if (el && cfg.footer_copyright) el.textContent = cfg.footer_copyright;
   }
 
-  // ── 關於我們卡片（about-sect）──────────────────────────────────
-  // CMS 欄位：label_en, title_zh, image_url, url, sort_order
+  // ── 關於我們卡片（從 homeBlocks 讀取 about1_* ~ about4_*）──
   function renderAboutCards(data) {
     var grid = document.querySelector('.about-cards');
     if (!grid) return;
-    var edges = (data.aboutCards && data.aboutCards.edges) || [];
+    var edges = (data.homeBlocks && data.homeBlocks.edges) || [];
     if (!edges.length) return;
+    var blocks = fieldsToObj(edges[0].node);
 
-    var cards = sortByOrder(edges.map(function (e) { return fieldsToObj(e.node); }));
+    var cards = [];
+    for (var i = 1; i <= 4; i++) {
+      var label = blocks['about' + i + '_label_en'];
+      var title = blocks['about' + i + '_title_zh'];
+      if (label || title) {
+        cards.push({
+          label_en:  label,
+          title_zh:  title,
+          image_url: blocks['about' + i + '_image_url'],
+          url:       blocks['about' + i + '_url']
+        });
+      }
+    }
+    if (!cards.length) return;
+
     grid.innerHTML = cards.map(function (c) {
       var href    = esc(c.url || '#');
       var imgHtml = c.image_url
@@ -403,12 +421,10 @@
         renderAboutPresident(d);
         renderHomeConfig(d);
         renderAboutCards(d);
-        // about-sect 最後統一恢復可見度
         var ab = document.querySelector('.about-sect');
         if (ab) ab.style.opacity = '1';
       })
       .catch(function (err) {
-        // 靜默 fallback：保持靜態 HTML，同時恢復所有 opacity 避免內容永遠隱藏
         var mv = document.getElementById('mv');
         if (mv) mv.style.opacity = '1';
         var s = document.querySelector('.msg-sect');
