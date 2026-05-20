@@ -25,7 +25,7 @@
       '  presidentMessage: metaobjects(type: "kuoyuanshi_president_message", first: 1) {',
       '    edges { node { fields { key value } } }',
       '  }',
-      '  homeConfig: metaobjects(type: "kuoyuanshi_home_config", first: 1) {',
+      '  homeConfig: metaobjects(type: "kuoyuanshi_home_setting", first: 1) {',
       '    edges { node { fields { key value } } }',
       '  }',
       '  homeBlocks: metaobjects(type: "kuoyuanshi_home_blocks", first: 1) {',
