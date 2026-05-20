@@ -290,7 +290,7 @@
         signer_name:         cfg.president_signer_name,
         signer_title:        cfg.president_signer_title,
         signer_title_2:      cfg.president_signer_title2,
-        signature_image_url: null
+        signature_image_url: cfg.president_signature_url || null
       };
       _applyMsgData(section, msg);
       if (cfg.president_cta_url) {
