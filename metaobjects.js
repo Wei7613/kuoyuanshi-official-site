@@ -363,19 +363,22 @@
     var f = fieldsToObj(edges[0].node);
     var el;
 
-    // 4 欄導覽
+    // 4 欄導覽 — 欄標題為空則隱藏整欄
     for (var c = 1; c <= 4; c++) {
       var col = document.querySelector('[data-ftr-col="' + c + '"]');
       if (!col) continue;
+      var heading = f['col' + c + '_heading'];
+      if (!heading) { col.style.display = 'none'; continue; }
+      col.style.display = '';
       var h3 = col.querySelector('h3');
-      if (h3 && f['col' + c + '_heading']) h3.textContent = f['col' + c + '_heading'];
+      if (h3) h3.textContent = heading;
       var links = col.querySelectorAll('.ftr-list a');
       for (var i = 0; i < links.length; i++) {
         var n = i + 1;
         var txt = f['col' + c + '_link' + n + '_text'];
         var url = f['col' + c + '_link' + n + '_url'];
-        if (txt) links[i].textContent = txt;
-        if (url) links[i].href = url;
+        if (txt !== undefined) links[i].textContent = txt;
+        if (url !== undefined) links[i].href = url || '#';
       }
     }
 
