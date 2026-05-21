@@ -26,9 +26,8 @@
       '  newsItems: metaobjects(type: "kuoyuanshi_news_item", first: 50) {',
       '    edges { node { fields { key value } } }',
       '  }',
-      '  presidentMessage: metaobjects(type: "kuoyuanshi_president_message", first: 1) {',
-      '    edges { node { fields { key value } } }',
-      '  }',
+      '  aboutPage: metaobjectByHandle(handle: {type: "kuoyuanshi_president_message", handle: "about-html"}) { fields { key value } }',
+      '  aboutHistory: metaobjectByHandle(handle: {type: "kuoyuanshi_president_message", handle: "about-history"}) { fields { key value } }',
       '  homeConfig: metaobjects(type: "kuoyuanshi_home_cfg", first: 1) {',
       '    edges { node { fields { key value } } }',
       '  }',
@@ -320,15 +319,13 @@
     var inner = document.querySelector('.pg-sect.gray .msg-inner');
     if (!inner) return;
     var section = inner.closest ? inner.closest('.pg-sect.gray') : null;
-    var edges = (data.presidentMessage && data.presidentMessage.edges) || [];
-    if (edges.length) _applyMsgData(inner, fieldsToObj(edges[0].node));
+    if (data.aboutPage) _applyMsgData(inner, fieldsToObj(data.aboutPage));
     if (section) section.style.opacity = '1';
   }
 
   function renderAboutPage(data) {
-    var edges = (data.presidentMessage && data.presidentMessage.edges) || [];
-    if (!edges.length) return;
-    var m = fieldsToObj(edges[0].node);
+    var m  = data.aboutPage    ? fieldsToObj(data.aboutPage)    : {};
+    var mh = data.aboutHistory ? fieldsToObj(data.aboutHistory) : {};
     var el;
 
     // 公司簡介 section（第一個 .pg-sect，不含 .gray）
@@ -357,21 +354,21 @@
       });
     }
 
-    // 發展歷程 section
+    // 發展歷程 section（讀 aboutHistory entry）
     var histSect = document.querySelector(".hist-sect");
     if (histSect) {
-      el = histSect.querySelector(".sect-label"); if (el && m.hist_label) el.textContent = m.hist_label;
-      el = histSect.querySelector("h2"); if (el && m.hist_heading) el.textContent = m.hist_heading;
+      el = histSect.querySelector(".sect-label"); if (el && mh.hist_label) el.textContent = mh.hist_label;
+      el = histSect.querySelector("h2"); if (el && mh.hist_heading) el.textContent = mh.hist_heading;
       var histItems = histSect.querySelectorAll(".hist-item");
       [1,2,3,4,5,6,7,8].forEach(function(n, i) {
         if (!histItems[i]) return;
         var container = histItems[i].classList.contains("above") ? histItems[i].querySelector(".hist-top") : histItems[i].querySelector(".hist-bot");
         if (!container) return;
-        el = container.querySelector(".hist-yr"); if (el && m["hist"+n+"_year"]) el.textContent = m["hist"+n+"_year"];
-        el = container.querySelector(".hist-ev"); if (el && m["hist"+n+"_event"]) el.textContent = m["hist"+n+"_event"];
-        el = container.querySelector(".hist-note"); if (el && m["hist"+n+"_note"]) el.innerHTML = esc(m["hist"+n+"_note"]).replace(/\n/g,"<br>");
+        el = container.querySelector(".hist-yr"); if (el && mh["hist"+n+"_year"]) el.textContent = mh["hist"+n+"_year"];
+        el = container.querySelector(".hist-ev"); if (el && mh["hist"+n+"_event"]) el.textContent = mh["hist"+n+"_event"];
+        el = container.querySelector(".hist-note"); if (el && mh["hist"+n+"_note"]) el.innerHTML = esc(mh["hist"+n+"_note"]).replace(/\n/g,"<br>");
         var photoEl = container.querySelector(".hist-photo img");
-        if (photoEl && m["hist"+n+"_image_url"]) photoEl.src = m["hist"+n+"_image_url"];
+        if (photoEl && mh["hist"+n+"_image_url"]) photoEl.src = mh["hist"+n+"_image_url"];
       });
     }
 
