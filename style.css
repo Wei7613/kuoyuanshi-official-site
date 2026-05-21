@@ -3,6 +3,18 @@
    Design: Marubeni-inspired flat editorial
 ============================================================ */
 
+/* ── CMS 閃現防護：白色遮罩覆蓋頁面直到 CMS 資料就緒 ── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #fff;
+  z-index: 99999;
+  pointer-events: none;
+  transition: opacity .35s ease;
+}
+body.cms-ready::before { opacity: 0; }
+
 /* RESET */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 

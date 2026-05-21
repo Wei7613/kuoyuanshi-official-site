@@ -12,6 +12,9 @@
  *   - 董事長致詞  (kuoyuanshi_president_message) → about.html 專用
  */
 (function () {
+  /* 安全逾時：5 秒後強制移除遮罩，避免 API 失敗時頁面永遠空白 */
+  setTimeout(function () { document.body.classList.add('cms-ready'); }, 5000);
+
   var DOMAIN   = 'jwhu9y-ef.myshopify.com';
   var TOKEN    = '5ec473e0b0f60f8c6334134f405a9035';
   var VERSION  = '2024-10';
@@ -465,6 +468,7 @@
         if (ns) ns.style.opacity = '1';
         var nfl = document.getElementById('news-full-list');
         if (nfl) nfl.style.opacity = '1';
+        document.body.classList.add('cms-ready');
       })
       .catch(function (err) {
         var mv = document.getElementById('mv');
@@ -481,6 +485,7 @@
         if (ns) ns.style.opacity = '1';
         var nfl = document.getElementById('news-full-list');
         if (nfl) nfl.style.opacity = '1';
+        document.body.classList.add('cms-ready');
         if (typeof console !== 'undefined') {
           console.warn('[metaobjects] 載入失敗，使用靜態內容', err);
         }
