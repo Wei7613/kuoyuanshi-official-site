@@ -9,7 +9,8 @@
  *   - 首頁板塊    (kuoyuanshi_home_blocks)       → 核心事業 × 3、關於我們卡片 × 4
  *   - Footer     (kuoyuanshi_footer)            → 4 欄導覽、聯絡資訊、社群、版權
  *   - 最新消息    (kuoyuanshi_news_item)         → 首頁 + news.html 共用
- *   - 董事長致詞  (kuoyuanshi_president_message) → about.html 專用
+ *   - 關於頁主內容 (kuoyuanshi_president_message) → about.html 公司簡介 / 核心價值 / 董事長 / 相關資訊
+ *   - 關於頁歷程   (kuoyuanshi_about_history)     → about.html 發展歷程
  */
 (function () {
   /* 安全逾時：5 秒後強制移除遮罩，避免 API 失敗時頁面永遠空白 */
@@ -27,7 +28,7 @@
       '    edges { node { fields { key value } } }',
       '  }',
       '  aboutPage: metaobject(handle: {type: "kuoyuanshi_president_message", handle: "about-html"}) { fields { key value } }',
-      '  aboutHistory: metaobject(handle: {type: "kuoyuanshi_president_message", handle: "about-history"}) { fields { key value } }',
+      '  aboutHistory: metaobject(handle: {type: "kuoyuanshi_about_history", handle: "about-history"}) { fields { key value } }',
       '  homeConfig: metaobjects(type: "kuoyuanshi_home_cfg", first: 1) {',
       '    edges { node { fields { key value } } }',
       '  }',
@@ -325,7 +326,7 @@
 
   function renderAboutPage(data) {
     var m  = data.aboutPage    ? fieldsToObj(data.aboutPage)    : {};
-    // hist 優先讀 about-history；若 Storefront API 傳播延遲回傳 null，備援讀 about-html
+    // hist 讀關於頁歷程 type；若查不到則保留靜態 HTML fallback
     var mh = data.aboutHistory ? fieldsToObj(data.aboutHistory) : m;
     var el;
 
