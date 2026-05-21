@@ -300,6 +300,10 @@
         signature_image_url: cfg.president_signature_url || null
       };
       _applyMsgData(section, msg);
+      if (cfg.president_partner_label) {
+        var labelEl = section.querySelector('.msg-label');
+        if (labelEl) labelEl.textContent = cfg.president_partner_label;
+      }
       if (cfg.president_cta_url) {
         var ctaLink = section.querySelector('a[href]');
         if (ctaLink) ctaLink.href = cfg.president_cta_url;
