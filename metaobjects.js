@@ -325,7 +325,8 @@
 
   function renderAboutPage(data) {
     var m  = data.aboutPage    ? fieldsToObj(data.aboutPage)    : {};
-    var mh = data.aboutHistory ? fieldsToObj(data.aboutHistory) : {};
+    // hist 優先讀 about-history；若 Storefront API 傳播延遲回傳 null，備援讀 about-html
+    var mh = data.aboutHistory ? fieldsToObj(data.aboutHistory) : m;
     var el;
 
     // 公司簡介 section（第一個 .pg-sect，不含 .gray）
