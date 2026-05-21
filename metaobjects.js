@@ -38,6 +38,9 @@
       '  footerData: metaobjects(type: "kuoyuanshi_footer", first: 1) {',
       '    edges { node { fields { key value } } }',
       '  }',
+      '  businessPage: metaobjects(type: "kuoyuanshi_business_page", first: 1) {',
+      '    edges { node { fields { key value } } }',
+      '  }',
       '}'
     ].join('\n')
   });
@@ -451,6 +454,56 @@
     }).join('');
   }
 
+  // ── 事業領域頁（business.html）──────────────────────────────
+  function renderBusinessPage(data) {
+    var section = document.querySelector('.biz-list');
+    if (!section) return;
+
+    var items = document.querySelectorAll('.biz-item');
+    var edges = (data.businessPage && data.businessPage.edges) || [];
+    if (!items.length || !edges.length) {
+      section.style.opacity = '1';
+      return;
+    }
+
+    var page = fieldsToObj(edges[0].node);
+    items.forEach(function (item, index) {
+      var prefix = 'biz' + (index + 1) + '_';
+      var label = item.querySelector('.biz-label');
+      var title = item.querySelector('.biz-title');
+      var desc = item.querySelector('.biz-desc');
+      var image = item.querySelector('.biz-thumb img');
+      var link = item.querySelector('.biz-link');
+      var labelValue = page[prefix + 'label_en'];
+      var titleValue = page[prefix + 'title_zh'];
+      var descValue = page[prefix + 'desc'];
+      var imageValue = page[prefix + 'image_url'];
+      var ctaTextValue = page[prefix + 'cta_text'];
+      var ctaUrlValue = page[prefix + 'cta_url'];
+
+      if (label && labelValue) label.textContent = labelValue;
+      if (title && titleValue) title.textContent = titleValue;
+      if (desc && descValue) desc.innerHTML = esc(descValue).replace(/\n/g, '<br>');
+
+      if (image && imageValue) {
+        image.src = imageValue;
+        image.alt = titleValue || labelValue || '';
+      }
+
+      if (link) {
+        if (ctaTextValue) {
+          var icon = link.querySelector('span.ci');
+          link.textContent = '';
+          if (icon) link.appendChild(icon);
+          link.appendChild(document.createTextNode(' ' + ctaTextValue));
+        }
+        if (ctaUrlValue) link.href = ctaUrlValue;
+      }
+    });
+
+    section.style.opacity = '1';
+  }
+
   // ── 初始化 ─────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function () {
     fetchData()
@@ -464,6 +517,7 @@
         renderHomeConfig(d);
         renderFooter(d);
         renderAboutCards(d);
+        renderBusinessPage(d);
         var ab = document.querySelector('.about-sect');
         if (ab) ab.style.opacity = '1';
         var fs = document.querySelector('.feat-sect');
@@ -489,6 +543,8 @@
         if (ns) ns.style.opacity = '1';
         var nfl = document.getElementById('news-full-list');
         if (nfl) nfl.style.opacity = '1';
+        var biz = document.querySelector('.biz-list');
+        if (biz) biz.style.opacity = '1';
         document.body.classList.add('cms-ready');
         if (typeof console !== 'undefined') {
           console.warn('[metaobjects] 載入失敗，使用靜態內容', err);
