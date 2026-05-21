@@ -325,6 +325,77 @@
     if (section) section.style.opacity = '1';
   }
 
+  function renderAboutPage(data) {
+    var edges = (data.presidentMessage && data.presidentMessage.edges) || [];
+    if (!edges.length) return;
+    var m = fieldsToObj(edges[0].node);
+    var el;
+
+    // 公司簡介 section（第一個 .pg-sect，不含 .gray）
+    var profileSect = document.querySelector(".pg-sect:not(.gray):not(.hist-sect)");
+    if (profileSect) {
+      el = profileSect.querySelector(".sect-label"); if (el && m.profile_label) el.textContent = m.profile_label;
+      el = profileSect.querySelector("h2"); if (el && m.profile_heading) el.textContent = m.profile_heading;
+      var paras = profileSect.querySelectorAll(".prose p:not(.sect-label)");
+      ["profile_desc1","profile_desc2","profile_desc3"].forEach(function(k,i){ if (paras[i] && m[k]) paras[i].textContent = m[k]; });
+      el = profileSect.querySelector(".pg-img img"); if (el && m.profile_image_url) el.src = m.profile_image_url;
+    }
+
+    // 核心價值 section（第一個 .pg-sect.gray，不含 .msg-inner）
+    var valuesSects = document.querySelectorAll(".pg-sect.gray");
+    var valuesSect = null;
+    for (var i = 0; i < valuesSects.length; i++) { if (!valuesSects[i].querySelector(".msg-inner")) { valuesSect = valuesSects[i]; break; } }
+    if (valuesSect) {
+      el = valuesSect.querySelector(".sect-label"); if (el && m.values_label) el.textContent = m.values_label;
+      el = valuesSect.querySelector("h2"); if (el && m.values_heading) el.textContent = m.values_heading;
+      var valCards = valuesSect.querySelectorAll(".val-card");
+      [1,2,3].forEach(function(n, i) {
+        if (!valCards[i]) return;
+        el = valCards[i].querySelector(".val-num"); if (el && m["val"+n+"_num"]) el.textContent = m["val"+n+"_num"];
+        el = valCards[i].querySelector(".val-title"); if (el && m["val"+n+"_title"]) el.textContent = m["val"+n+"_title"];
+        el = valCards[i].querySelector(".val-desc"); if (el && m["val"+n+"_desc"]) el.textContent = m["val"+n+"_desc"];
+      });
+    }
+
+    // 發展歷程 section
+    var histSect = document.querySelector(".hist-sect");
+    if (histSect) {
+      el = histSect.querySelector(".sect-label"); if (el && m.hist_label) el.textContent = m.hist_label;
+      el = histSect.querySelector("h2"); if (el && m.hist_heading) el.textContent = m.hist_heading;
+      var histItems = histSect.querySelectorAll(".hist-item");
+      [1,2,3,4,5,6,7,8].forEach(function(n, i) {
+        if (!histItems[i]) return;
+        var container = histItems[i].classList.contains("above") ? histItems[i].querySelector(".hist-top") : histItems[i].querySelector(".hist-bot");
+        if (!container) return;
+        el = container.querySelector(".hist-yr"); if (el && m["hist"+n+"_year"]) el.textContent = m["hist"+n+"_year"];
+        el = container.querySelector(".hist-ev"); if (el && m["hist"+n+"_event"]) el.textContent = m["hist"+n+"_event"];
+        el = container.querySelector(".hist-note"); if (el && m["hist"+n+"_note"]) el.innerHTML = esc(m["hist"+n+"_note"]).replace(/\n/g,"<br>");
+        var photoEl = container.querySelector(".hist-photo img");
+        if (photoEl && m["hist"+n+"_image_url"]) photoEl.src = m["hist"+n+"_image_url"];
+      });
+    }
+
+    // 董事長致詞 section label
+    var presidentSect = document.querySelector(".pg-sect.gray .msg-inner");
+    if (presidentSect) {
+      el = presidentSect.querySelector(".sect-label"); if (el && m.msg_label) el.textContent = m.msg_label;
+    }
+
+    // 相關資訊 section
+    var relSect = document.querySelector(".rel-sect");
+    if (relSect) {
+      el = relSect.querySelector(".sect-label"); if (el && m.related_label) el.textContent = m.related_label;
+      var relCards = relSect.querySelectorAll(".rel-card");
+      [1,2,3].forEach(function(n, i) {
+        if (!relCards[i]) return;
+        if (m["rel"+n+"_url"]) relCards[i].href = m["rel"+n+"_url"];
+        el = relCards[i].querySelector(".rel-cat"); if (el && m["rel"+n+"_cat"]) el.textContent = m["rel"+n+"_cat"];
+        el = relCards[i].querySelector(".rel-title"); if (el && m["rel"+n+"_title"]) el.textContent = m["rel"+n+"_title"];
+        el = relCards[i].querySelector(".rel-img img"); if (el && m["rel"+n+"_image_url"]) { el.src = m["rel"+n+"_image_url"]; el.alt = m["rel"+n+"_cat"] || ""; }
+      });
+    }
+  }
+
   // ── 首頁通用設定（feat-sect / about-sect / caution-bar / footer）──
   function renderHomeConfig(data) {
     var edges = (data.homeConfig && data.homeConfig.edges) || [];
@@ -514,6 +585,7 @@
         renderBusiness(d);
         renderHomePresident(d);
         renderAboutPresident(d);
+        renderAboutPage(d);
         renderHomeConfig(d);
         renderFooter(d);
         renderAboutCards(d);
