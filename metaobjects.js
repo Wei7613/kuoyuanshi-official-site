@@ -369,8 +369,35 @@
         el = container.querySelector(".hist-yr"); if (el && mh["hist"+n+"_year"]) el.textContent = mh["hist"+n+"_year"];
         el = container.querySelector(".hist-ev"); if (el && mh["hist"+n+"_event"]) el.textContent = mh["hist"+n+"_event"];
         el = container.querySelector(".hist-note"); if (el && mh["hist"+n+"_note"]) el.innerHTML = esc(mh["hist"+n+"_note"]).replace(/\n/g,"<br>");
-        var photoEl = container.querySelector(".hist-photo img");
-        if (photoEl && mh["hist"+n+"_image_url"]) photoEl.src = mh["hist"+n+"_image_url"];
+        var imageUrl = mh["hist"+n+"_image_url"];
+        if (imageUrl) {
+          var photoWrap = container.querySelector(".hist-photo");
+          if (!photoWrap) {
+            photoWrap = document.createElement("div");
+            photoWrap.className = "hist-photo";
+            if (!histItems[i].classList.contains("above")) {
+              photoWrap.style.marginTop = "12px";
+              photoWrap.style.marginBottom = "0";
+            }
+            var yearEl = container.querySelector(".hist-yr");
+            var noteEl = container.querySelector(".hist-note");
+            if (histItems[i].classList.contains("above") && yearEl) {
+              container.insertBefore(photoWrap, yearEl);
+            } else if (noteEl && noteEl.nextSibling) {
+              container.insertBefore(photoWrap, noteEl.nextSibling);
+            } else {
+              container.appendChild(photoWrap);
+            }
+          }
+          var photoEl = photoWrap.querySelector("img");
+          if (!photoEl) {
+            photoEl = document.createElement("img");
+            photoWrap.appendChild(photoEl);
+          }
+          photoEl.src = imageUrl;
+          photoEl.alt = mh["hist"+n+"_event"] || mh["hist"+n+"_year"] || "";
+          photoEl.loading = "lazy";
+        }
       });
     }
 
