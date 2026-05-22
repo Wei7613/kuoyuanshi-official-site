@@ -11,7 +11,7 @@
  *   - 最新消息    (kuoyuanshi_news_item)         → 首頁 + news.html 共用
  *   - 關於頁主內容 (kuoyuanshi_president_message) → about.html 公司簡介 / 核心價值 / 董事長 / 相關資訊
  *   - 關於頁歷程   (kuoyuanshi_about_history)     → about.html 發展歷程
- *   - 聯絡我們     (kuoyuanshi_contact_page)      → contact.html 表單 / 辦公室資訊 / notice
+ *   - 聯絡我們     (kuoyuanshi_contact_page)      → contact.html 表單 / 辦公室資訊
  */
 (function () {
   /* 安全逾時：5 秒後強制移除遮罩，避免 API 失敗時頁面永遠空白 */
@@ -614,8 +614,7 @@
       tw_hours_value: true,
       vn_address_value: true,
       vn_hours_value: true,
-      response_note: true,
-      notice_text: true
+      response_note: true
     };
 
     Object.keys(page).forEach(function (key) {
