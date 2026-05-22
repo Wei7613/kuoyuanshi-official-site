@@ -11,6 +11,7 @@
  *   - 最新消息    (kuoyuanshi_news_item)         → 首頁 + news.html 共用
  *   - 關於頁主內容 (kuoyuanshi_president_message) → about.html 公司簡介 / 核心價值 / 董事長 / 相關資訊
  *   - 關於頁歷程   (kuoyuanshi_about_history)     → about.html 發展歷程
+ *   - 聯絡我們     (kuoyuanshi_contact_page)      → contact.html 表單 / 辦公室資訊 / notice
  */
 (function () {
   /* 安全逾時：5 秒後強制移除遮罩，避免 API 失敗時頁面永遠空白 */
@@ -41,6 +42,7 @@
       '  businessPage: metaobjects(type: "kuoyuanshi_business_page", first: 1) {',
       '    edges { node { fields { key value } } }',
       '  }',
+      '  contactPage: metaobject(handle: {type: "kuoyuanshi_contact_page", handle: "contact"}) { fields { key value } }',
       '}'
     ].join('\n')
   });
@@ -424,6 +426,7 @@
 
   // ── 首頁通用設定（feat-sect / about-sect / caution-bar / footer）──
   function renderHomeConfig(data) {
+    if (!document.getElementById('mv')) return;
     var edges = (data.homeConfig && data.homeConfig.edges) || [];
     if (!edges.length) return;
     var cfg = fieldsToObj(edges[0].node);
@@ -601,6 +604,42 @@
     section.style.opacity = '1';
   }
 
+  // ── 聯絡我們頁（contact.html）──────────────────────────────
+  function renderContactPage(data) {
+    if (!document.getElementById('contact-page') || !data.contactPage) return;
+
+    var page = fieldsToObj(data.contactPage);
+    var multilineKeys = {
+      tw_address_value: true,
+      tw_hours_value: true,
+      vn_address_value: true,
+      vn_hours_value: true,
+      response_note: true,
+      notice_text: true
+    };
+
+    Object.keys(page).forEach(function (key) {
+      var value = page[key];
+      if (value === undefined || value === null || value === '') return;
+
+      document.querySelectorAll('[data-contact="' + key + '"]').forEach(function (el) {
+        if (multilineKeys[key]) {
+          el.innerHTML = esc(value).replace(/\n/g, '<br>');
+        } else {
+          el.textContent = value;
+        }
+      });
+
+      document.querySelectorAll('[data-contact-placeholder="' + key + '"]').forEach(function (el) {
+        el.placeholder = value;
+      });
+
+      document.querySelectorAll('[data-contact-option="' + key + '"]').forEach(function (el) {
+        el.textContent = value;
+      });
+    });
+  }
+
   // ── 初始化 ─────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function () {
     fetchData()
@@ -616,6 +655,7 @@
         renderFooter(d);
         renderAboutCards(d);
         renderBusinessPage(d);
+        renderContactPage(d);
         var ab = document.querySelector('.about-sect');
         if (ab) ab.style.opacity = '1';
         var fs = document.querySelector('.feat-sect');

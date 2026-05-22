@@ -46,72 +46,72 @@
   </nav>
 </header>
 
-<section class="pg-sect" style="margin-top: var(--hdr-h); padding-top: 42px;">
+<section class="pg-sect" id="contact-page" style="margin-top: var(--hdr-h); padding-top: 42px;">
   <div class="inner">
     <div class="contact-grid">
 
       <!-- 左側：聯絡表單 -->
       <div class="contact-form-col">
-        <p class="sect-label">SEND A MESSAGE</p>
-        <h2 style="font-size:28px; font-weight:300; color:var(--ink); margin-bottom:32px;">傳送訊息</h2>
+        <p class="sect-label" data-contact="form_label_en">SEND A MESSAGE</p>
+        <h2 data-contact="form_heading" style="font-size:28px; font-weight:300; color:var(--ink); margin-bottom:32px;">傳送訊息</h2>
         <form>
           <div class="form-group">
-            <label class="form-label">姓名 <span style="color:var(--red,#c00);">*</span></label>
-            <input type="text" class="form-input" placeholder="您的姓名" required>
+            <label class="form-label"><span data-contact="name_label">姓名</span> <span style="color:var(--red,#c00);">*</span></label>
+            <input type="text" class="form-input" data-contact-placeholder="name_placeholder" placeholder="您的姓名" required>
           </div>
           <div class="form-group">
-            <label class="form-label">電子郵件 <span style="color:var(--red,#c00);">*</span></label>
-            <input type="email" class="form-input" placeholder="email@example.com" required>
+            <label class="form-label"><span data-contact="email_label">電子郵件</span> <span style="color:var(--red,#c00);">*</span></label>
+            <input type="email" class="form-input" data-contact-placeholder="email_placeholder" placeholder="email@example.com" required>
           </div>
           <div class="form-group">
-            <label class="form-label">公司名稱</label>
-            <input type="text" class="form-input" placeholder="公司或機構名稱（選填）">
+            <label class="form-label" data-contact="company_label">公司名稱</label>
+            <input type="text" class="form-input" data-contact-placeholder="company_placeholder" placeholder="公司或機構名稱（選填）">
           </div>
           <div class="form-group">
-            <label class="form-label">聯繫主題</label>
+            <label class="form-label" data-contact="subject_label">聯繫主題</label>
             <select class="form-select">
-              <option value="">請選擇主題</option>
-              <option value="machine">工具機代理詢問</option>
-              <option value="brand">品牌代理合作</option>
-              <option value="ecom">電商營運合作</option>
-              <option value="vietnam">越南市場拓展</option>
-              <option value="media">媒體採訪邀約</option>
-              <option value="other">其他</option>
+              <option value="" data-contact-option="subject_placeholder">請選擇主題</option>
+              <option value="machine" data-contact-option="subject_option_machine">工具機代理詢問</option>
+              <option value="brand" data-contact-option="subject_option_brand">品牌代理合作</option>
+              <option value="ecom" data-contact-option="subject_option_ecom">電商營運合作</option>
+              <option value="vietnam" data-contact-option="subject_option_vietnam">越南市場拓展</option>
+              <option value="media" data-contact-option="subject_option_media">媒體採訪邀約</option>
+              <option value="other" data-contact-option="subject_option_other">其他</option>
             </select>
           </div>
           <div class="form-group">
-            <label class="form-label">訊息內容 <span style="color:var(--red,#c00);">*</span></label>
-            <textarea class="form-textarea" placeholder="請描述您的需求或問題..." required></textarea>
+            <label class="form-label"><span data-contact="message_label">訊息內容</span> <span style="color:var(--red,#c00);">*</span></label>
+            <textarea class="form-textarea" data-contact-placeholder="message_placeholder" placeholder="請描述您的需求或問題..." required></textarea>
           </div>
-          <button type="submit" class="form-btn">傳送訊息 <span class="ci"></span></button>
+          <button type="submit" class="form-btn"><span data-contact="submit_text">傳送訊息</span> <span class="ci"></span></button>
         </form>
       </div>
 
       <!-- 右側：辦公室資訊 -->
       <div class="contact-office-col">
-        <p class="sect-label">OUR OFFICES</p>
-        <h2 style="font-size:28px; font-weight:300; color:var(--ink); margin-bottom:24px;">辦公室位置</h2>
+        <p class="sect-label" data-contact="offices_label_en">OUR OFFICES</p>
+        <h2 data-contact="offices_heading" style="font-size:28px; font-weight:300; color:var(--ink); margin-bottom:24px;">辦公室位置</h2>
 
         <div class="office-card">
-          <p class="office-name">🇹🇼 台灣總部</p>
+          <p class="office-name" data-contact="tw_office_name">🇹🇼 台灣總部</p>
           <div class="office-info">
-            <p><strong>地址</strong><br>台灣台北市信義區</p>
-            <p><strong>電話</strong><br>+886-2-XXXX-XXXX</p>
-            <p><strong>電子郵件</strong><br>info@kuoyuanshi.com</p>
-            <p><strong>服務時間</strong><br>週一至週五 09:00–18:00 (GMT+8)</p>
+            <p><strong data-contact="tw_address_label">地址</strong><br><span data-contact="tw_address_value">台灣台北市信義區</span></p>
+            <p><strong data-contact="tw_phone_label">電話</strong><br><span data-contact="tw_phone_value">+886-2-XXXX-XXXX</span></p>
+            <p><strong data-contact="tw_email_label">電子郵件</strong><br><span data-contact="tw_email_value">info@kuoyuanshi.com</span></p>
+            <p><strong data-contact="tw_hours_label">服務時間</strong><br><span data-contact="tw_hours_value">週一至週五 09:00–18:00 (GMT+8)</span></p>
           </div>
         </div>
 
         <div class="office-card">
-          <p class="office-name">🇻🇳 越南辦事處</p>
+          <p class="office-name" data-contact="vn_office_name">🇻🇳 越南辦事處</p>
           <div class="office-info">
-            <p><strong>地址</strong><br>越南河內市</p>
-            <p><strong>電子郵件</strong><br>vietnam@kuoyuanshi.com</p>
-            <p><strong>服務時間</strong><br>週一至週五 08:00–17:00 (GMT+7)</p>
+            <p><strong data-contact="vn_address_label">地址</strong><br><span data-contact="vn_address_value">越南河內市</span></p>
+            <p><strong data-contact="vn_email_label">電子郵件</strong><br><span data-contact="vn_email_value">vietnam@kuoyuanshi.com</span></p>
+            <p><strong data-contact="vn_hours_label">服務時間</strong><br><span data-contact="vn_hours_value">週一至週五 08:00–17:00 (GMT+7)</span></p>
           </div>
         </div>
 
-        <p style="font-size:12px; color:var(--gray-lt); margin-top:16px; line-height:1.6;">
+        <p data-contact="response_note" style="font-size:12px; color:var(--gray-lt); margin-top:16px; line-height:1.6;">
           我們通常於 2 個工作日內回覆。<br>緊急事項請直接電話聯繫台灣總部。
         </p>
       </div>
@@ -122,8 +122,8 @@
 
 <div class="caution-bar">
   <div class="inner caution-inner">
-    <span class="caution-label">NOTICE</span>
-    <p class="caution-text">本聯絡表單僅供業務諮詢與合作洽談使用。個人資料將依據《個人資料保護法》妥善保管，不作其他用途。如需查閱隱私權政策，請來信索取。</p>
+    <span class="caution-label" data-contact="notice_label">NOTICE</span>
+    <p class="caution-text" data-contact="notice_text">本聯絡表單僅供業務諮詢與合作洽談使用。個人資料將依據《個人資料保護法》妥善保管，不作其他用途。如需查閱隱私權政策，請來信索取。</p>
   </div>
 </div>
 
@@ -179,7 +179,7 @@
   </div>
 </footer>
 <script src="main.js"></script>
-<script src="metaobjects.js?v=20260521f"></script>
+<script src="metaobjects.js?v=20260522c"></script>
 
 </body>
 </html>
