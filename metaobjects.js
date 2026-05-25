@@ -509,8 +509,16 @@
     if (el && f.youtube_url) el.href = f.youtube_url;
 
     // 品牌文字
-    el = document.querySelector('[data-ftr="brand-company-name"]');
-    if (el && f.brand_company_name) el.textContent = f.brand_company_name;
+    var brandCompany = (f.brand_company_name || '').trim();
+    var brandCompanyEl = document.querySelector('[data-ftr="brand-company-name"]');
+    var brandSepEl = document.querySelector('.ftr-brand-sep');
+    if (brandCompanyEl) {
+      brandCompanyEl.textContent = brandCompany;
+      brandCompanyEl.style.display = brandCompany ? '' : 'none';
+    }
+    if (brandSepEl) {
+      brandSepEl.style.display = brandCompany ? '' : 'none';
+    }
 
     // 版權
     el = document.querySelector('[data-ftr="copyright"]');
