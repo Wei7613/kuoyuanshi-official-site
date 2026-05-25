@@ -374,9 +374,16 @@ button { font-family: inherit; }
   align-items: start;
 }
 .contact-grid.offices-only {
-  grid-template-columns: minmax(0, 720px);
-  justify-content: center;
+  grid-template-columns: minmax(0, 1fr);
+  justify-content: start;
   gap: 0;
+}
+.contact-office-col { width: 100%; }
+.office-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
 }
 .form-group { margin-bottom: 20px; }
 .form-label {
@@ -401,7 +408,7 @@ button { font-family: inherit; }
   font-family: inherit; transition: background .2s;
 }
 .form-btn:hover { background: var(--red); }
-.office-card { background: var(--bg-lt); padding: 28px; margin-bottom: 12px; }
+.office-card { background: var(--bg-lt); padding: 28px; margin-bottom: 0; height: 100%; }
 .office-name {
   font-size: 14px; font-weight: 600; color: var(--ink);
   margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border);
@@ -695,6 +702,7 @@ button { font-family: inherit; }
   .biz-item, .biz-item.rev { grid-template-columns: 1fr; }
   .biz-thumb { aspect-ratio: 16/9; }
   .contact-grid { grid-template-columns: 1fr; }
+  .office-cards { grid-template-columns: 1fr; }
   .news-full-item { grid-template-columns: 80px auto 1fr; }
   .news-full-item .ni-arrow { display: none; }
   .sp-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
