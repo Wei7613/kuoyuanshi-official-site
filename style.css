@@ -538,10 +538,16 @@ button { font-family: inherit; }
 .ftr-brand {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 14px;
   min-width: 0;
 }
-.ftr-logo { font-size: 18px; font-weight: 700; font-style: italic; color: var(--red); flex-shrink: 0; }
+.ftr-logo { font-size: 20px; font-weight: 700; font-style: italic; color: var(--red); flex-shrink: 0; }
+.ftr-brand-sep {
+  font-size: 14px;
+  color: rgba(255,255,255,.4);
+  line-height: 1;
+}
 .ftr-brand-company {
   font-size: 13px;
   color: rgba(255,255,255,.56);
@@ -714,7 +720,7 @@ button { font-family: inherit; }
   .more-grid { grid-template-columns: repeat(2, 1fr); }
   .ftr-nav { grid-template-columns: repeat(2, 1fr); }
   .ftr-bottom { display: flex; flex-direction: column; gap: 16px; text-align: center; }
-  .ftr-brand { flex-direction: column; gap: 6px; }
+  .ftr-brand { justify-content: center; gap: 10px; }
   .ftr-copy { justify-self: auto; text-align: center; }
   .pg-banner { height: 220px; }
   .pg-2col, .pg-2col.rev { grid-template-columns: 1fr; gap: 40px; }
