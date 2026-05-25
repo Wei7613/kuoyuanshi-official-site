@@ -7,7 +7,7 @@
  * 管理後台：Shopify Admin → Content → Metaobjects
  *   - 首頁設定    (kuoyuanshi_home_cfg)          → Hero、標頭、公告、董事長訊息
  *   - 首頁板塊    (kuoyuanshi_home_blocks)       → 核心事業 × 3、關於我們卡片 × 4
- *   - Footer     (kuoyuanshi_footer)            → 4 欄導覽、聯絡資訊、社群、版權
+ *   - Footer     (kuoyuanshi_footer)            → 4 欄導覽、聯絡資訊、社群、品牌文字、版權
  *   - 最新消息    (kuoyuanshi_news_item)         → 首頁 + news.html 共用
  *   - 關於頁主內容 (kuoyuanshi_president_message) → about.html 公司簡介 / 核心價值 / 董事長 / 相關資訊
  *   - 關於頁歷程   (kuoyuanshi_about_history)     → about.html 發展歷程
@@ -507,6 +507,10 @@
     if (el && f.facebook_url) el.href = f.facebook_url;
     el = document.querySelector('[data-ftr="youtube"]');
     if (el && f.youtube_url) el.href = f.youtube_url;
+
+    // 品牌文字
+    el = document.querySelector('[data-ftr="brand-company-name"]');
+    if (el && f.brand_company_name) el.textContent = f.brand_company_name;
 
     // 版權
     el = document.querySelector('[data-ftr="copyright"]');
