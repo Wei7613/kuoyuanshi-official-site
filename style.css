@@ -607,7 +607,7 @@ button { font-family: inherit; }
 }
 .bd-map-location-icon {
   position: absolute;
-  width: clamp(46px, 5.4vw, 78px);
+  width: clamp(15px, 1.8vw, 26px);
   height: auto;
   pointer-events: none;
   z-index: 2;
