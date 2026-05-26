@@ -52,22 +52,13 @@
       <div class="bd-market-copy">
         <p class="sect-label">BRAND AGENCY</p>
         <h1 class="bd-market-title">台灣與越南的品牌代理地圖</h1>
-        <p class="bd-market-note">點選箭頭指向的市場，切換品牌內容選單。</p>
+        <p class="bd-market-note">點選台灣或越南標記，切換品牌內容選單。</p>
       </div>
 
       <div class="bd-route-layout">
         <div class="bd-route-shell" data-active-market="taiwan" role="tablist" aria-label="品牌代理市場切換">
           <svg class="bd-route-map" viewBox="0 0 920 560" aria-hidden="true">
-            <defs>
-              <marker id="bd-arrow-head-tw" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
-                <path d="M0,0 L12,6 L0,12" fill="none" stroke="#1142ff" stroke-width="2"></path>
-              </marker>
-              <marker id="bd-arrow-head-vn" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
-                <path d="M0,0 L12,6 L0,12" fill="none" stroke="#1142ff" stroke-width="2"></path>
-              </marker>
-            </defs>
-
-            <rect x="0" y="0" width="920" height="560" fill="#a9d3f6"></rect>
+            <rect x="0" y="0" width="920" height="560" fill="#dfe8ea"></rect>
 
             <g class="bd-map-land">
               <path d="M0 0 H560 L560 182 L498 208 L474 238 L420 262 L390 314 L328 336 L286 388 L236 430 L204 504 L0 560 Z"></path>
@@ -88,19 +79,10 @@
             </g>
 
             <g class="bd-map-labels">
-              <text x="546" y="40">浙江</text>
-              <text x="360" y="78">江西</text>
-              <text x="320" y="160">廣州</text>
-              <text x="110" y="214">河內</text>
-              <text x="688" y="180">台灣</text>
-              <text x="756" y="470">馬尼拉</text>
-              <text x="276" y="290">南海</text>
+              <text x="332" y="178">華南沿岸</text>
+              <text x="106" y="220">越南中部</text>
+              <text x="674" y="180">台灣北部</text>
             </g>
-
-            <path class="bd-route-path bd-route-path-tw" d="M240 392 C 308 264, 454 158, 708 136" marker-end="url(#bd-arrow-head-tw)"></path>
-            <path class="bd-route-path bd-route-path-vn" d="M708 136 C 454 158, 308 264, 240 392" marker-end="url(#bd-arrow-head-vn)"></path>
-
-            <text class="bd-route-time" x="420" y="230">直飛約 2.5 小時</text>
           </svg>
 
           <button
@@ -114,8 +96,8 @@
           >
             <span class="bd-marker-pin"></span>
             <span class="bd-marker-copy">
-              <strong>桃園機場</strong>
-              <small>台灣</small>
+              <small>Taiwan</small>
+              <strong>台灣</strong>
             </span>
           </button>
 
@@ -130,8 +112,8 @@
           >
             <span class="bd-marker-pin"></span>
             <span class="bd-marker-copy">
-              <strong>峴港 / 會安</strong>
-              <small>越南</small>
+              <small>Vietnam</small>
+              <strong>越南</strong>
             </span>
           </button>
         </div>
@@ -144,7 +126,7 @@
             role="tabpanel"
             aria-labelledby="bd-market-tab-taiwan"
           >
-            <p class="bd-menu-label">TAIWAN BRAND MENU</p>
+            <p class="bd-menu-label">TAIWAN</p>
             <h2 class="bd-menu-title">台灣品牌內容</h2>
             <ul class="bd-menu-list">
               <li>百貨選品上架</li>
@@ -161,7 +143,7 @@
             aria-labelledby="bd-market-tab-vietnam"
             hidden
           >
-            <p class="bd-menu-label">VIETNAM BRAND MENU</p>
+            <p class="bd-menu-label">VIETNAM</p>
             <h2 class="bd-menu-title">越南品牌內容</h2>
             <ul class="bd-menu-list">
               <li>在地代理合作</li>

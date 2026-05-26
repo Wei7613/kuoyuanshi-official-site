@@ -594,9 +594,9 @@ button { font-family: inherit; }
   position: relative;
   min-height: 560px;
   border: 1px solid rgba(26,26,26,.08);
-  background: rgba(255,255,255,.82);
+  background: linear-gradient(180deg, #eef1ef 0%, #e7ecea 100%);
   overflow: hidden;
-  box-shadow: 0 26px 70px rgba(26,26,26,.08);
+  box-shadow: 0 18px 46px rgba(26,26,26,.06);
 }
 .bd-route-map {
   display: block;
@@ -604,40 +604,20 @@ button { font-family: inherit; }
   height: auto;
 }
 .bd-map-land path {
-  fill: #eef0e7;
-  stroke: rgba(0,0,0,.12);
+  fill: #f3f0e8;
+  stroke: rgba(26,26,26,.08);
   stroke-width: 1.2;
 }
 .bd-map-roads path {
   fill: none;
-  stroke: rgba(241,196,72,.92);
-  stroke-width: 2;
+  stroke: rgba(158,151,137,.22);
+  stroke-width: 1.8;
   stroke-linecap: round;
-  opacity: .9;
+  opacity: .85;
 }
 .bd-map-labels text {
-  font-size: 24px;
-  fill: rgba(32,32,32,.72);
-}
-.bd-route-path {
-  fill: none;
-  stroke: #1142ff;
-  stroke-width: 4.5;
-  opacity: 0;
-  transition: opacity .22s ease;
-}
-.bd-route-shell[data-active-market="taiwan"] .bd-route-path-tw,
-.bd-route-shell[data-active-market="vietnam"] .bd-route-path-vn {
-  opacity: 1;
-}
-.bd-route-time {
-  font-size: 26px;
-  font-weight: 700;
-  fill: #ffd800;
-  paint-order: stroke;
-  stroke: rgba(0,0,0,.92);
-  stroke-width: 7px;
-  letter-spacing: .5px;
+  font-size: 20px;
+  fill: rgba(26,26,26,.4);
 }
 .bd-map-marker {
   position: absolute;
@@ -647,104 +627,94 @@ button { font-family: inherit; }
   appearance: none;
   border: none;
   background: transparent;
-  color: #123cff;
+  color: var(--ink);
   cursor: pointer;
   text-align: left;
   transition: transform .2s ease, opacity .2s ease;
 }
 .bd-map-marker:hover,
 .bd-map-marker.is-active {
-  transform: scale(1.02);
+  transform: translateY(-2px);
 }
 .bd-map-marker-taiwan {
-  top: 102px;
-  right: 66px;
+  top: 116px;
+  right: 84px;
 }
 .bd-map-marker-vietnam {
-  left: 132px;
-  bottom: 84px;
+  left: 148px;
+  bottom: 88px;
 }
 .bd-marker-pin {
-  position: relative;
-  width: 18px;
-  height: 18px;
-  background: #123cff;
-  box-shadow: 22px 0 0 #123cff;
-}
-.bd-map-marker-taiwan .bd-marker-pin {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #ffad1f;
-  box-shadow:
-    26px -10px 0 #ffad1f,
-    36px 8px 0 #ffad1f;
+  background: rgba(26,26,26,.18);
+  box-shadow: 0 0 0 0 rgba(204,26,0,.12);
+  transition: background .2s ease, box-shadow .2s ease;
 }
-.bd-map-marker-taiwan .bd-marker-pin::after {
-  content: "";
-  position: absolute;
-  inset: 3px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow:
-    26px -10px 0 -3px #fff,
-    36px 8px 0 -3px #fff;
+.bd-map-marker.is-active .bd-marker-pin {
+  background: var(--red);
+  box-shadow: 0 0 0 8px rgba(204,26,0,.14);
 }
 .bd-marker-copy strong {
   display: block;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 17px;
+  font-weight: 500;
   line-height: 1.05;
-  text-shadow:
-    -2px -2px 0 #fff,
-    2px -2px 0 #fff,
-    -2px 2px 0 #fff,
-    2px 2px 0 #fff;
 }
 .bd-marker-copy small {
   display: block;
-  margin-top: 2px;
-  font-size: 14px;
-  color: rgba(20,60,255,.92);
-  text-shadow:
-    -1px -1px 0 #fff,
-    1px -1px 0 #fff,
-    -1px 1px 0 #fff,
-    1px 1px 0 #fff;
+  margin-bottom: 4px;
+  font-size: 11px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: rgba(26,26,26,.42);
+}
+.bd-marker-copy {
+  padding: 10px 14px 12px;
+  background: rgba(255,255,255,.92);
+  border: 1px solid rgba(26,26,26,.08);
+  box-shadow: 0 12px 28px rgba(26,26,26,.06);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.bd-map-marker.is-active .bd-marker-copy {
+  border-color: rgba(204,26,0,.18);
+  box-shadow: 0 16px 30px rgba(26,26,26,.08);
 }
 .bd-market-menu {
   min-height: 560px;
-  background: #171412;
-  color: var(--white);
+  background: linear-gradient(180deg, #faf7f2 0%, #f4eee7 100%);
+  color: var(--ink);
   padding: 30px 28px;
-  box-shadow: 0 24px 60px rgba(23,20,18,.18);
+  border: 1px solid rgba(26,26,26,.08);
+  box-shadow: 0 18px 46px rgba(26,26,26,.06);
 }
 .bd-menu-panel { display: none; }
 .bd-menu-panel.is-active { display: block; }
 .bd-menu-label {
   font-size: 11px;
   letter-spacing: 2px;
-  color: rgba(255,255,255,.54);
+  color: var(--red);
 }
 .bd-menu-title {
   margin-top: 14px;
   font-size: 34px;
   font-weight: 300;
   line-height: 1.2;
-  color: var(--white);
+  color: var(--ink);
 }
 .bd-menu-list {
   margin-top: 28px;
   display: grid;
-  gap: 18px;
+  gap: 14px;
 }
 .bd-menu-list li {
   position: relative;
   padding: 18px 18px 18px 48px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(26,26,26,.08);
+  background: rgba(255,255,255,.8);
   font-size: 18px;
-  color: rgba(255,255,255,.92);
+  color: var(--ink);
 }
 .bd-menu-list li::before {
   content: "";
@@ -933,17 +903,17 @@ button { font-family: inherit; }
   .bd-route-layout { grid-template-columns: 1fr; }
   .bd-route-shell,
   .bd-market-menu { min-height: auto; }
-  .bd-map-labels text { font-size: 20px; }
-  .bd-route-time { font-size: 22px; stroke-width: 6px; }
+  .bd-map-labels text { font-size: 17px; }
   .bd-map-marker-taiwan {
-    top: 86px;
-    right: 32px;
+    top: 96px;
+    right: 28px;
   }
   .bd-map-marker-vietnam {
-    left: 74px;
+    left: 72px;
     bottom: 56px;
   }
-  .bd-marker-copy strong { font-size: 16px; }
+  .bd-marker-copy { padding: 9px 12px 10px; }
+  .bd-marker-copy strong { font-size: 15px; }
   .bd-market-menu { padding: 24px 20px; }
   .bd-menu-title { font-size: 28px; }
   .bd-menu-list li {
