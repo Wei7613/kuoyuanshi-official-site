@@ -5,11 +5,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
   <title>品牌代理介紹 | 郭原氏工業股份有限公司</title>
-  <meta name="description" content="郭原氏工業品牌代理介紹頁 Demo。以台灣與越南雙市場地圖呈現品牌代理線。">
+  <meta name="description" content="郭原氏工業品牌代理介紹頁 Demo。以台灣與越南區域地圖、箭頭航線與品牌內容選單呈現雙市場代理。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=18">
+  <link rel="stylesheet" href="style.css?v=19">
 </head>
 <body>
 
@@ -51,125 +51,125 @@
     <div class="inner bd-market-inner">
       <div class="bd-market-copy">
         <p class="sect-label">BRAND AGENCY</p>
-        <h1 class="bd-market-title">台灣與越南的品牌代理線</h1>
-        <p class="bd-market-note">滑過或點選地圖，切換目前顯示的市場。</p>
+        <h1 class="bd-market-title">台灣與越南的品牌代理地圖</h1>
+        <p class="bd-market-note">點選箭頭指向的市場，切換品牌內容選單。</p>
       </div>
 
-      <div class="bd-market-stage" role="tablist" aria-label="品牌代理市場切換">
-        <button
-          class="bd-map-card bd-map-card-tw is-active"
-          type="button"
-          data-market-trigger="taiwan"
-          role="tab"
-          id="bd-market-tab-taiwan"
-          aria-controls="bd-market-panel-taiwan"
-          aria-selected="true"
-        >
-          <span class="bd-map-name">Taiwan</span>
-          <strong class="bd-map-title">台灣</strong>
-          <span class="bd-map-shell">
-            <svg class="bd-dotmap bd-dotmap-tw" viewBox="0 0 180 220" aria-hidden="true">
-              <circle cx="92" cy="20" r="5"></circle>
-              <circle cx="84" cy="34" r="5"></circle>
-              <circle cx="98" cy="38" r="5"></circle>
-              <circle cx="76" cy="50" r="5"></circle>
-              <circle cx="90" cy="54" r="5"></circle>
-              <circle cx="104" cy="58" r="5"></circle>
-              <circle cx="72" cy="70" r="5"></circle>
-              <circle cx="86" cy="74" r="5"></circle>
-              <circle cx="100" cy="78" r="5"></circle>
-              <circle cx="112" cy="88" r="5"></circle>
-              <circle cx="80" cy="92" r="5"></circle>
-              <circle cx="94" cy="100" r="5"></circle>
-              <circle cx="108" cy="112" r="5"></circle>
-              <circle cx="88" cy="116" r="5"></circle>
-              <circle cx="100" cy="130" r="5"></circle>
-              <circle cx="82" cy="136" r="5"></circle>
-              <circle cx="94" cy="150" r="5"></circle>
-              <circle cx="76" cy="156" r="5"></circle>
-              <circle cx="86" cy="172" r="5"></circle>
-              <circle cx="96" cy="188" r="5"></circle>
-            </svg>
-            <span class="bd-map-focus" aria-hidden="true">
-              <span class="bd-map-pointer"></span>
-              <span class="bd-map-target"></span>
+      <div class="bd-route-layout">
+        <div class="bd-route-shell" data-active-market="taiwan" role="tablist" aria-label="品牌代理市場切換">
+          <svg class="bd-route-map" viewBox="0 0 920 560" aria-hidden="true">
+            <defs>
+              <marker id="bd-arrow-head-tw" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+                <path d="M0,0 L12,6 L0,12" fill="none" stroke="#1142ff" stroke-width="2"></path>
+              </marker>
+              <marker id="bd-arrow-head-vn" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+                <path d="M0,0 L12,6 L0,12" fill="none" stroke="#1142ff" stroke-width="2"></path>
+              </marker>
+            </defs>
+
+            <rect x="0" y="0" width="920" height="560" fill="#a9d3f6"></rect>
+
+            <g class="bd-map-land">
+              <path d="M0 0 H560 L560 182 L498 208 L474 238 L420 262 L390 314 L328 336 L286 388 L236 430 L204 504 L0 560 Z"></path>
+              <path d="M206 278 L230 296 L222 328 L246 356 L238 390 L258 420 L246 466 L212 520 L176 548 L120 560 L84 560 L108 510 L136 484 L150 432 L166 406 L154 364 L170 326 Z"></path>
+              <path d="M702 110 L720 118 L732 138 L726 162 L712 180 L694 170 L688 144 Z"></path>
+              <path d="M792 394 L826 402 L844 430 L832 456 L792 466 L770 438 Z"></path>
+            </g>
+
+            <g class="bd-map-roads">
+              <path d="M34 64 C118 86, 184 112, 258 142"></path>
+              <path d="M70 118 C154 144, 214 166, 296 206"></path>
+              <path d="M52 214 C134 234, 214 264, 308 304"></path>
+              <path d="M26 302 C116 324, 180 352, 264 392"></path>
+              <path d="M82 20 C128 104, 146 182, 154 258"></path>
+              <path d="M188 34 C224 130, 238 206, 246 278"></path>
+              <path d="M482 88 C456 126, 434 164, 406 204"></path>
+              <path d="M194 316 C218 352, 220 422, 206 480"></path>
+            </g>
+
+            <g class="bd-map-labels">
+              <text x="546" y="40">浙江</text>
+              <text x="360" y="78">江西</text>
+              <text x="320" y="160">廣州</text>
+              <text x="110" y="214">河內</text>
+              <text x="688" y="180">台灣</text>
+              <text x="756" y="470">馬尼拉</text>
+              <text x="276" y="290">南海</text>
+            </g>
+
+            <path class="bd-route-path bd-route-path-tw" d="M240 392 C 308 264, 454 158, 708 136" marker-end="url(#bd-arrow-head-tw)"></path>
+            <path class="bd-route-path bd-route-path-vn" d="M708 136 C 454 158, 308 264, 240 392" marker-end="url(#bd-arrow-head-vn)"></path>
+
+            <text class="bd-route-time" x="420" y="230">直飛約 2.5 小時</text>
+          </svg>
+
+          <button
+            class="bd-map-marker bd-map-marker-taiwan is-active"
+            type="button"
+            data-market-trigger="taiwan"
+            role="tab"
+            id="bd-market-tab-taiwan"
+            aria-controls="bd-market-panel-taiwan"
+            aria-selected="true"
+          >
+            <span class="bd-marker-pin"></span>
+            <span class="bd-marker-copy">
+              <strong>桃園機場</strong>
+              <small>台灣</small>
             </span>
-          </span>
-        </button>
+          </button>
 
-        <button
-          class="bd-map-card bd-map-card-vn"
-          type="button"
-          data-market-trigger="vietnam"
-          role="tab"
-          id="bd-market-tab-vietnam"
-          aria-controls="bd-market-panel-vietnam"
-          aria-selected="false"
-        >
-          <span class="bd-map-name">Vietnam</span>
-          <strong class="bd-map-title">越南</strong>
-          <span class="bd-map-shell">
-            <svg class="bd-dotmap bd-dotmap-vn" viewBox="0 0 180 220" aria-hidden="true">
-              <circle cx="74" cy="18" r="5"></circle>
-              <circle cx="88" cy="24" r="5"></circle>
-              <circle cx="100" cy="34" r="5"></circle>
-              <circle cx="94" cy="48" r="5"></circle>
-              <circle cx="82" cy="58" r="5"></circle>
-              <circle cx="72" cy="68" r="5"></circle>
-              <circle cx="78" cy="82" r="5"></circle>
-              <circle cx="92" cy="92" r="5"></circle>
-              <circle cx="102" cy="104" r="5"></circle>
-              <circle cx="94" cy="118" r="5"></circle>
-              <circle cx="82" cy="126" r="5"></circle>
-              <circle cx="72" cy="138" r="5"></circle>
-              <circle cx="78" cy="150" r="5"></circle>
-              <circle cx="90" cy="160" r="5"></circle>
-              <circle cx="100" cy="172" r="5"></circle>
-              <circle cx="96" cy="186" r="5"></circle>
-              <circle cx="86" cy="194" r="5"></circle>
-              <circle cx="78" cy="206" r="5"></circle>
-              <circle cx="104" cy="148" r="5"></circle>
-              <circle cx="110" cy="122" r="5"></circle>
-            </svg>
-            <span class="bd-map-focus" aria-hidden="true">
-              <span class="bd-map-pointer"></span>
-              <span class="bd-map-target"></span>
+          <button
+            class="bd-map-marker bd-map-marker-vietnam"
+            type="button"
+            data-market-trigger="vietnam"
+            role="tab"
+            id="bd-market-tab-vietnam"
+            aria-controls="bd-market-panel-vietnam"
+            aria-selected="false"
+          >
+            <span class="bd-marker-pin"></span>
+            <span class="bd-marker-copy">
+              <strong>峴港 / 會安</strong>
+              <small>越南</small>
             </span>
-          </span>
-        </button>
-      </div>
+          </button>
+        </div>
 
-      <div class="bd-line-panels">
-        <section
-          class="bd-line-panel is-active"
-          id="bd-market-panel-taiwan"
-          data-market-panel="taiwan"
-          role="tabpanel"
-          aria-labelledby="bd-market-tab-taiwan"
-        >
-          <p class="bd-line-label">TAIWAN LINE</p>
-          <div class="bd-line-track">
-            <span class="bd-line-step">品牌導入</span>
-            <span class="bd-line-step">百貨通路</span>
-            <span class="bd-line-step">零售拓展</span>
-          </div>
-        </section>
+        <aside class="bd-market-menu">
+          <section
+            class="bd-menu-panel is-active"
+            id="bd-market-panel-taiwan"
+            data-market-panel="taiwan"
+            role="tabpanel"
+            aria-labelledby="bd-market-tab-taiwan"
+          >
+            <p class="bd-menu-label">TAIWAN BRAND MENU</p>
+            <h2 class="bd-menu-title">台灣品牌內容</h2>
+            <ul class="bd-menu-list">
+              <li>百貨選品上架</li>
+              <li>零售通路導入</li>
+              <li>品牌發表活動</li>
+            </ul>
+          </section>
 
-        <section
-          class="bd-line-panel"
-          id="bd-market-panel-vietnam"
-          data-market-panel="vietnam"
-          role="tabpanel"
-          aria-labelledby="bd-market-tab-vietnam"
-          hidden
-        >
-          <p class="bd-line-label">VIETNAM LINE</p>
-          <div class="bd-line-track">
-            <span class="bd-line-step">市場測試</span>
-            <span class="bd-line-step">在地經銷</span>
-            <span class="bd-line-step">區域放大</span>
-          </div>
-        </section>
+          <section
+            class="bd-menu-panel"
+            id="bd-market-panel-vietnam"
+            data-market-panel="vietnam"
+            role="tabpanel"
+            aria-labelledby="bd-market-tab-vietnam"
+            hidden
+          >
+            <p class="bd-menu-label">VIETNAM BRAND MENU</p>
+            <h2 class="bd-menu-title">越南品牌內容</h2>
+            <ul class="bd-menu-list">
+              <li>在地代理合作</li>
+              <li>區域通路拓展</li>
+              <li>市場測試上線</li>
+            </ul>
+          </section>
+        </aside>
       </div>
     </div>
   </section>
@@ -237,21 +237,24 @@
   (() => {
     const triggers = document.querySelectorAll("[data-market-trigger]");
     const panels = document.querySelectorAll("[data-market-panel]");
+    const routeShell = document.querySelector("[data-active-market]");
 
     if (!triggers.length || !panels.length) return;
 
     const activateMarket = (market) => {
       triggers.forEach((trigger) => {
         const isActive = trigger.dataset.marketTrigger === market;
-        trigger.classList.toggle("is-active", isActive);
         trigger.setAttribute("aria-selected", isActive ? "true" : "false");
+        trigger.classList.toggle("is-active", isActive);
       });
 
       panels.forEach((panel) => {
         const isActive = panel.dataset.marketPanel === market;
-        panel.classList.toggle("is-active", isActive);
         panel.hidden = !isActive;
+        panel.classList.toggle("is-active", isActive);
       });
+
+      if (routeShell) routeShell.dataset.activeMarket = market;
     };
 
     triggers.forEach((trigger) => {

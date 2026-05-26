@@ -567,13 +567,13 @@ button { font-family: inherit; }
     linear-gradient(180deg, #fff 0%, #f7f3ed 100%);
 }
 .bd-market { padding: 84px 0 108px; }
-.bd-market-inner { max-width: 1100px; }
+.bd-market-inner { max-width: 1240px; }
 .bd-market-copy {
-  max-width: 520px;
+  max-width: 620px;
   margin-bottom: 36px;
 }
 .bd-market-title {
-  font-size: clamp(38px, 5vw, 62px);
+  font-size: clamp(38px, 5vw, 60px);
   font-weight: 300;
   line-height: 1.12;
   letter-spacing: -1.5px;
@@ -584,158 +584,178 @@ button { font-family: inherit; }
   font-size: 14px;
   color: var(--gray);
 }
-.bd-market-stage {
+.bd-route-layout {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, .55fr);
+  gap: 28px;
+  align-items: start;
 }
-.bd-map-card {
-  width: 100%;
-  appearance: none;
-  cursor: pointer;
-  text-align: left;
-  border: 1px solid rgba(26,26,26,.08);
-  background: rgba(255,255,255,.86);
-  padding: 28px 28px 24px;
-  color: inherit;
-  font: inherit;
-  transition: border-color .2s, box-shadow .2s, transform .2s;
-}
-.bd-map-card:hover,
-.bd-map-card.is-active {
-  border-color: rgba(204,26,0,.34);
-  box-shadow: 0 18px 48px rgba(26,26,26,.08);
-  transform: translateY(-2px);
-}
-.bd-map-name {
-  display: block;
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--red);
-}
-.bd-map-title {
-  display: block;
-  margin-top: 10px;
-  font-size: 30px;
-  font-weight: 300;
-  color: var(--ink);
-}
-.bd-map-shell {
+.bd-route-shell {
   position: relative;
-  display: block;
-  min-height: 280px;
-  margin-top: 24px;
-  background: linear-gradient(180deg, #fbf8f3 0%, #f2ece5 100%);
-  border: 1px solid rgba(26,26,26,.06);
+  min-height: 560px;
+  border: 1px solid rgba(26,26,26,.08);
+  background: rgba(255,255,255,.82);
   overflow: hidden;
+  box-shadow: 0 26px 70px rgba(26,26,26,.08);
 }
-.bd-dotmap {
-  position: absolute;
-  inset: 50% auto auto 50%;
-  width: 52%;
+.bd-route-map {
+  display: block;
+  width: 100%;
   height: auto;
-  transform: translate(-50%, -50%);
 }
-.bd-dotmap circle {
-  fill: rgba(26,26,26,.22);
-  transition: fill .2s ease, transform .2s ease;
+.bd-map-land path {
+  fill: #eef0e7;
+  stroke: rgba(0,0,0,.12);
+  stroke-width: 1.2;
 }
-.bd-map-card.is-active .bd-dotmap circle { fill: rgba(26,26,26,.42); }
-.bd-map-focus {
+.bd-map-roads path {
+  fill: none;
+  stroke: rgba(241,196,72,.92);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: .9;
+}
+.bd-map-labels text {
+  font-size: 24px;
+  fill: rgba(32,32,32,.72);
+}
+.bd-route-path {
+  fill: none;
+  stroke: #1142ff;
+  stroke-width: 4.5;
+  opacity: 0;
+  transition: opacity .22s ease;
+}
+.bd-route-shell[data-active-market="taiwan"] .bd-route-path-tw,
+.bd-route-shell[data-active-market="vietnam"] .bd-route-path-vn {
+  opacity: 1;
+}
+.bd-route-time {
+  font-size: 26px;
+  font-weight: 700;
+  fill: #ffd800;
+  paint-order: stroke;
+  stroke: rgba(0,0,0,.92);
+  stroke-width: 7px;
+  letter-spacing: .5px;
+}
+.bd-map-marker {
   position: absolute;
   display: flex;
   align-items: center;
-  left: 50%;
-  top: 50%;
-  opacity: 0;
-  transition: opacity .2s ease, transform .2s ease;
+  gap: 12px;
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: #123cff;
+  cursor: pointer;
+  text-align: left;
+  transition: transform .2s ease, opacity .2s ease;
 }
-.bd-map-card.is-active .bd-map-focus { opacity: 1; }
-.bd-map-pointer {
+.bd-map-marker:hover,
+.bd-map-marker.is-active {
+  transform: scale(1.02);
+}
+.bd-map-marker-taiwan {
+  top: 102px;
+  right: 66px;
+}
+.bd-map-marker-vietnam {
+  left: 132px;
+  bottom: 84px;
+}
+.bd-marker-pin {
   position: relative;
-  width: 54px;
-  height: 1px;
-  margin-right: -2px;
-  background: var(--red);
-  transform-origin: right center;
+  width: 18px;
+  height: 18px;
+  background: #123cff;
+  box-shadow: 22px 0 0 #123cff;
 }
-.bd-map-pointer::after {
+.bd-map-marker-taiwan .bd-marker-pin {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffad1f;
+  box-shadow:
+    26px -10px 0 #ffad1f,
+    36px 8px 0 #ffad1f;
+}
+.bd-map-marker-taiwan .bd-marker-pin::after {
   content: "";
   position: absolute;
-  right: 0;
-  top: 50%;
-  width: 9px;
-  height: 9px;
-  border-top: 2px solid var(--red);
-  border-right: 2px solid var(--red);
-  transform: translate(1px, -50%) rotate(45deg);
+  inset: 3px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    26px -10px 0 -3px #fff,
+    36px 8px 0 -3px #fff;
 }
-.bd-map-target {
+.bd-marker-copy strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.05;
+  text-shadow:
+    -2px -2px 0 #fff,
+    2px -2px 0 #fff,
+    -2px 2px 0 #fff,
+    2px 2px 0 #fff;
+}
+.bd-marker-copy small {
+  display: block;
+  margin-top: 2px;
+  font-size: 14px;
+  color: rgba(20,60,255,.92);
+  text-shadow:
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff;
+}
+.bd-market-menu {
+  min-height: 560px;
+  background: #171412;
+  color: var(--white);
+  padding: 30px 28px;
+  box-shadow: 0 24px 60px rgba(23,20,18,.18);
+}
+.bd-menu-panel { display: none; }
+.bd-menu-panel.is-active { display: block; }
+.bd-menu-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,.54);
+}
+.bd-menu-title {
+  margin-top: 14px;
+  font-size: 34px;
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--white);
+}
+.bd-menu-list {
+  margin-top: 28px;
+  display: grid;
+  gap: 18px;
+}
+.bd-menu-list li {
+  position: relative;
+  padding: 18px 18px 18px 48px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.03);
+  font-size: 18px;
+  color: rgba(255,255,255,.92);
+}
+.bd-menu-list li::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 50%;
   width: 12px;
   height: 12px;
   border-radius: 50%;
   background: var(--red);
-  box-shadow: 0 0 0 6px rgba(204,26,0,.14);
-}
-.bd-map-card-tw .bd-map-focus {
-  left: 57%;
-  top: 36%;
-  transform: translate(-50%, -50%) translateY(8px);
-}
-.bd-map-card-tw .bd-map-pointer { transform: rotate(-26deg); }
-.bd-map-card-vn .bd-map-focus {
-  left: 60%;
-  top: 42%;
-  transform: translate(-50%, -50%) translateY(8px);
-}
-.bd-map-card-vn .bd-map-pointer { transform: rotate(-12deg); }
-.bd-map-card.is-active .bd-map-focus {
-  transform: translate(-50%, -50%);
-}
-.bd-line-panels { margin-top: 24px; }
-.bd-line-panel {
-  display: none;
-  align-items: center;
-  gap: 28px;
-  padding: 24px 28px;
-  background: #171412;
-  color: var(--white);
-}
-.bd-line-panel.is-active { display: flex; }
-.bd-line-label {
-  flex-shrink: 0;
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: rgba(255,255,255,.56);
-}
-.bd-line-track {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0;
-}
-.bd-line-step {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--white);
-}
-.bd-line-step::before {
-  content: "";
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--red);
-}
-.bd-line-step:not(:last-child)::after {
-  content: "";
-  width: 56px;
-  height: 1px;
-  margin-left: 16px;
-  background: rgba(255,255,255,.2);
+  transform: translateY(-50%);
 }
 
 /* ============================================================
@@ -910,28 +930,25 @@ button { font-family: inherit; }
   .contact-grid { grid-template-columns: 1fr; }
   .office-cards { grid-template-columns: 1fr; }
   .bd-market { padding: 56px 0 72px; }
-  .bd-market-stage { grid-template-columns: 1fr; }
-  .bd-map-card { padding: 22px 22px 20px; }
-  .bd-map-shell { min-height: 240px; }
-  .bd-map-title { font-size: 26px; }
-  .bd-dotmap { width: 58%; }
-  .bd-line-panel {
-    display: none;
-    align-items: start;
-    gap: 16px;
-    padding: 20px 22px;
+  .bd-route-layout { grid-template-columns: 1fr; }
+  .bd-route-shell,
+  .bd-market-menu { min-height: auto; }
+  .bd-map-labels text { font-size: 20px; }
+  .bd-route-time { font-size: 22px; stroke-width: 6px; }
+  .bd-map-marker-taiwan {
+    top: 86px;
+    right: 32px;
   }
-  .bd-line-panel.is-active { display: flex; flex-direction: column; }
-  .bd-line-track {
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
+  .bd-map-marker-vietnam {
+    left: 74px;
+    bottom: 56px;
   }
-  .bd-line-step { gap: 12px; }
-  .bd-line-step:not(:last-child)::after {
-    width: 1px;
-    height: 24px;
-    margin-left: 0;
+  .bd-marker-copy strong { font-size: 16px; }
+  .bd-market-menu { padding: 24px 20px; }
+  .bd-menu-title { font-size: 28px; }
+  .bd-menu-list li {
+    padding: 16px 16px 16px 44px;
+    font-size: 16px;
   }
   .news-full-item { grid-template-columns: 80px auto 1fr; }
   .news-full-item .ni-arrow { display: none; }
