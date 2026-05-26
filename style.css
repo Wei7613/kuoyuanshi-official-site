@@ -614,23 +614,6 @@ button { font-family: inherit; }
   border-radius: 24px;
   z-index: 1;
 }
-.bd-map-hotspot::after {
-  content: "";
-  position: absolute;
-  inset: -6px;
-  border-radius: 28px;
-  border: 1px solid rgba(255,255,255,.9);
-  box-shadow:
-    0 0 0 3px rgba(204,26,0,.14),
-    0 10px 22px rgba(11,69,153,.18);
-  opacity: 0;
-  transition: opacity .2s ease, transform .2s ease;
-}
-.bd-map-hotspot:hover::after,
-.bd-map-hotspot.is-active::after,
-.bd-map-hotspot:focus-visible::after {
-  opacity: 1;
-}
 .bd-map-hotspot:focus-visible {
   outline: none;
 }
