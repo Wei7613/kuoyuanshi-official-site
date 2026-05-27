@@ -606,24 +606,32 @@ button { font-family: inherit; }
   object-fit: cover;
 }
 .bd-map-location-marker {
+  --pin-size: clamp(15px, 1.8vw, 26px);
+  --pin-balance-x: calc(var(--pin-size) * 0.95);
+  --label-start-x: calc(var(--pin-size) * -0.28);
   position: absolute;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
+  width: 0;
+  height: 0;
   pointer-events: none;
   z-index: 2;
   opacity: .94;
   transform: translate(-50%, -50%) scale(1);
-  transform-origin: 50% 72%;
+  transform-origin: 50% 50%;
   transition: transform .28s ease, filter .28s ease, opacity .28s ease;
   filter: drop-shadow(0 10px 10px rgba(25, 45, 70, .26));
 }
 .bd-map-location-icon {
-  width: clamp(15px, 1.8vw, 26px);
+  position: absolute;
+  left: calc(-1 * var(--pin-balance-x));
+  top: 0;
+  width: var(--pin-size);
   height: auto;
-  flex: 0 0 auto;
+  transform: translate(-50%, -52%);
 }
 .bd-map-location-label {
+  position: absolute;
+  left: var(--label-start-x);
+  top: 0;
   display: inline-flex;
   align-items: center;
   min-height: clamp(14px, 1.7vw, 24px);
@@ -643,6 +651,7 @@ button { font-family: inherit; }
   letter-spacing: .04em;
   line-height: 1;
   white-space: nowrap;
+  transform: translateY(-50%);
 }
 .bd-map-location-marker-taiwan {
   left: calc(82.8% + 6mm + 0.5px);
@@ -906,6 +915,15 @@ button { font-family: inherit; }
   .bd-route-shell,
   .bd-market-menu { min-height: auto; }
   .bd-route-shell { aspect-ratio: 1.62 / 1; }
+  .bd-map-location-marker {
+    --pin-size: clamp(13px, 3.7vw, 22px);
+    --pin-balance-x: calc(var(--pin-size) * 0.9);
+    --label-start-x: calc(var(--pin-size) * -0.2);
+  }
+  .bd-map-location-marker-taiwan .bd-map-location-label {
+    left: auto;
+    right: calc(var(--pin-size) * 0.18);
+  }
   .bd-map-hotspot-taiwan {
     left: 74.5%;
     top: 12.5%;
