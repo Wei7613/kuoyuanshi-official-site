@@ -605,28 +605,55 @@ button { font-family: inherit; }
   height: 100%;
   object-fit: cover;
 }
-.bd-map-location-icon {
+.bd-map-location-marker {
   position: absolute;
-  width: clamp(15px, 1.8vw, 26px);
-  height: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   pointer-events: none;
   z-index: 2;
   opacity: .94;
-  filter: drop-shadow(0 10px 10px rgba(25, 45, 70, .26));
   transform: translate(-50%, -50%) scale(1);
   transform-origin: 50% 72%;
   transition: transform .28s ease, filter .28s ease, opacity .28s ease;
+  filter: drop-shadow(0 10px 10px rgba(25, 45, 70, .26));
 }
-.bd-map-location-icon-taiwan {
+.bd-map-location-icon {
+  width: clamp(15px, 1.8vw, 26px);
+  height: auto;
+  flex: 0 0 auto;
+}
+.bd-map-location-label {
+  display: inline-flex;
+  align-items: center;
+  min-height: clamp(14px, 1.7vw, 24px);
+  padding: 0 clamp(5px, .7vw, 9px);
+  border: 1px solid rgba(255,255,255,.72);
+  border-radius: 4px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.22) 0%, rgba(255,255,255,0) 38%),
+    linear-gradient(145deg, #ff3428 0%, #d71919 52%, #970000 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.38),
+    inset 0 -2px 3px rgba(83,0,0,.28),
+    0 5px 9px rgba(85,0,0,.22);
+  color: #fff;
+  font-size: clamp(9px, 1vw, 13px);
+  font-weight: 600;
+  letter-spacing: .04em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.bd-map-location-marker-taiwan {
   left: 82.8%;
   top: 25.5%;
 }
-.bd-map-location-icon-vietnam {
+.bd-map-location-marker-vietnam {
   left: 50.5%;
   top: 78%;
 }
-.bd-route-shell[data-active-market="taiwan"] .bd-map-location-icon-taiwan,
-.bd-route-shell[data-active-market="vietnam"] .bd-map-location-icon-vietnam {
+.bd-route-shell[data-active-market="taiwan"] .bd-map-location-marker-taiwan,
+.bd-route-shell[data-active-market="vietnam"] .bd-map-location-marker-vietnam {
   opacity: 1;
   filter: drop-shadow(0 16px 14px rgba(25, 45, 70, .3));
   transform: translate(-50%, calc(-50% - 10px)) scale(1.08);
