@@ -645,11 +645,11 @@ button { font-family: inherit; }
   white-space: nowrap;
 }
 .bd-map-location-marker-taiwan {
-  left: calc(82.8% + 1.5mm - 1.5px);
-  top: calc(25.5% - 3mm - 3px);
+  left: calc(82.8% + 1.5mm - 0.5px);
+  top: calc(25.5% - 3mm - 6px);
 }
 .bd-map-location-marker-vietnam {
-  left: calc(50.5% - 1.5mm - 2px);
+  left: calc(50.5% - 1.5mm - 5px);
   top: 78%;
 }
 .bd-route-shell[data-active-market="taiwan"] .bd-map-location-marker-taiwan,
