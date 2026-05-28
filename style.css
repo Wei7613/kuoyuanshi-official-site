@@ -564,7 +564,7 @@ button { font-family: inherit; }
 .bd-page {
   background: linear-gradient(180deg, #fff 0%, #f7f3ed 100%);
 }
-.bd-market { padding: 84px 0 108px; }
+.bd-market { padding: 46px 0 108px; }
 .bd-market-inner { max-width: 1240px; }
 .bd-market-copy {
   max-width: 620px;
@@ -1044,7 +1044,7 @@ button { font-family: inherit; }
   .biz-thumb { aspect-ratio: 16/9; }
   .contact-grid { grid-template-columns: 1fr; }
   .office-cards { grid-template-columns: 1fr; }
-  .bd-market { padding: 56px 0 72px; }
+  .bd-market { padding: 20px 0 72px; }
   .bd-market-title { font-size: 52px; }
   .bd-region-stack { gap: 20px; }
   .bd-region-title { font-size: 18px; }
