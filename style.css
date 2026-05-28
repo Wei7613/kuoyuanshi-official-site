@@ -633,12 +633,10 @@ button { font-family: inherit; }
 .bd-landscape-grid {
   margin-top: 22px;
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 12px;
+  gap: 16px;
 }
-.bd-lane {
-  display: grid;
-  gap: 12px;
+.bd-landscape-grid-logos {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .bd-lane-head {
   min-height: 36px;
@@ -655,34 +653,125 @@ button { font-family: inherit; }
 .bd-lane-head-teal { background: #5d8f86; }
 .bd-lane-head-blue { background: #5d81a7; }
 .bd-lane-head-slate { background: #5d6270; }
-.bd-cluster {
-  padding: 10px;
+.bd-logo-lane {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
   border: 1px solid rgba(26,26,26,.08);
   background: #fffdfa;
 }
-.bd-cluster-head {
-  padding: 7px 8px;
-  background: rgba(204,26,0,.08);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .06em;
-  color: var(--ink);
-}
-.bd-tag-grid {
-  margin-top: 10px;
+.bd-logo-lane-meta {
   display: grid;
   gap: 8px;
 }
-.bd-tag-grid li {
-  min-height: 50px;
-  padding: 10px 12px;
+.bd-logo-lane-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--gray);
+}
+.bd-logo-lane-sub {
+  font-size: 12px;
+  color: var(--gray);
+}
+.bd-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.bd-logo-card {
+  min-height: 96px;
+  display: grid;
+  place-items: center;
+  padding: 14px;
   border: 1px solid rgba(26,26,26,.08);
   background: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.35;
-  color: var(--ink);
 }
+.bd-logo-mark {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 142px;
+  height: 54px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45);
+}
+.bd-logo-mark::before,
+.bd-logo-mark::after {
+  content: "";
+  position: absolute;
+}
+
+.bd-logo-fnb-1 { background: linear-gradient(135deg, #f36c21 0%, #a90f0f 100%); }
+.bd-logo-fnb-1::before { width: 58%; height: 58%; left: 10%; top: 18%; border-radius: 999px 999px 999px 0; background: rgba(255,255,255,.9); transform: rotate(-28deg); }
+.bd-logo-fnb-1::after { width: 18%; height: 18%; left: 52%; top: 26%; border-radius: 50%; background: rgba(255,255,255,.9); }
+.bd-logo-fnb-2 { background: linear-gradient(120deg, #1e7f56 0%, #8acb43 100%); }
+.bd-logo-fnb-2::before { inset: 13px 20px; border-radius: 999px; background: rgba(255,255,255,.94); }
+.bd-logo-fnb-2::after { width: 18px; height: 18px; right: 22px; top: 18px; border-radius: 50%; background: #8acb43; box-shadow: -26px 0 0 #1e7f56; }
+.bd-logo-fnb-3 { background: linear-gradient(135deg, #432113 0%, #bb6b38 100%); }
+.bd-logo-fnb-3::before { width: 54%; height: 54%; left: 23%; top: 23%; border: 6px solid rgba(255,245,230,.95); border-radius: 50%; }
+.bd-logo-fnb-3::after { width: 44%; height: 8px; left: 28%; top: 23px; background: rgba(255,245,230,.95); border-radius: 999px; }
+.bd-logo-fnb-4 { background: linear-gradient(135deg, #b31217 0%, #ef5350 100%); }
+.bd-logo-fnb-4::before { width: 62%; height: 12px; left: 19%; top: 13px; background: rgba(255,255,255,.94); border-radius: 999px; box-shadow: 0 16px 0 rgba(255,255,255,.94); }
+.bd-logo-fnb-4::after { width: 12px; height: 12px; left: 22%; top: 21px; background: rgba(255,255,255,.94); border-radius: 50%; box-shadow: 42px -8px 0 rgba(255,255,255,.94), 84px 8px 0 rgba(255,255,255,.94); }
+.bd-logo-fnb-5 { background: linear-gradient(135deg, #9b1d30 0%, #f6a623 100%); }
+.bd-logo-fnb-5::before { width: 0; height: 0; left: 18%; top: 10px; border-left: 22px solid transparent; border-right: 22px solid transparent; border-bottom: 34px solid rgba(255,255,255,.92); }
+.bd-logo-fnb-5::after { width: 42px; height: 8px; right: 18px; top: 22px; background: rgba(255,255,255,.92); border-radius: 999px; box-shadow: 0 -14px 0 rgba(255,255,255,.92), 0 14px 0 rgba(255,255,255,.92); }
+.bd-logo-fnb-6 { background: linear-gradient(135deg, #5a2d82 0%, #d16ba5 100%); }
+.bd-logo-fnb-6::before { width: 54px; height: 54px; left: 16px; top: 0; bottom: 0; margin: auto 0; border-radius: 18px; background: rgba(255,255,255,.93); }
+.bd-logo-fnb-6::after { width: 20px; height: 20px; left: 33px; top: 17px; border-radius: 50%; background: #d16ba5; box-shadow: 34px 0 0 #5a2d82; }
+.bd-logo-fnb-7 { background: linear-gradient(135deg, #d35400 0%, #f39c12 100%); }
+.bd-logo-fnb-7::before { width: 70px; height: 8px; left: 18px; top: 18px; background: rgba(255,255,255,.92); border-radius: 999px; box-shadow: 0 14px 0 rgba(255,255,255,.92); }
+.bd-logo-fnb-7::after { width: 20px; height: 20px; right: 18px; top: 17px; background: rgba(255,255,255,.92); clip-path: polygon(50% 0, 61% 35%, 98% 35%, 69% 57%, 79% 91%, 50% 70%, 21% 91%, 31% 57%, 2% 35%, 39% 35%); }
+.bd-logo-fnb-8 { background: linear-gradient(135deg, #8e0e00 0%, #1f1c18 100%); }
+.bd-logo-fnb-8::before { width: 50px; height: 50px; left: 18px; top: 2px; border-radius: 50%; background: rgba(255,255,255,.9); }
+.bd-logo-fnb-8::after { width: 54px; height: 8px; right: 16px; top: 23px; background: rgba(255,255,255,.9); border-radius: 999px; box-shadow: 0 -13px 0 rgba(255,255,255,.58), 0 13px 0 rgba(255,255,255,.58); }
+
+.bd-logo-machine-1 { background: linear-gradient(135deg, #243949 0%, #517fa4 100%); }
+.bd-logo-machine-1::before { inset: 14px 18px; background: linear-gradient(90deg, rgba(255,255,255,.92) 0 18%, transparent 18% 30%, rgba(255,255,255,.92) 30% 48%, transparent 48% 60%, rgba(255,255,255,.92) 60% 78%, transparent 78% 100%); }
+.bd-logo-machine-2 { background: linear-gradient(135deg, #0f4c75 0%, #3282b8 100%); }
+.bd-logo-machine-2::before { width: 42px; height: 42px; left: 18px; top: 6px; border-radius: 50%; border: 8px solid rgba(255,255,255,.92); box-shadow: 58px 0 0 -8px rgba(255,255,255,.92); }
+.bd-logo-machine-2::after { width: 74px; height: 8px; left: 28px; top: 23px; background: rgba(255,255,255,.92); }
+.bd-logo-machine-3 { background: linear-gradient(135deg, #6d4c41 0%, #bcaaa4 100%); }
+.bd-logo-machine-3::before { width: 46px; height: 46px; left: 18px; top: 4px; background: rgba(255,255,255,.92); clip-path: polygon(25% 6%, 75% 6%, 100% 50%, 75% 94%, 25% 94%, 0 50%); }
+.bd-logo-machine-3::after { width: 20px; height: 20px; left: 31px; top: 17px; border-radius: 50%; background: #bcaaa4; }
+.bd-logo-machine-4 { background: linear-gradient(135deg, #355c7d 0%, #6c5b7b 100%); }
+.bd-logo-machine-4::before { inset: 14px 18px; background: linear-gradient(90deg, rgba(255,255,255,.92) 0 10%, transparent 10% 22%, rgba(255,255,255,.92) 22% 32%, transparent 32% 44%, rgba(255,255,255,.92) 44% 56%, transparent 56% 68%, rgba(255,255,255,.92) 68% 78%, transparent 78% 90%, rgba(255,255,255,.92) 90% 100%); }
+.bd-logo-machine-5 { background: linear-gradient(135deg, #232526 0%, #414345 100%); }
+.bd-logo-machine-5::before { width: 22px; height: 54px; left: 20px; top: 0; background: rgba(255,255,255,.92); transform: skew(-18deg); box-shadow: 34px 0 0 rgba(255,255,255,.72), 68px 0 0 rgba(255,255,255,.52); }
+.bd-logo-machine-6 { background: linear-gradient(135deg, #00416a 0%, #799f0c 100%); }
+.bd-logo-machine-6::before { width: 60px; height: 32px; left: 18px; top: 11px; border: 8px solid rgba(255,255,255,.92); border-radius: 999px; }
+.bd-logo-machine-6::after { width: 16px; height: 16px; right: 18px; top: 19px; border-radius: 50%; background: rgba(255,255,255,.92); box-shadow: -24px 0 0 rgba(255,255,255,.62); }
+.bd-logo-machine-7 { background: linear-gradient(135deg, #485563 0%, #29323c 100%); }
+.bd-logo-machine-7::before { width: 68px; height: 36px; left: 18px; top: 9px; background: rgba(255,255,255,.92); clip-path: polygon(0 0, 82% 0, 100% 50%, 82% 100%, 0 100%, 12% 50%); }
+.bd-logo-machine-7::after { width: 18px; height: 18px; left: 45px; top: 18px; border-radius: 50%; background: #29323c; }
+.bd-logo-machine-8 { background: linear-gradient(135deg, #159957 0%, #155799 100%); }
+.bd-logo-machine-8::before { width: 74px; height: 10px; left: 16px; top: 22px; background: rgba(255,255,255,.92); border-radius: 999px; }
+.bd-logo-machine-8::after { width: 22px; height: 22px; left: 20px; top: 16px; border: 6px solid rgba(255,255,255,.92); border-radius: 50%; box-shadow: 50px 0 0 -6px rgba(255,255,255,.92); }
+
+.bd-logo-commerce-1 { background: linear-gradient(135deg, #ff512f 0%, #dd2476 100%); }
+.bd-logo-commerce-1::before { width: 60px; height: 34px; left: 18px; top: 10px; border: 7px solid rgba(255,255,255,.92); border-top-width: 10px; border-radius: 8px 8px 12px 12px; }
+.bd-logo-commerce-1::after { width: 24px; height: 14px; left: 36px; top: 4px; border: 7px solid rgba(255,255,255,.92); border-bottom: none; border-radius: 16px 16px 0 0; }
+.bd-logo-commerce-2 { background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%); }
+.bd-logo-commerce-2::before { width: 64px; height: 26px; left: 20px; top: 16px; border: 7px solid rgba(255,255,255,.92); border-radius: 8px; border-top-left-radius: 0; }
+.bd-logo-commerce-2::after { width: 10px; height: 10px; left: 30px; top: 36px; border-radius: 50%; background: rgba(255,255,255,.92); box-shadow: 36px 0 0 rgba(255,255,255,.92); }
+.bd-logo-commerce-3 { background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%); }
+.bd-logo-commerce-3::before { width: 26px; height: 26px; left: 20px; top: 14px; background: rgba(255,255,255,.92); box-shadow: 18px -10px 0 rgba(255,255,255,.72), 36px 0 0 rgba(255,255,255,.52), 54px -10px 0 rgba(255,255,255,.32); }
+.bd-logo-commerce-4 { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+.bd-logo-commerce-4::before { width: 74px; height: 10px; left: 16px; top: 16px; background: rgba(255,255,255,.92); border-radius: 999px; transform: rotate(-20deg); }
+.bd-logo-commerce-4::after { width: 74px; height: 10px; left: 16px; top: 28px; background: rgba(255,255,255,.62); border-radius: 999px; transform: rotate(20deg); }
+.bd-logo-commerce-5 { background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%); }
+.bd-logo-commerce-5::before { width: 64px; height: 20px; left: 18px; top: 10px; background: rgba(255,255,255,.92); clip-path: polygon(0 0, 100% 0, 82% 100%, 18% 100%); }
+.bd-logo-commerce-5::after { width: 64px; height: 20px; left: 18px; top: 26px; background: rgba(255,255,255,.62); clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%); }
+.bd-logo-commerce-6 { background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%); }
+.bd-logo-commerce-6::before { width: 20px; height: 20px; left: 18px; top: 17px; background: rgba(255,255,255,.92); clip-path: polygon(50% 0, 65% 35%, 100% 35%, 72% 57%, 82% 100%, 50% 74%, 18% 100%, 28% 57%, 0 35%, 35% 35%); box-shadow: 34px 0 0 rgba(255,255,255,.72), 68px 0 0 rgba(255,255,255,.52); }
+.bd-logo-commerce-7 { background: linear-gradient(135deg, #1d2671 0%, #c33764 100%); }
+.bd-logo-commerce-7::before { width: 74px; height: 34px; left: 16px; top: 10px; border-radius: 999px; background: rgba(255,255,255,.92); }
+.bd-logo-commerce-7::after { width: 22px; height: 22px; left: 42px; top: 16px; border-radius: 50%; background: #c33764; }
+.bd-logo-commerce-8 { background: linear-gradient(135deg, #00467f 0%, #a5cc82 100%); }
+.bd-logo-commerce-8::before { width: 68px; height: 10px; left: 18px; top: 14px; background: rgba(255,255,255,.92); box-shadow: 0 16px 0 rgba(255,255,255,.92); }
+.bd-logo-commerce-8::after { width: 14px; height: 36px; left: 44px; top: 9px; background: rgba(255,255,255,.62); }
 
 /* ============================================================
    HISTORY TIMELINE
@@ -858,7 +947,7 @@ button { font-family: inherit; }
   .bd-market { padding: 56px 0 72px; }
   .bd-market-title { font-size: 52px; }
   .bd-landscape-wrap { margin-right: -20px; padding-right: 20px; }
-  .bd-landscape-board { min-width: 980px; padding: 22px 22px 20px; }
+  .bd-landscape-board { min-width: 1020px; padding: 22px 22px 20px; }
   .bd-landscape-head {
     grid-template-columns: 1fr;
     gap: 14px;
@@ -866,7 +955,12 @@ button { font-family: inherit; }
   .bd-landscape-title { font-size: 34px; }
   .bd-landscape-subtitle { font-size: 13px; }
   .bd-landscape-grid { gap: 10px; }
-  .bd-tag-grid li { min-height: 44px; font-size: 13px; }
+  .bd-logo-card { min-height: 88px; padding: 12px; }
+  .bd-logo-mark {
+    max-width: 128px;
+    height: 48px;
+    border-radius: 12px;
+  }
   .news-full-item { grid-template-columns: 80px auto 1fr; }
   .news-full-item .ni-arrow { display: none; }
   .sp-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
