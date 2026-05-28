@@ -585,9 +585,7 @@ button { font-family: inherit; }
   color: var(--gray);
 }
 .bd-landscape-wrap {
-  overflow-x: auto;
-  overflow-y: visible;
-  padding-bottom: 8px;
+  overflow: visible;
 }
 .bd-region-stack {
   display: grid;
@@ -604,7 +602,8 @@ button { font-family: inherit; }
   color: var(--ink);
 }
 .bd-landscape-board {
-  min-width: 1120px;
+  width: 100%;
+  min-width: 0;
   padding: 28px 28px 24px;
   border: 1px solid rgba(26,26,26,.08);
   background:
@@ -623,8 +622,8 @@ button { font-family: inherit; }
 }
 .bd-market-clusters {
   display: grid;
-  grid-template-columns: minmax(0, 2.15fr) minmax(0, 1.35fr);
-  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
 }
 .bd-cluster-board {
   display: grid;
@@ -659,6 +658,7 @@ button { font-family: inherit; }
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
+  align-items: stretch;
 }
 .bd-landscape-head {
   display: grid;
@@ -722,6 +722,8 @@ button { font-family: inherit; }
 .bd-logo-lane {
   display: grid;
   gap: 12px;
+  align-content: start;
+  height: 100%;
   padding: 12px;
   border: 1px solid rgba(26,26,26,.08);
   background: #fffdfa;
@@ -738,9 +740,11 @@ button { font-family: inherit; }
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
+  grid-auto-rows: 1fr;
 }
 .bd-logo-card {
-  min-height: 96px;
+  min-height: 0;
+  aspect-ratio: 1.38 / 1;
   display: grid;
   place-items: center;
   padding: 14px;
@@ -750,9 +754,9 @@ button { font-family: inherit; }
 .bd-logo-mark {
   position: relative;
   display: block;
-  width: 100%;
-  max-width: 142px;
-  height: 54px;
+  width: min(100%, 142px);
+  aspect-ratio: 142 / 54;
+  height: auto;
   border-radius: 14px;
   overflow: hidden;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.45);
@@ -853,6 +857,16 @@ button { font-family: inherit; }
 .bd-logo-partner-8 { background: linear-gradient(135deg, #3ca55c 0%, #b5ac49 100%); }
 .bd-logo-partner-8::before { width: 64px; height: 10px; left: 18px; top: 22px; background: rgba(255,255,255,.92); }
 .bd-logo-partner-8::after { width: 10px; height: 40px; left: 45px; top: 7px; background: rgba(255,255,255,.62); }
+
+@media (max-width: 1200px) {
+  .bd-market-clusters,
+  .bd-cluster-grid {
+    grid-template-columns: 1fr;
+  }
+  .bd-landscape-board {
+    padding: 24px 24px 22px;
+  }
+}
 
 /* ============================================================
    HISTORY TIMELINE
@@ -1027,12 +1041,12 @@ button { font-family: inherit; }
   .office-cards { grid-template-columns: 1fr; }
   .bd-market { padding: 56px 0 72px; }
   .bd-market-title { font-size: 52px; }
-  .bd-landscape-wrap { margin-right: -20px; padding-right: 20px; }
   .bd-region-stack { gap: 20px; }
   .bd-region-title { font-size: 18px; }
-  .bd-landscape-board { min-width: 1020px; padding: 22px 22px 20px; }
-  .bd-market-clusters { gap: 12px; }
+  .bd-landscape-board { width: 100%; min-width: 0; padding: 22px 22px 20px; }
+  .bd-market-clusters { grid-template-columns: 1fr; gap: 12px; }
   .bd-cluster-board { padding: 12px; }
+  .bd-cluster-grid { grid-template-columns: 1fr; }
   .bd-cluster-title { font-size: 14px; }
   .bd-landscape-head {
     grid-template-columns: 1fr;
@@ -1041,10 +1055,10 @@ button { font-family: inherit; }
   .bd-landscape-title { font-size: 34px; }
   .bd-landscape-subtitle { font-size: 13px; }
   .bd-landscape-grid { gap: 10px; }
-  .bd-logo-card { min-height: 88px; padding: 12px; }
+  .bd-logo-card { aspect-ratio: 1.42 / 1; padding: 12px; }
   .bd-logo-mark {
-    max-width: 128px;
-    height: 48px;
+    width: min(100%, 128px);
+    height: auto;
     border-radius: 12px;
   }
   .news-full-item { grid-template-columns: 80px auto 1fr; }
@@ -1052,4 +1066,21 @@ button { font-family: inherit; }
   .sp-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .rel-grid { grid-template-columns: 1fr; }
   .hist-inner { padding: 0 24px; }
+}
+
+@media (max-width: 767px) {
+  .bd-market-clusters,
+  .bd-cluster-grid {
+    grid-template-columns: 1fr;
+  }
+  .bd-landscape-board {
+    padding: 18px 16px;
+  }
+  .bd-cluster-head {
+    min-height: 34px;
+    padding: 0 10px;
+  }
+  .bd-logo-card {
+    aspect-ratio: 1.5 / 1;
+  }
 }
