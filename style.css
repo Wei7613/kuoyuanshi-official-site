@@ -620,7 +620,11 @@ button { font-family: inherit; }
   box-shadow: none;
 }
 .bd-market-board-vn {
-  border-top: 5px solid #4f7f71;
+  padding: 18px 0 0;
+  border: 0;
+  border-top: 4px solid #4f7f71;
+  background: none;
+  box-shadow: none;
 }
 .bd-market-clusters {
   display: grid;
