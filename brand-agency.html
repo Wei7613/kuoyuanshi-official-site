@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=45">
+  <link rel="stylesheet" href="style.css?v=47">
 </head>
 <body>
 
@@ -55,9 +55,17 @@
       </div>
 
       <div class="bd-landscape-wrap">
+        <div class="bd-region-tabs" role="tablist" aria-label="市場事業內容切換">
+          <button class="bd-region-tab is-active" id="bd-tab-tw" type="button" role="tab" aria-selected="true" aria-controls="bd-panel-tw" data-region-tab="tw">
+            台灣事業內容
+          </button>
+          <button class="bd-region-tab" id="bd-tab-vn" type="button" role="tab" aria-selected="false" aria-controls="bd-panel-vn" data-region-tab="vn" tabindex="-1">
+            越南事業內容
+          </button>
+        </div>
+
         <div class="bd-region-stack">
-          <section class="bd-region-block" aria-labelledby="bd-region-tw">
-            <h2 class="bd-region-title" id="bd-region-tw">台灣事業內容</h2>
+          <section class="bd-region-block bd-region-panel is-active" id="bd-panel-tw" role="tabpanel" aria-labelledby="bd-tab-tw" data-region-panel="tw">
             <section class="bd-landscape-board bd-market-board bd-market-board-tw" aria-label="台灣事業內容看板">
               <div class="bd-market-clusters">
                 <article class="bd-cluster-board bd-cluster-board-brand">
@@ -145,8 +153,7 @@
             </section>
           </section>
 
-          <section class="bd-region-block" aria-labelledby="bd-region-vn">
-            <h2 class="bd-region-title" id="bd-region-vn">越南事業內容</h2>
+          <section class="bd-region-block bd-region-panel" id="bd-panel-vn" role="tabpanel" aria-labelledby="bd-tab-vn" data-region-panel="vn" hidden>
             <section class="bd-landscape-board bd-market-board bd-market-board-vn" aria-label="越南事業內容看板">
               <div class="bd-market-clusters">
                 <article class="bd-cluster-board bd-cluster-board-brand">
@@ -295,6 +302,41 @@
   </div>
 </footer>
 
+<script>
+  (() => {
+    const tabs = Array.from(document.querySelectorAll('[data-region-tab]'));
+    const panels = Array.from(document.querySelectorAll('[data-region-panel]'));
+
+    if (!tabs.length || !panels.length) return;
+
+    const activateRegion = (region) => {
+      tabs.forEach((tab) => {
+        const isActive = tab.dataset.regionTab === region;
+        tab.classList.toggle('is-active', isActive);
+        tab.setAttribute('aria-selected', String(isActive));
+        tab.tabIndex = isActive ? 0 : -1;
+      });
+
+      panels.forEach((panel) => {
+        const isActive = panel.dataset.regionPanel === region;
+        panel.classList.toggle('is-active', isActive);
+        panel.hidden = !isActive;
+      });
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activateRegion(tab.dataset.regionTab));
+      tab.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+        event.preventDefault();
+        const direction = event.key === 'ArrowRight' ? 1 : -1;
+        const nextIndex = (index + direction + tabs.length) % tabs.length;
+        tabs[nextIndex].focus();
+        activateRegion(tabs[nextIndex].dataset.regionTab);
+      });
+    });
+  })();
+</script>
 <script src="main.js"></script>
 <script src="metaobjects.js?v=20260525e"></script>
 </body>
