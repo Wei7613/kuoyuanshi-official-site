@@ -589,6 +589,20 @@ button { font-family: inherit; }
   overflow-y: visible;
   padding-bottom: 8px;
 }
+.bd-region-stack {
+  display: grid;
+  gap: 28px;
+}
+.bd-region-block {
+  display: grid;
+  gap: 12px;
+}
+.bd-region-title {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  color: var(--ink);
+}
 .bd-landscape-board {
   min-width: 1120px;
   padding: 28px 28px 24px;
@@ -634,6 +648,9 @@ button { font-family: inherit; }
   margin-top: 22px;
   display: grid;
   gap: 16px;
+}
+.bd-landscape-board > .bd-landscape-grid:first-child {
+  margin-top: 0;
 }
 .bd-landscape-grid-logos {
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -947,6 +964,8 @@ button { font-family: inherit; }
   .bd-market { padding: 56px 0 72px; }
   .bd-market-title { font-size: 52px; }
   .bd-landscape-wrap { margin-right: -20px; padding-right: 20px; }
+  .bd-region-stack { gap: 20px; }
+  .bd-region-title { font-size: 18px; }
   .bd-landscape-board { min-width: 1020px; padding: 22px 22px 20px; }
   .bd-landscape-head {
     grid-template-columns: 1fr;
