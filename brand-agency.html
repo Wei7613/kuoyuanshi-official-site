@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
-  <title>品牌代理介紹 | 郭原氏工業股份有限公司</title>
-  <meta name="description" content="郭原氏工業品牌代理介紹頁 Demo。以台灣與越南代理地圖與品牌內容選單呈現雙市場代理。">
+  <title>品牌地圖 | 郭原氏工業股份有限公司</title>
+  <meta name="description" content="郭原氏工業品牌地圖頁面。以 landscape board 形式整理台灣與越南市場的代理佈局。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=33">
+  <link rel="stylesheet" href="style.css?v=34">
 </head>
 <body>
 
@@ -51,86 +51,157 @@
     <div class="inner bd-market-inner">
       <div class="bd-market-copy">
         <p class="sect-label">BRAND AGENCY</p>
-        <h1 class="bd-market-title">台灣與越南的品牌代理地圖</h1>
-        <p class="bd-market-note">點選地圖上的台灣公司或越南公司，切換對應的品牌內容選單。</p>
+        <h1 class="bd-market-title">台灣與越南的品牌地圖</h1>
+        <p class="bd-market-note">改以品牌地圖看板整理台灣與越南的代理布局，不再使用地圖互動切換。</p>
       </div>
 
-      <div class="bd-route-layout">
-        <div class="bd-route-shell" data-active-market="taiwan" role="tablist" aria-label="品牌代理市場切換">
-          <img
-            src="brand-agency-map-20260527.png"
-            alt="台灣與越南公司位置地圖"
-            class="bd-route-map-image"
-          >
+      <div class="bd-landscape-wrap">
+        <section class="bd-landscape-board" aria-label="品牌地圖看板">
+          <header class="bd-landscape-head">
+            <div class="bd-landscape-brand">
+              <span class="bd-landscape-brand-mark">KUOYUANSHI</span>
+              <p class="bd-landscape-brand-note">Taiwan x Vietnam Brand Agency Landscape</p>
+            </div>
+            <div class="bd-landscape-titlebox">
+              <h2 class="bd-landscape-title">品牌地圖 2026</h2>
+              <p class="bd-landscape-subtitle">以代理節點、導入策略、營運支援與市場節奏，整理雙市場的品牌布局。</p>
+            </div>
+          </header>
 
-          <span class="bd-map-location-marker bd-map-location-marker-taiwan" aria-hidden="true">
-            <img src="brand-agency-pin-icon.png" alt="" class="bd-map-location-icon">
-            <span class="bd-map-location-label">台灣</span>
-          </span>
-          <span class="bd-map-location-marker bd-map-location-marker-vietnam" aria-hidden="true">
-            <img src="brand-agency-pin-icon.png" alt="" class="bd-map-location-icon">
-            <span class="bd-map-location-label">越南</span>
-          </span>
+          <div class="bd-landscape-grid">
+            <article class="bd-lane">
+              <h3 class="bd-lane-head bd-lane-head-red">市場入口</h3>
+              <section class="bd-cluster">
+                <p class="bd-cluster-head">台灣節點</p>
+                <ul class="bd-tag-grid">
+                  <li>百貨選品</li>
+                  <li>選物通路</li>
+                  <li>品牌快閃</li>
+                  <li>代理導入</li>
+                </ul>
+              </section>
+              <section class="bd-cluster">
+                <p class="bd-cluster-head">越南節點</p>
+                <ul class="bd-tag-grid">
+                  <li>河內合作</li>
+                  <li>胡志明節點</li>
+                  <li>區域測試</li>
+                  <li>在地代理</li>
+                </ul>
+              </section>
+            </article>
 
-          <button
-            class="bd-map-hotspot bd-map-hotspot-taiwan is-active"
-            type="button"
-            data-market-trigger="taiwan"
-            role="tab"
-            id="bd-market-tab-taiwan"
-            aria-controls="bd-market-panel-taiwan"
-            aria-selected="true"
-            aria-label="台灣公司"
-            title="台灣公司"
-          ></button>
+            <article class="bd-lane">
+              <h3 class="bd-lane-head bd-lane-head-amber">品牌導入</h3>
+              <section class="bd-cluster">
+                <p class="bd-cluster-head">上架策略</p>
+                <ul class="bd-tag-grid">
+                  <li>通路談判</li>
+                  <li>價格帶設定</li>
+                  <li>檔期安排</li>
+                  <li>商品包裝</li>
+                </ul>
+              </section>
+              <section class="bd-cluster">
+                <p class="bd-cluster-head">在地化內容</p>
+                <ul class="bd-tag-grid">
+                  <li>中文文案</li>
+                  <li>越文素材</li>
+                  <li>銷售話術</li>
+                  <li>門市陳列</li>
+                </ul>
+              </section>
+            </article>
 
-          <button
-            class="bd-map-hotspot bd-map-hotspot-vietnam"
-            type="button"
-            data-market-trigger="vietnam"
-            role="tab"
-            id="bd-market-tab-vietnam"
-            aria-controls="bd-market-panel-vietnam"
-            aria-selected="false"
-            aria-label="越南公司"
-            title="越南公司"
-          ></button>
-        </div>
+            <article class="bd-lane">
+              <h3 class="bd-lane-head bd-lane-head-olive">營運支援</h3>
+              <section class="bd-cluster">
+                <p class="bd-cluster-head">零售系統</p>
+                <ul class="bd-tag-grid">
+                  <li>POS 導入</li>
+                  <li>庫存同步</li>
+                  <li>補貨節奏</li>
+                  <li>報表回收</li>
+                </ul>
+              </section>
+              <section class="bd-cluster">
+                <p class="bd-cluster-head">數位延伸</p>
+                <ul class="bd-tag-grid">
+                  <li>D2C 頁面</li>
+                  <li>社群內容</li>
+                  <li>活動素材</li>
+                  <li>會員導流</li>
+                </ul>
+              </section>
+            </article>
 
-        <aside class="bd-market-menu">
-          <section
-            class="bd-menu-panel is-active"
-            id="bd-market-panel-taiwan"
-            data-market-panel="taiwan"
-            role="tabpanel"
-            aria-labelledby="bd-market-tab-taiwan"
-          >
-            <p class="bd-menu-label">TAIWAN</p>
-            <h2 class="bd-menu-title">台灣品牌內容</h2>
-            <ul class="bd-menu-list">
-              <li>百貨選品上架</li>
-              <li>零售通路導入</li>
-              <li>品牌發表活動</li>
-            </ul>
-          </section>
+            <article class="bd-lane">
+              <h3 class="bd-lane-head bd-lane-head-teal">通路擴張</h3>
+              <section class="bd-cluster">
+                <p class="bd-cluster-head">台灣拓展</p>
+                <ul class="bd-tag-grid">
+                  <li>北部百貨</li>
+                  <li>中南部選店</li>
+                  <li>快閃巡迴</li>
+                  <li>媒體曝光</li>
+                </ul>
+              </section>
+              <section class="bd-cluster">
+                <p class="bd-cluster-head">越南拓展</p>
+                <ul class="bd-tag-grid">
+                  <li>都會商場</li>
+                  <li>代理據點</li>
+                  <li>渠道測試</li>
+                  <li>市場驗證</li>
+                </ul>
+              </section>
+            </article>
 
-          <section
-            class="bd-menu-panel"
-            id="bd-market-panel-vietnam"
-            data-market-panel="vietnam"
-            role="tabpanel"
-            aria-labelledby="bd-market-tab-vietnam"
-            hidden
-          >
-            <p class="bd-menu-label">VIETNAM</p>
-            <h2 class="bd-menu-title">越南品牌內容</h2>
-            <ul class="bd-menu-list">
-              <li>在地代理合作</li>
-              <li>區域通路拓展</li>
-              <li>市場測試上線</li>
-            </ul>
-          </section>
-        </aside>
+            <article class="bd-lane">
+              <h3 class="bd-lane-head bd-lane-head-blue">數據回收</h3>
+              <section class="bd-cluster">
+                <p class="bd-cluster-head">銷售訊號</p>
+                <ul class="bd-tag-grid">
+                  <li>動銷排行</li>
+                  <li>回購週期</li>
+                  <li>會員反應</li>
+                  <li>SKU 淘汰</li>
+                </ul>
+              </section>
+              <section class="bd-cluster">
+                <p class="bd-cluster-head">調整迭代</p>
+                <ul class="bd-tag-grid">
+                  <li>陳列修正</li>
+                  <li>價格優化</li>
+                  <li>補貨調整</li>
+                  <li>檔期回推</li>
+                </ul>
+              </section>
+            </article>
+
+            <article class="bd-lane">
+              <h3 class="bd-lane-head bd-lane-head-slate">交付管理</h3>
+              <section class="bd-cluster">
+                <p class="bd-cluster-head">代理節奏</p>
+                <ul class="bd-tag-grid">
+                  <li>樣品物流</li>
+                  <li>報價結構</li>
+                  <li>合規文件</li>
+                  <li>售後支援</li>
+                </ul>
+              </section>
+              <section class="bd-cluster">
+                <p class="bd-cluster-head">跨市場節點</p>
+                <ul class="bd-tag-grid">
+                  <li>Taipei</li>
+                  <li>Hanoi</li>
+                  <li>HCMC</li>
+                  <li>雙市串聯</li>
+                </ul>
+              </section>
+            </article>
+          </div>
+        </section>
       </div>
     </div>
   </section>
@@ -194,37 +265,5 @@
 
 <script src="main.js"></script>
 <script src="metaobjects.js?v=20260525e"></script>
-<script>
-  (() => {
-    const triggers = document.querySelectorAll("[data-market-trigger]");
-    const panels = document.querySelectorAll("[data-market-panel]");
-    const routeShell = document.querySelector("[data-active-market]");
-
-    if (!triggers.length || !panels.length) return;
-
-    const activateMarket = (market) => {
-      triggers.forEach((trigger) => {
-        const isActive = trigger.dataset.marketTrigger === market;
-        trigger.setAttribute("aria-selected", isActive ? "true" : "false");
-        trigger.classList.toggle("is-active", isActive);
-      });
-
-      panels.forEach((panel) => {
-        const isActive = panel.dataset.marketPanel === market;
-        panel.hidden = !isActive;
-        panel.classList.toggle("is-active", isActive);
-      });
-
-      if (routeShell) routeShell.dataset.activeMarket = market;
-    };
-
-    triggers.forEach((trigger) => {
-      const { marketTrigger } = trigger.dataset;
-      ["mouseenter", "focus", "click"].forEach((eventName) => {
-        trigger.addEventListener(eventName, () => activateMarket(marketTrigger));
-      });
-    });
-  })();
-</script>
 </body>
 </html>
