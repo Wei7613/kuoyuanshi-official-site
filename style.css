@@ -571,7 +571,7 @@ button { font-family: inherit; }
   margin-bottom: 36px;
 }
 .bd-market-title {
-  font-size: clamp(38px, 5vw, 60px);
+  font-size: clamp(19px, 2.5vw, 30px);
   font-weight: 300;
   line-height: 1.12;
   letter-spacing: -1.5px;
@@ -1045,7 +1045,7 @@ button { font-family: inherit; }
   .contact-grid { grid-template-columns: 1fr; }
   .office-cards { grid-template-columns: 1fr; }
   .bd-market { padding: 20px 0 72px; }
-  .bd-market-title { font-size: 52px; }
+  .bd-market-title { font-size: 26px; }
   .bd-region-stack { gap: 20px; }
   .bd-region-title { font-size: 18px; }
   .bd-landscape-board { width: 100%; min-width: 0; padding: 22px 22px 20px; }
