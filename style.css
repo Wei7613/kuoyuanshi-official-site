@@ -681,11 +681,11 @@ button { font-family: inherit; }
 }
 .bd-cluster-board-brand {
   border-color: rgba(191,54,54,.12);
-  background: linear-gradient(180deg, rgba(191,54,54,.06) 0%, rgba(242,165,22,.05) 100%);
+  background: #f8f7f5;
 }
 .bd-cluster-board-channel {
   border-color: rgba(93,132,166,.14);
-  background: linear-gradient(180deg, rgba(93,132,166,.07) 0%, rgba(108,30,217,.05) 100%);
+  background: #f8f7f5;
 }
 .bd-cluster-head {
   min-height: 38px;
