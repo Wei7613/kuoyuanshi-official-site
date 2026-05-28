@@ -680,11 +680,11 @@ button { font-family: inherit; }
   background: rgba(255,255,255,.86);
 }
 .bd-cluster-board-brand {
-  border-color: rgba(191,54,54,.12);
+  border-color: rgba(26,26,26,.12);
   background: #f8f7f5;
 }
 .bd-cluster-board-channel {
-  border-color: rgba(93,132,166,.14);
+  border-color: rgba(26,26,26,.12);
   background: #f8f7f5;
 }
 .bd-cluster-head {
