@@ -611,6 +611,55 @@ button { font-family: inherit; }
     linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(250,246,239,.98) 100%);
   box-shadow: 0 18px 46px rgba(26,26,26,.06);
 }
+.bd-market-board {
+  display: grid;
+  gap: 18px;
+}
+.bd-market-board-tw {
+  border-top: 5px solid #a65a43;
+}
+.bd-market-board-vn {
+  border-top: 5px solid #4f7f71;
+}
+.bd-market-clusters {
+  display: grid;
+  grid-template-columns: minmax(0, 2.15fr) minmax(0, 1.35fr);
+  gap: 16px;
+}
+.bd-cluster-board {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid rgba(26,26,26,.08);
+  background: rgba(255,255,255,.86);
+}
+.bd-cluster-board-brand {
+  background: linear-gradient(180deg, rgba(255,248,244,.94) 0%, rgba(255,255,255,.88) 100%);
+}
+.bd-cluster-board-channel {
+  background: linear-gradient(180deg, rgba(244,249,255,.94) 0%, rgba(255,255,255,.88) 100%);
+}
+.bd-cluster-head {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border-left: 4px solid var(--red);
+}
+.bd-cluster-board-channel .bd-cluster-head {
+  border-left-color: #5d81a7;
+}
+.bd-cluster-title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--ink);
+}
+.bd-cluster-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
 .bd-landscape-head {
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr);
@@ -680,12 +729,6 @@ button { font-family: inherit; }
 .bd-logo-lane-meta {
   display: grid;
   gap: 8px;
-}
-.bd-logo-lane-eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .08em;
-  color: var(--gray);
 }
 .bd-logo-lane-sub {
   font-size: 12px;
@@ -789,6 +832,27 @@ button { font-family: inherit; }
 .bd-logo-commerce-8 { background: linear-gradient(135deg, #00467f 0%, #a5cc82 100%); }
 .bd-logo-commerce-8::before { width: 68px; height: 10px; left: 18px; top: 14px; background: rgba(255,255,255,.92); box-shadow: 0 16px 0 rgba(255,255,255,.92); }
 .bd-logo-commerce-8::after { width: 14px; height: 36px; left: 44px; top: 9px; background: rgba(255,255,255,.62); }
+
+.bd-logo-partner-1 { background: linear-gradient(135deg, #ff6b6b 0%, #c44569 100%); }
+.bd-logo-partner-1::before { width: 22px; height: 22px; left: 18px; top: 16px; border-radius: 50%; background: rgba(255,255,255,.92); box-shadow: 28px 0 0 rgba(255,255,255,.72), 56px 0 0 rgba(255,255,255,.52); }
+.bd-logo-partner-2 { background: linear-gradient(135deg, #1d976c 0%, #93f9b9 100%); }
+.bd-logo-partner-2::before { width: 72px; height: 8px; left: 16px; top: 22px; background: rgba(255,255,255,.92); border-radius: 999px; transform: rotate(-22deg); }
+.bd-logo-partner-2::after { width: 14px; height: 14px; right: 18px; top: 20px; border-radius: 50%; background: rgba(255,255,255,.92); }
+.bd-logo-partner-3 { background: linear-gradient(135deg, #314755 0%, #26a0da 100%); }
+.bd-logo-partner-3::before { width: 68px; height: 24px; left: 18px; top: 15px; background: rgba(255,255,255,.9); clip-path: polygon(0 50%, 18% 0, 100% 0, 82% 50%, 100% 100%, 18% 100%); }
+.bd-logo-partner-4 { background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%); }
+.bd-logo-partner-4::before { width: 18px; height: 18px; left: 22px; top: 18px; background: rgba(255,255,255,.92); clip-path: polygon(50% 0, 61% 35%, 98% 35%, 69% 57%, 79% 91%, 50% 70%, 21% 91%, 31% 57%, 2% 35%, 39% 35%); }
+.bd-logo-partner-4::after { width: 44px; height: 8px; right: 18px; top: 23px; background: rgba(255,255,255,.92); border-radius: 999px; }
+.bd-logo-partner-5 { background: linear-gradient(135deg, #654ea3 0%, #eaafc8 100%); }
+.bd-logo-partner-5::before { width: 58px; height: 30px; left: 18px; top: 12px; background: rgba(255,255,255,.92); border-radius: 999px; }
+.bd-logo-partner-5::after { width: 18px; height: 18px; left: 38px; top: 18px; border-radius: 50%; background: #eaafc8; }
+.bd-logo-partner-6 { background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); }
+.bd-logo-partner-6::before { width: 64px; height: 8px; left: 18px; top: 22px; background: rgba(255,255,255,.92); box-shadow: 0 -14px 0 rgba(255,255,255,.62), 0 14px 0 rgba(255,255,255,.62); }
+.bd-logo-partner-7 { background: linear-gradient(135deg, #355c7d 0%, #6c5b7b 100%); }
+.bd-logo-partner-7::before { width: 24px; height: 24px; left: 18px; top: 15px; background: rgba(255,255,255,.92); box-shadow: 26px 0 0 rgba(255,255,255,.72), 52px 0 0 rgba(255,255,255,.52); }
+.bd-logo-partner-8 { background: linear-gradient(135deg, #3ca55c 0%, #b5ac49 100%); }
+.bd-logo-partner-8::before { width: 64px; height: 10px; left: 18px; top: 22px; background: rgba(255,255,255,.92); }
+.bd-logo-partner-8::after { width: 10px; height: 40px; left: 45px; top: 7px; background: rgba(255,255,255,.62); }
 
 /* ============================================================
    HISTORY TIMELINE
@@ -967,6 +1031,9 @@ button { font-family: inherit; }
   .bd-region-stack { gap: 20px; }
   .bd-region-title { font-size: 18px; }
   .bd-landscape-board { min-width: 1020px; padding: 22px 22px 20px; }
+  .bd-market-clusters { gap: 12px; }
+  .bd-cluster-board { padding: 12px; }
+  .bd-cluster-title { font-size: 14px; }
   .bd-landscape-head {
     grid-template-columns: 1fr;
     gap: 14px;
