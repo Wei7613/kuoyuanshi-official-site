@@ -651,14 +651,12 @@ button { font-family: inherit; }
 .bd-market-board-tw {
   padding: 18px 0 0;
   border: 0;
-  border-top: 4px solid #b56a50;
   background: none;
   box-shadow: none;
 }
 .bd-market-board-vn {
   padding: 18px 0 0;
   border: 0;
-  border-top: 4px solid #4f7f71;
   background: none;
   box-shadow: none;
 }
