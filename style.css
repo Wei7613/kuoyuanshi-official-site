@@ -562,9 +562,7 @@ button { font-family: inherit; }
    BRAND AGENCY DETAIL DEMO
 ============================================================ */
 .bd-page {
-  background:
-    radial-gradient(circle at top right, rgba(204,26,0,.07), transparent 24%),
-    linear-gradient(180deg, #fff 0%, #f7f3ed 100%);
+  background: linear-gradient(180deg, #fff 0%, #f7f3ed 100%);
 }
 .bd-market { padding: 84px 0 108px; }
 .bd-market-inner { max-width: 1240px; }
@@ -858,9 +856,8 @@ button { font-family: inherit; }
 .bd-logo-partner-8::before { width: 64px; height: 10px; left: 18px; top: 22px; background: rgba(255,255,255,.92); }
 .bd-logo-partner-8::after { width: 10px; height: 40px; left: 45px; top: 7px; background: rgba(255,255,255,.62); }
 
-@media (max-width: 1200px) {
-  .bd-market-clusters,
-  .bd-cluster-grid {
+@media (max-width: 1100px) {
+  .bd-market-clusters {
     grid-template-columns: 1fr;
   }
   .bd-landscape-board {
@@ -1046,7 +1043,6 @@ button { font-family: inherit; }
   .bd-landscape-board { width: 100%; min-width: 0; padding: 22px 22px 20px; }
   .bd-market-clusters { grid-template-columns: 1fr; gap: 12px; }
   .bd-cluster-board { padding: 12px; }
-  .bd-cluster-grid { grid-template-columns: 1fr; }
   .bd-cluster-title { font-size: 14px; }
   .bd-landscape-head {
     grid-template-columns: 1fr;
