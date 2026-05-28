@@ -12,6 +12,7 @@
  *   - 關於頁主內容 (kuoyuanshi_president_message) → about.html 公司簡介 / 核心價值 / 董事長 / 相關資訊
  *   - 關於頁歷程   (kuoyuanshi_about_history)     → about.html 發展歷程
  *   - 聯絡我們     (kuoyuanshi_contact_page)      → contact.html 聯絡方式
+ *   - 事業地圖     (kuoyuanshi_business_map)      → brand-agency.html 標題 / 頁籤 / layer 標籤
  */
 (function () {
   /* 安全逾時：5 秒後強制移除遮罩，避免 API 失敗時頁面永遠空白 */
@@ -42,6 +43,7 @@
       '  businessPage: metaobjects(type: "kuoyuanshi_business_page", first: 1) {',
       '    edges { node { fields { key value } } }',
       '  }',
+      '  businessMap: metaobject(handle: {type: "kuoyuanshi_business_map", handle: "business-map"}) { fields { key value } }',
       '  contactPage: metaobject(handle: {type: "kuoyuanshi_contact_page", handle: "contact"}) { fields { key value } }',
       '}'
     ].join('\n')
@@ -616,6 +618,21 @@
     section.style.opacity = '1';
   }
 
+  // ── 事業地圖頁（brand-agency.html）───────────────────────────
+  function renderBusinessMap(data) {
+    if (!document.querySelector('[data-bmap-text]') || !data.businessMap) return;
+
+    var page = fieldsToObj(data.businessMap);
+    Object.keys(page).forEach(function (key) {
+      var value = page[key];
+      if (value === undefined || value === null) return;
+
+      document.querySelectorAll('[data-bmap-text="' + key + '"]').forEach(function (el) {
+        el.textContent = value;
+      });
+    });
+  }
+
   // ── 聯絡我們頁（contact.html）──────────────────────────────
   function renderContactPage(data) {
     if (!document.getElementById('contact-page') || !data.contactPage) return;
@@ -666,6 +683,7 @@
         renderFooter(d);
         renderAboutCards(d);
         renderBusinessPage(d);
+        renderBusinessMap(d);
         renderContactPage(d);
         var ab = document.querySelector('.about-sect');
         if (ab) ab.style.opacity = '1';
