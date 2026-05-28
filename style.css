@@ -564,11 +564,11 @@ button { font-family: inherit; }
 .bd-page {
   background: linear-gradient(180deg, #fff 0%, #f7f3ed 100%);
 }
-.bd-market { padding: 46px 0 108px; }
+.bd-market { padding: 27px 0 108px; }
 .bd-market-inner { max-width: 1240px; }
 .bd-market-copy {
   max-width: 620px;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
 }
 .bd-market-title {
   font-size: clamp(19px, 2.5vw, 30px);
@@ -589,7 +589,7 @@ button { font-family: inherit; }
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   flex-wrap: wrap;
 }
 .bd-region-tab {
