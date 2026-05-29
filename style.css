@@ -35,6 +35,7 @@ body.cms-ready::before { opacity: 0; }
 
 /* BASE */
 html { scroll-behavior: smooth; }
+[hidden] { display: none !important; }
 body {
   font-family: 'Inter', 'Noto Sans TC', sans-serif;
   font-size: 14px;
