@@ -800,6 +800,16 @@ button { font-family: inherit; }
   border: 1px solid rgba(26,26,26,.08);
   background: #fff;
 }
+.bd-logo-card.has-image {
+  padding: 10px;
+}
+.bd-logo-image {
+  display: block;
+  width: min(100%, 142px);
+  height: auto;
+  max-height: 72px;
+  object-fit: contain;
+}
 .bd-logo-mark {
   position: relative;
   display: block;
@@ -1105,10 +1115,15 @@ button { font-family: inherit; }
   .bd-landscape-subtitle { font-size: 13px; }
   .bd-landscape-grid { gap: 10px; }
   .bd-logo-card { aspect-ratio: 1.42 / 1; padding: 12px; }
+  .bd-logo-card.has-image { padding: 10px; }
   .bd-logo-mark {
     width: min(100%, 128px);
     height: auto;
     border-radius: 12px;
+  }
+  .bd-logo-image {
+    width: min(100%, 128px);
+    max-height: 64px;
   }
   .news-full-item { grid-template-columns: 80px auto 1fr; }
   .news-full-item .ni-arrow { display: none; }
