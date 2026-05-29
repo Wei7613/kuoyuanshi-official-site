@@ -631,7 +631,44 @@
 
   // ── 事業地圖頁（brand-agency.html）───────────────────────────
   function renderBusinessMap(data) {
-    if ((!document.querySelector('[data-bmap-text]') && !document.querySelector('[data-bmap-logo]')) || !data.businessMap) return;
+    var textNodes = document.querySelectorAll('[data-bmap-text]');
+    var logoCards = document.querySelectorAll('[data-bmap-logo]');
+    if (!textNodes.length && !logoCards.length) return;
+
+    function updateBusinessMapVisibility() {
+      document.querySelectorAll('[data-bmap-logo]').forEach(function (card) {
+        var img = card.querySelector('.bd-logo-image');
+        card.hidden = !img || !img.getAttribute('src');
+      });
+
+      document.querySelectorAll('.bd-logo-lane').forEach(function (lane) {
+        var visibleCards = lane.querySelectorAll('[data-bmap-logo]:not([hidden])');
+        lane.hidden = visibleCards.length === 0;
+      });
+
+      document.querySelectorAll('.bd-cluster-board').forEach(function (cluster) {
+        var visibleLanes = cluster.querySelectorAll('.bd-logo-lane:not([hidden])');
+        cluster.hidden = visibleLanes.length === 0;
+      });
+
+      document.querySelectorAll('.bd-region-panel').forEach(function (panel) {
+        var visibleClusters = panel.querySelectorAll('.bd-cluster-board:not([hidden])');
+        panel.hidden = visibleClusters.length === 0;
+      });
+    }
+
+    logoCards.forEach(function (card) {
+      var img = card.querySelector('.bd-logo-image');
+      var mark = card.querySelector('.bd-logo-mark');
+      card.classList.remove('has-image');
+      if (img) img.remove();
+      if (mark) mark.hidden = true;
+    });
+
+    if (!data.businessMap) {
+      updateBusinessMapVisibility();
+      return;
+    }
 
     var page = fieldsToObj(data.businessMap);
     (data.businessMap.fields || []).forEach(function (field) {
@@ -659,10 +696,10 @@
       if (!key) return;
 
       var value = page[key];
-      var mark = card.querySelector('.bd-logo-mark');
       var img = card.querySelector('.bd-logo-image');
+      var normalizedValue = typeof value === 'string' ? value.trim() : value;
 
-      if (value) {
+      if (normalizedValue) {
         if (!img) {
           img = document.createElement('img');
           img.className = 'bd-logo-image';
@@ -670,16 +707,16 @@
           img.decoding = 'async';
           card.appendChild(img);
         }
-        img.src = value;
+        img.src = normalizedValue;
         img.alt = card.getAttribute('aria-label') || '';
         card.classList.add('has-image');
-        if (mark) mark.hidden = true;
       } else {
         card.classList.remove('has-image');
         if (img) img.remove();
-        if (mark) mark.hidden = false;
       }
     });
+
+    updateBusinessMapVisibility();
   }
 
   // ── 聯絡我們頁（contact.html）──────────────────────────────
