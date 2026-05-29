@@ -43,7 +43,18 @@
       '  businessPage: metaobjects(type: "kuoyuanshi_business_page", first: 1) {',
       '    edges { node { fields { key value } } }',
       '  }',
-      '  businessMap: metaobject(handle: {type: "kuoyuanshi_business_map", handle: "business-map"}) { fields { key value } }',
+      '  businessMap: metaobject(handle: {type: "kuoyuanshi_business_map", handle: "business-map"}) {',
+      '    fields {',
+      '      key',
+      '      value',
+      '      reference {',
+      '        ... on Metaobject {',
+      '          handle',
+      '          fields { key value }',
+      '        }',
+      '      }',
+      '    }',
+      '  }',
       '  contactPage: metaobject(handle: {type: "kuoyuanshi_contact_page", handle: "contact"}) { fields { key value } }',
       '}'
     ].join('\n')
@@ -620,9 +631,20 @@
 
   // ── 事業地圖頁（brand-agency.html）───────────────────────────
   function renderBusinessMap(data) {
-    if (!document.querySelector('[data-bmap-text]') || !data.businessMap) return;
+    if ((!document.querySelector('[data-bmap-text]') && !document.querySelector('[data-bmap-logo]')) || !data.businessMap) return;
 
     var page = fieldsToObj(data.businessMap);
+    (data.businessMap.fields || []).forEach(function (field) {
+      if (!field || !field.key || !/_group_ref$/.test(field.key)) return;
+      if (!field.reference || !field.reference.fields) return;
+
+      var prefix = field.key.replace(/_group_ref$/, '');
+      field.reference.fields.forEach(function (childField) {
+        if (!childField || !childField.key) return;
+        page[prefix + '_' + childField.key] = childField.value;
+      });
+    });
+
     Object.keys(page).forEach(function (key) {
       var value = page[key];
       if (value === undefined || value === null) return;
@@ -630,6 +652,33 @@
       document.querySelectorAll('[data-bmap-text="' + key + '"]').forEach(function (el) {
         el.textContent = value;
       });
+    });
+
+    document.querySelectorAll('[data-bmap-logo]').forEach(function (card) {
+      var key = card.getAttribute('data-bmap-logo');
+      if (!key) return;
+
+      var value = page[key];
+      var mark = card.querySelector('.bd-logo-mark');
+      var img = card.querySelector('.bd-logo-image');
+
+      if (value) {
+        if (!img) {
+          img = document.createElement('img');
+          img.className = 'bd-logo-image';
+          img.loading = 'lazy';
+          img.decoding = 'async';
+          card.appendChild(img);
+        }
+        img.src = value;
+        img.alt = card.getAttribute('aria-label') || '';
+        card.classList.add('has-image');
+        if (mark) mark.hidden = true;
+      } else {
+        card.classList.remove('has-image');
+        if (img) img.remove();
+        if (mark) mark.hidden = false;
+      }
     });
   }
 
