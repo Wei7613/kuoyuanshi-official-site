@@ -634,6 +634,22 @@
     var textNodes = document.querySelectorAll('[data-bmap-text]');
     var logoCards = document.querySelectorAll('[data-bmap-logo]');
     if (!textNodes.length && !logoCards.length) return;
+    var businessMapTextKeys = [
+      'page_label_en',
+      'page_heading_zh',
+      'tab_tw_label',
+      'tab_vn_label',
+      'cluster_brand_title',
+      'cluster_channel_title',
+      'fnb_title',
+      'fnb_subtitle',
+      'machine_title',
+      'machine_subtitle',
+      'commerce_title',
+      'commerce_subtitle',
+      'partner_title',
+      'partner_subtitle'
+    ];
 
     function updateBusinessMapVisibility() {
       document.querySelectorAll('[data-bmap-logo]').forEach(function (card) {
@@ -684,10 +700,8 @@
       });
     });
 
-    Object.keys(page).forEach(function (key) {
-      var value = page[key];
-      if (value === undefined || value === null) return;
-
+    businessMapTextKeys.forEach(function (key) {
+      var value = page[key] === undefined || page[key] === null ? '' : page[key];
       document.querySelectorAll('[data-bmap-text="' + key + '"]').forEach(function (el) {
         el.textContent = value;
       });
