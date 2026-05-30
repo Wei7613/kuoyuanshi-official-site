@@ -630,6 +630,9 @@ button { font-family: inherit; }
   display: grid;
   gap: 28px;
 }
+.bd-region-panel:not(.is-active) {
+  display: none;
+}
 .bd-region-panel[hidden] {
   display: none;
 }

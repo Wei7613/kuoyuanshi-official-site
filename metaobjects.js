@@ -653,7 +653,9 @@
 
       document.querySelectorAll('.bd-region-panel').forEach(function (panel) {
         var visibleClusters = panel.querySelectorAll('.bd-cluster-board:not([hidden])');
-        panel.hidden = visibleClusters.length === 0;
+        var isEmpty = visibleClusters.length === 0;
+        panel.toggleAttribute('data-bmap-empty', isEmpty);
+        panel.hidden = isEmpty || !panel.classList.contains('is-active');
       });
     }
 

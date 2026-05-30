@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=53">
+  <link rel="stylesheet" href="style.css?v=54">
 </head>
 <body>
 
@@ -320,7 +320,7 @@
       panels.forEach((panel) => {
         const isActive = panel.dataset.regionPanel === region;
         panel.classList.toggle('is-active', isActive);
-        panel.hidden = !isActive;
+        panel.hidden = !isActive || panel.hasAttribute('data-bmap-empty');
       });
     };
 
@@ -335,9 +335,12 @@
         activateRegion(tabs[nextIndex].dataset.regionTab);
       });
     });
+
+    const activeTab = tabs.find((tab) => tab.classList.contains('is-active')) || tabs[0];
+    activateRegion(activeTab.dataset.regionTab);
   })();
 </script>
 <script src="main.js"></script>
-<script src="metaobjects.js?v=20260529c"></script>
+<script src="metaobjects.js?v=20260530a"></script>
 </body>
 </html>
