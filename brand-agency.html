@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=55">
+  <link rel="stylesheet" href="style.css?v=56">
 </head>
 <body>
 
@@ -148,12 +148,14 @@
       row.className = 'bd-list-brand-row bd-logo-card';
       row.setAttribute('aria-label', `${regionKey === 'tw' ? '台灣' : '越南'} ${category.title} 品牌 ${number}`);
       row.dataset.bmapLogo = `${regionKey}_${category.key}_logo${number}_image_url`;
+      row.dataset.bmapLogoFile = `${regionKey}_${category.key}_logo${number}_image_file`;
 
       const fallback = document.createElement('span');
       fallback.className = `bd-logo-mark ${category.markClass}-${number}`;
 
       const copy = document.createElement('p');
       copy.className = 'bd-list-brand-copy';
+      copy.dataset.bmapText = `${regionKey}_${category.key}_logo${number}_description`;
       copy.textContent = descriptionFor(regionKey, category.key, index);
 
       row.append(fallback, copy);

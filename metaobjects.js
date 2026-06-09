@@ -48,9 +48,26 @@
       '      key',
       '      value',
       '      reference {',
+      '        ... on MediaImage {',
+      '          image { url altText }',
+      '        }',
+      '        ... on GenericFile {',
+      '          url',
+      '        }',
       '        ... on Metaobject {',
       '          handle',
-      '          fields { key value }',
+      '          fields {',
+      '            key',
+      '            value',
+      '            reference {',
+      '              ... on MediaImage {',
+      '                image { url altText }',
+      '              }',
+      '              ... on GenericFile {',
+      '                url',
+      '              }',
+      '            }',
+      '          }',
       '        }',
       '      }',
       '    }',
@@ -61,9 +78,19 @@
   });
 
   // ── 工具函式 ───────────────────────────────────────────────
+  function fieldValue(field) {
+    if (!field) return '';
+    var ref = field.reference;
+    if (ref) {
+      if (ref.image && ref.image.url) return ref.image.url;
+      if (ref.url) return ref.url;
+    }
+    return field.value;
+  }
+
   function fieldsToObj(node) {
     var obj = {};
-    (node.fields || []).forEach(function (f) { obj[f.key] = f.value; });
+    (node.fields || []).forEach(function (f) { obj[f.key] = fieldValue(f); });
     return obj;
   }
 
@@ -650,6 +677,13 @@
       'partner_title',
       'partner_subtitle'
     ];
+    ['tw', 'vn'].forEach(function (regionKey) {
+      ['fnb', 'machine', 'commerce', 'partner'].forEach(function (categoryKey) {
+        for (var i = 1; i <= 8; i++) {
+          businessMapTextKeys.push(regionKey + '_' + categoryKey + '_logo' + i + '_description');
+        }
+      });
+    });
 
     function updateBusinessMapVisibility() {
       document.querySelectorAll('[data-bmap-logo]').forEach(function (card) {
@@ -696,7 +730,7 @@
       var prefix = field.key.replace(/_group_ref$/, '');
       field.reference.fields.forEach(function (childField) {
         if (!childField || !childField.key) return;
-        page[prefix + '_' + childField.key] = childField.value;
+        page[prefix + '_' + childField.key] = fieldValue(childField);
       });
     });
 
@@ -709,9 +743,10 @@
 
     document.querySelectorAll('[data-bmap-logo]').forEach(function (card) {
       var key = card.getAttribute('data-bmap-logo');
+      var fileKey = card.getAttribute('data-bmap-logo-file');
       if (!key) return;
 
-      var value = page[key];
+      var value = (fileKey && page[fileKey]) || page[key];
       var img = card.querySelector('.bd-logo-image');
       var normalizedValue = typeof value === 'string' ? value.trim() : value;
 
