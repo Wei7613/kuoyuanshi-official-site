@@ -276,13 +276,14 @@
       var imgHtml = b.image_url
         ? '<img src="' + esc(b.image_url) + '" alt="' + esc(b.title_zh || '') + '" loading="lazy">'
         : '<div class="feat-thumb-placeholder"></div>';
+      var linkHtml = b.url ? '<span class="feat-link"><span class="ci"></span> 了解更多</span>' : '';
       return [
         '<a href="' + href + '" class="feat-card">',
         '  <div class="feat-thumb">' + imgHtml + '</div>',
         '  <div class="feat-body">',
         '    <p class="feat-label">'  + esc(b.label_en || '') + '</p>',
         '    <h3 class="feat-title">' + esc(b.title_zh || '') + '</h3>',
-        '    <span class="feat-link"><span class="ci"></span> 了解更多</span>',
+        '    ' + linkHtml,
         '  </div>',
         '</a>'
       ].join('');
