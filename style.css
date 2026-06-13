@@ -2231,7 +2231,7 @@ button { font-family: inherit; }
   .hdr-nav { display: none; }
   .btn-menu { display: flex; }
   #mv { height: 100svh; }
-  .feat-grid { grid-template-columns: 1fr; }
+  .feat-grid { grid-template-columns: 1fr; gap: 48px; }
   .news-layout { grid-template-columns: 1fr; }
   .news-lhd { display: flex; align-items: center; justify-content: space-between; }
   .msg-inner { grid-template-columns: 1fr; gap: 40px; }
