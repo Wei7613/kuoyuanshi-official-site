@@ -508,6 +508,16 @@
   }
 
   // ── Footer（從 kuoyuanshi_footer 讀取）────────────────────────
+  function companyProfileUrl(url) {
+    var target = String(url || 'about.html').trim();
+    var link = document.createElement('a');
+    link.href = target;
+    if (link.pathname.endsWith('/about.html') && !link.hash) {
+      link.hash = 'corporate-profile';
+    }
+    return link.href;
+  }
+
   function renderFooter(data) {
     var edges = (data.footerData && data.footerData.edges) || [];
     if (!edges.length) return;
@@ -529,7 +539,8 @@
         var txt = f['col' + c + '_link' + n + '_text'];
         var url = f['col' + c + '_link' + n + '_url'];
         if (txt !== undefined) links[i].textContent = txt;
-        if (url !== undefined) links[i].href = url || '#';
+        if (c === 1 && n === 1) url = companyProfileUrl(url);
+        if (url !== undefined || (c === 1 && n === 1)) links[i].href = url || '#';
       }
     }
 
