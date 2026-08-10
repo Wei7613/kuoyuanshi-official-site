@@ -261,7 +261,7 @@ button { font-family: inherit; }
 /* PAGE SECTIONS */
 .pg-sect { padding: 80px 0; background: var(--white); }
 #corporate-profile,
-#president-message { scroll-margin-top: calc(var(--hdr-h) + 24px); }
+#president-message { scroll-margin-top: 70px; }
 .pg-sect.gray { background: var(--bg-gray); }
 .pg-sect + .pg-sect { border-top: 1px solid var(--border); }
 .pg-sect.gray + .pg-sect,
