@@ -526,6 +526,10 @@
     return aboutSectionUrl(url, 'president-message');
   }
 
+  function historyUrl(url) {
+    return aboutSectionUrl(url, 'history');
+  }
+
   function renderFooter(data) {
     var edges = (data.footerData && data.footerData.edges) || [];
     if (!edges.length) return;
@@ -549,7 +553,8 @@
         if (txt !== undefined) links[i].textContent = txt;
         if (c === 1 && n === 1) url = companyProfileUrl(url);
         if (c === 1 && n === 2) url = presidentMessageUrl(url);
-        if (url !== undefined || (c === 1 && (n === 1 || n === 2))) links[i].href = url || '#';
+        if (c === 1 && n === 3) url = historyUrl(url);
+        if (url !== undefined || (c === 1 && (n === 1 || n === 2 || n === 3))) links[i].href = url || '#';
       }
     }
 
