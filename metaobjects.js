@@ -508,14 +508,22 @@
   }
 
   // ── Footer（從 kuoyuanshi_footer 讀取）────────────────────────
-  function companyProfileUrl(url) {
+  function aboutSectionUrl(url, sectionId) {
     var target = String(url || 'about.html').trim();
     var link = document.createElement('a');
     link.href = target;
     if (link.pathname.endsWith('/about.html') && !link.hash) {
-      link.hash = 'corporate-profile';
+      link.hash = sectionId;
     }
     return link.href;
+  }
+
+  function companyProfileUrl(url) {
+    return aboutSectionUrl(url, 'corporate-profile');
+  }
+
+  function presidentMessageUrl(url) {
+    return aboutSectionUrl(url, 'president-message');
   }
 
   function renderFooter(data) {
@@ -540,7 +548,8 @@
         var url = f['col' + c + '_link' + n + '_url'];
         if (txt !== undefined) links[i].textContent = txt;
         if (c === 1 && n === 1) url = companyProfileUrl(url);
-        if (url !== undefined || (c === 1 && n === 1)) links[i].href = url || '#';
+        if (c === 1 && n === 2) url = presidentMessageUrl(url);
+        if (url !== undefined || (c === 1 && (n === 1 || n === 2))) links[i].href = url || '#';
       }
     }
 
