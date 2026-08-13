@@ -454,10 +454,28 @@
     var relSect = document.querySelector(".rel-sect");
     if (relSect) {
       el = relSect.querySelector(".sect-label"); if (el && m.related_label) el.textContent = m.related_label;
+      el = relSect.querySelector(".rel-heading"); if (el && m.related_heading) el.textContent = m.related_heading;
+      el = relSect.querySelector(".rel-description"); if (el && m.related_description) el.textContent = m.related_description;
+      el = relSect.querySelector(".bcorp-label"); if (el && m.bcorp_label) el.textContent = m.bcorp_label;
+      el = relSect.querySelector(".bcorp-heading"); if (el && m.bcorp_heading) el.textContent = m.bcorp_heading;
+      el = relSect.querySelector(".bcorp-description"); if (el && m.bcorp_description) el.textContent = m.bcorp_description;
       var relCards = relSect.querySelectorAll(".rel-card");
       [1,2,3].forEach(function(n, i) {
         if (!relCards[i]) return;
-        if (m["rel"+n+"_url"]) relCards[i].href = m["rel"+n+"_url"];
+        var url = m["rel"+n+"_url"];
+        var hasUrl = typeof url === "string" && url.trim() !== "";
+        var relArr = relCards[i].querySelector(".rel-arr");
+        if (hasUrl) {
+          relCards[i].href = url;
+          relCards[i].classList.remove("rel-card--static");
+          relCards[i].removeAttribute("aria-disabled");
+          if (relArr) relArr.hidden = false;
+        } else {
+          relCards[i].removeAttribute("href");
+          relCards[i].classList.add("rel-card--static");
+          relCards[i].setAttribute("aria-disabled", "true");
+          if (relArr) relArr.hidden = true;
+        }
         el = relCards[i].querySelector(".rel-cat"); if (el && m["rel"+n+"_cat"]) el.textContent = m["rel"+n+"_cat"];
         el = relCards[i].querySelector(".rel-title"); if (el && m["rel"+n+"_title"]) el.textContent = m["rel"+n+"_title"];
         el = relCards[i].querySelector(".rel-img img"); if (el && m["rel"+n+"_image_url"]) { el.src = m["rel"+n+"_image_url"]; el.alt = m["rel"+n+"_cat"] || ""; }
