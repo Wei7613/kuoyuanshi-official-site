@@ -263,6 +263,7 @@ button { font-family: inherit; }
 #corporate-profile { scroll-margin-top: 120px; }
 #president-message { scroll-margin-top: 0; }
 #history { scroll-margin-top: 25px; }
+#related-information { scroll-margin-top: 64px; }
 .pg-sect.gray { background: var(--bg-gray); }
 .pg-sect + .pg-sect { border-top: 1px solid var(--border); }
 .pg-sect.gray + .pg-sect,
