@@ -554,12 +554,20 @@
         var n = i + 1;
         var txt = f['col' + c + '_link' + n + '_text'];
         var url = f['col' + c + '_link' + n + '_url'];
-        if (txt !== undefined) links[i].textContent = txt;
         if (c === 1 && n === 1) url = companyProfileUrl(url);
         if (c === 1 && n === 2) url = presidentMessageUrl(url);
         if (c === 1 && n === 3) url = historyUrl(url);
         if (c === 1 && n === 4) url = relatedInformationUrl(url);
-        if (url !== undefined || (c === 1 && (n === 1 || n === 2 || n === 3 || n === 4))) links[i].href = url || '#';
+        var item = links[i].parentElement;
+        var hasText = typeof txt === 'string' && txt.trim() !== '';
+        var hasUrl = typeof url === 'string' && url.trim() !== '';
+        if (!hasText || !hasUrl) {
+          if (item) item.style.display = 'none';
+          continue;
+        }
+        if (item) item.style.display = '';
+        links[i].textContent = txt;
+        links[i].href = url;
       }
     }
 
