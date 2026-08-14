@@ -2218,9 +2218,9 @@ button { font-family: inherit; }
 .rel-cat { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
 .rel-title { font-size: 15px; font-weight: 500; line-height: 1.5; color: var(--ink); margin-bottom: 16px; }
 .rel-arr { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--red); }
-.bcorp-statement { max-width: 860px; margin: 56px auto 0; padding: 32px 36px; background: var(--white); border-top: 3px solid var(--red); }
+.bcorp-statement { width: 100%; margin: 64px 0 0; }
 .bcorp-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--red); }
-.bcorp-statement .bcorp-heading { margin-top: 12px; font-size: 24px; }
+.bcorp-statement .bcorp-heading { margin-top: 12px; }
 
 /* ============================================================
    SHOPIFY PRODUCTS — 精選商品區塊
@@ -2298,7 +2298,7 @@ button { font-family: inherit; }
   .sp-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .rel-grid { grid-template-columns: 1fr; }
   .rel-heading, .bcorp-heading { font-size: 24px; }
-  .bcorp-statement { margin-top: 40px; padding: 28px 24px; }
+  .bcorp-statement { margin-top: 40px; }
   .hist-inner { padding: 0 24px; }
 }
 
