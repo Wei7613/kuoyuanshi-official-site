@@ -453,12 +453,27 @@
     // 相關資訊 section
     var relSect = document.querySelector(".rel-sect");
     if (relSect) {
-      el = relSect.querySelector(".sect-label"); if (el && m.related_label) el.textContent = m.related_label;
-      el = relSect.querySelector(".rel-heading"); if (el && m.related_heading) el.textContent = m.related_heading;
-      el = relSect.querySelector(".rel-description"); if (el && m.related_description) el.textContent = m.related_description;
-      el = relSect.querySelector(".bcorp-label"); if (el && m.bcorp_label) el.textContent = m.bcorp_label;
-      el = relSect.querySelector(".bcorp-heading"); if (el && m.bcorp_heading) el.textContent = m.bcorp_heading;
-      el = relSect.querySelector(".bcorp-description"); if (el && m.bcorp_description) el.textContent = m.bcorp_description;
+      // aboutPage 成功載入後，以 Shopify 欄位為唯一來源；欄位留白時不顯示 HTML 預設文案。
+      // 若 API 載入失敗，則保留靜態內容作為 fallback。
+      if (data.aboutPage) {
+        var setRelatedText = function (selector, value) {
+          var target = relSect.querySelector(selector);
+          if (!target) return;
+          target.textContent = value || "";
+          target.hidden = !value;
+        };
+        setRelatedText(".sect-label", m.related_label);
+        setRelatedText(".rel-heading", m.related_heading);
+        setRelatedText(".rel-description", m.related_description);
+        var relIntro = relSect.querySelector(".rel-intro");
+        if (relIntro) relIntro.hidden = !m.related_heading && !m.related_description;
+
+        setRelatedText(".bcorp-label", m.bcorp_label);
+        setRelatedText(".bcorp-heading", m.bcorp_heading);
+        setRelatedText(".bcorp-description", m.bcorp_description);
+        var bcorpStatement = relSect.querySelector(".bcorp-statement");
+        if (bcorpStatement) bcorpStatement.hidden = !m.bcorp_label && !m.bcorp_heading && !m.bcorp_description;
+      }
       var relCards = relSect.querySelectorAll(".rel-card");
       [1,2,3].forEach(function(n, i) {
         if (!relCards[i]) return;
@@ -476,8 +491,10 @@
           relCards[i].setAttribute("aria-disabled", "true");
           if (relArr) relArr.hidden = true;
         }
-        el = relCards[i].querySelector(".rel-cat"); if (el && m["rel"+n+"_cat"]) el.textContent = m["rel"+n+"_cat"];
-        el = relCards[i].querySelector(".rel-title"); if (el && m["rel"+n+"_title"]) el.textContent = m["rel"+n+"_title"];
+        if (data.aboutPage) {
+          el = relCards[i].querySelector(".rel-cat"); if (el) { el.textContent = m["rel"+n+"_cat"] || ""; el.hidden = !m["rel"+n+"_cat"]; }
+          el = relCards[i].querySelector(".rel-title"); if (el) { el.textContent = m["rel"+n+"_title"] || ""; el.hidden = !m["rel"+n+"_title"]; }
+        }
         el = relCards[i].querySelector(".rel-img img"); if (el && m["rel"+n+"_image_url"]) { el.src = m["rel"+n+"_image_url"]; el.alt = m["rel"+n+"_cat"] || ""; }
       });
     }
