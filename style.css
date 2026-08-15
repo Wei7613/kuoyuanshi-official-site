@@ -488,7 +488,7 @@ button { font-family: inherit; }
 .msg-sig-block { display: inline-flex; flex-direction: column; align-items: flex-start; text-align: left; margin-top: 40px; gap: 8px; }
 .msg-date   { font-size: 13px; color: var(--ink); margin: 0; line-height: 1.4; letter-spacing: 0; }
 .msg-signature { margin: 0; }
-.msg-sig-img { display: block; height: 40px; width: auto; }
+.msg-sig-img { display: block; height: 50px; width: auto; }
 .msg-name   { font-size: 13px; font-weight: normal; color: var(--ink); letter-spacing: 0; margin: 0; line-height: 1.4; }
 .msg-name strong { font-weight: normal; }
 .msg-title1 { font-size: 13px; color: var(--ink); margin: 0; line-height: 1.4; letter-spacing: 0; }

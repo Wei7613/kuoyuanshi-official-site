@@ -108,6 +108,13 @@
       .replace(/"/g, '&quot;');
   }
 
+  // Shopify Files 的「取代」會保留檔案路徑，但舊的 v 參數可能被瀏覽器快取。
+  // 僅在簽名圖片加上本次載入的快取識別，讓後台替換的同一路徑能立即重新取得。
+  function freshSignatureUrl(url) {
+    if (!url) return '';
+    return url + (url.indexOf('?') === -1 ? '?' : '&') + 'cms_sig=' + Date.now();
+  }
+
   // ── Storefront API 請求 ────────────────────────────────────
   function fetchData() {
     return fetch(ENDPOINT, {
@@ -306,7 +313,7 @@
       var sigImg  = sigBlock.querySelector('.msg-sig-img');
       if (sigImg) {
         if (msg.signature_image_url) {
-          sigImg.src = msg.signature_image_url;
+          sigImg.src = freshSignatureUrl(msg.signature_image_url);
           sigImg.alt = esc(msg.signer_name || '簽名');
           if (sigWrap) sigWrap.style.display = '';
         } else {
@@ -336,6 +343,8 @@
     var edges = (data.homeConfig && data.homeConfig.edges) || [];
     if (edges.length) {
       var cfg = fieldsToObj(edges[0].node);
+      // 簽名以「關於頁主內容」為唯一優先來源，避免首頁設定與關於頁各自維護而不同步。
+      var aboutMsg = data.aboutPage ? fieldsToObj(data.aboutPage) : {};
       var msg = {
         quote:               cfg.president_quote,
         photo_url:           cfg.president_photo_url,
@@ -343,7 +352,7 @@
         signer_name:         cfg.president_signer_name,
         signer_title:        cfg.president_signer_title,
         signer_title_2:      cfg.president_signer_title2,
-        signature_image_url: cfg.president_signature_url || null
+        signature_image_url: aboutMsg.signature_image_url || cfg.president_signature_url || null
       };
       _applyMsgData(section, msg);
       if (cfg.president_partner_label) {
